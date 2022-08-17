@@ -1,3 +1,4 @@
+import { Footer } from '../../components/Footer/Footer';
 import cl from './MainPage.module.css';
 
 export const MainPage = ( ): JSX.Element => {
@@ -5,7 +6,7 @@ export const MainPage = ( ): JSX.Element => {
       <div className={cl.wrapper}>
         <div className={cl.header}>Header</div>
         <div className={cl.body}>Body</div>
-        <div className={cl.footer}>Footer</div>
+        <Footer className={cl.footer}></Footer>
       </div>
     );
 };

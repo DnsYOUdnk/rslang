@@ -1,0 +1,37 @@
+ .footer {
+    height: 150px;
+    padding: 50px 15px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.footer__wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 22px;
+    line-height: 50px;
+}
+
+.footer__box {
+    display: flex;
+}
+.footer__box a {
+    padding-right: 10px;
+}
+
+.footer__box div {
+    margin-right: 20px;
+}
+
+
+.footer__rss, .footer__box a {
+    text-decoration: none;
+    color: inherit;
+    transition: all .3s;
+}
+
+.footer__rss:hover, .footer__box a:hover {
+    color: rgb(135, 12, 12);
+}
