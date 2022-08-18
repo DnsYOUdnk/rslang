@@ -1,8 +1,11 @@
  .footer {
     height: 150px;
-    padding: 50px 15px;
-    font-weight: 700;
-    letter-spacing: 3px;
+    padding: 50px 80px;
+    font-weight: 300;
+    line-height: 140%;
+    letter-spacing: -0.02em;
+	background-color: var(--footer-bg-color);
+    color: var(--main-color);
 }
 
 .footer__wrap {
@@ -33,5 +36,5 @@
 }
 
 .footer__rss:hover, .footer__box a:hover {
-    color: rgb(135, 12, 12);
+    color: var(--link-color);
 }

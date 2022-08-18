@@ -10,9 +10,8 @@ export const Footer = ({ className, ...props }: FooterProps): JSX.Element => {
               Rolling Scopes School
             </a>
             
-            <div className={cl.footer__box}>
-              <div>©</div>
               <div>2022</div>
+            <div className={cl.footer__box}>
               <a href='https://github.com/ValentinBrest'>Valentin</a>
               <a href='#'>Denis</a>
               <a href='#'>Dmitry</a>

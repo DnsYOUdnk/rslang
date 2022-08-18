@@ -8,7 +8,7 @@
 	grid-template-areas:
 		". header . "
 		". body ."
-		". footer .";
+		"footer  footer footer ";
 }
 
 .header {
@@ -22,8 +22,7 @@
 }
 
 .footer {
-	grid-area: footer;
-	background-color: blueviolet;
+	grid-area: footer;;
 }
 
 @media (max-width: 768px) {
