@@ -12,14 +12,13 @@
 }
 
 .wrapper:hover {
-    outline: 3px solid var(--link-color);
+    outline: 5px solid var(--link-color);
 }
 
 .title {
     position: absolute;
     top: 3px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 10px;
     display: block;
     font-weight: 700;
     font-size: 26px;
@@ -44,7 +43,7 @@
     display: flex;
     align-items: flex-end;
     padding: 0 20px 5px;
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(0deg, rgb(36, 5, 47) 0%, rgba(0,0,0,0) 100%);
     color: var(--main-bg-color);
     font-size: 16px;
 }

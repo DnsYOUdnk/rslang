@@ -17,6 +17,11 @@
 	font-family: inherit;
 }
 
+.nav a {
+	text-decoration: none;
+	
+}
+
 .wrap {
 	display: flex;
 	align-items: center;

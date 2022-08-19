@@ -11,13 +11,11 @@ export const TeamPerson = ({
   ...props
 }: TeamPersonProps): JSX.Element => {
   return (
-    <div {...props} className={cn(className, cl.wrapper)}>
-      <a href={link} className={cl.title}>
-        {title}
-      </a>
-      <img className={cl.img} src={img} alt='img' />
+      <a href={link} {...props} className={cn(className, cl.wrapper)}>
+        <h3 className={cl.title}>{title}</h3>
+        <img className={cl.img} src={img} alt='img' />
 
-      <div className={cl.descr}>{children}</div>
-    </div>
+        <div className={cl.descr}>{children}</div>
+      </a>
   );
 };
