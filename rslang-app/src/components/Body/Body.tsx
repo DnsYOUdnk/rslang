@@ -2,6 +2,7 @@ import { BodyProps } from './Body.props';
 import cl from './Body.module.css';
 import cn from 'classnames';
 import { Button } from '../Button/Button';
+import { Link } from 'react-router-dom';
 
 export const Body = ({ className, ...props }: BodyProps): JSX.Element => {
   return (
@@ -14,15 +15,15 @@ export const Body = ({ className, ...props }: BodyProps): JSX.Element => {
         </div>
       </div>
       <div className={cl.learn}>
-        <a href='#' className={cn(cl.learn__link, cl.book)}>
+        <Link to='/book' className={cn(cl.learn__link, cl.book)}>
           <div className={cl.learn__title}>Учебник</div>
-        </a>
-        <a href='#' className={cn(cl.learn__link, cl.audio)}>
+        </Link>
+        <Link to='/audio' className={cn(cl.learn__link, cl.audio)}>
           <div className={cl.learn__title}>Аудиовызов</div>
-        </a>
-        <a href='#' className={cn(cl.learn__link, cl.sprint)}>
+        </Link>
+        <Link to='/sprint' className={cn(cl.learn__link, cl.sprint)}>
           <div className={cl.learn__title}>Спринт</div>
-        </a>
+        </Link>
       </div>
     </main>
   );

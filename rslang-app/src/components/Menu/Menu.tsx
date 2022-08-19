@@ -1,6 +1,7 @@
 import { MenuProps } from './Menu.props';
 import cl from './Menu.module.css';
 import cn from 'classnames';
+import { Link } from 'react-router-dom';
 
 export const Menu = ({ isOpenMenu, setIsOpenMenu, className, ...props }: MenuProps): JSX.Element => {
   return (
@@ -20,34 +21,34 @@ export const Menu = ({ isOpenMenu, setIsOpenMenu, className, ...props }: MenuPro
         <>
           <ul className={cl.menu}>
             <li>
-              <a href='#' className={cl.link}>
+              <Link to='/' className={cl.link}>
                 Главная
-              </a>
+              </Link>
             </li>
             <li>
-              <a href='#' className={cl.link}>
+              <Link to='/book' className={cl.link}>
                 Учебник
-              </a>
+              </Link>
             </li>
             <li>
-              <a href='#' className={cl.link}>
+              <Link to='/games' className={cl.link}>
                 Мини-Игры
-              </a>
+              </Link>
             </li>
             <li>
-              <a href='#' className={cl.link}>
+              <Link to='/dictionary' className={cl.link}>
                 Словарь
-              </a>
+              </Link>
             </li>
             <li>
-              <a href='#' className={cl.link}>
+              <Link to='/statistics' className={cl.link}>
                 Статистика
-              </a>
+              </Link>
             </li>
             <li>
-              <a href='#' className={cl.link}>
+              <Link to='/team' className={cl.link}>
                 O команде
-              </a>
+              </Link>
             </li>
           </ul>
         </>
