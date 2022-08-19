@@ -6,14 +6,13 @@
 	min-height: 100vh;
 	gap: 10px 0;
 	grid-template-areas:
-		". header . "
+		"header header header"
 		". body ."
 		"footer  footer footer ";
 }
 
 .header {
 	grid-area: header;
-	background-color: aqua;
 }
 
 .body {

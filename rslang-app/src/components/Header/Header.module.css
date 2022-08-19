@@ -1,0 +1,35 @@
+.header {
+    padding: 50px 80px;
+	background-color: var(--main-bg-color);
+}
+
+.logo {
+	font-size: 32px;
+	letter-spacing: -0.04em;
+	color: var(--title-color);
+	padding: 0 0 10px 0;
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-family: inherit;
+}
+
+.wrap {
+	display: flex;
+	position: relative;
+}
+
+
+.overlay {
+    position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+    height: 100vh;
+    background-color: rgb(0, 0, 0, 0.5);    
+}
+

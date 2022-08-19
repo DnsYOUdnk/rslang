@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
 
 :root {
     --main-color: #5D87A8;;
     --title-color: #25323D;
     --link-color: #AF48FF;
-    --main-bg-color: #E5E5E5;;
+    --main-bg-color: #FBFBFC;
+    --menu-bg-color: #F5EDFF;
     --footer-bg-color: #E7EFF4;
 
 }
@@ -15,7 +16,16 @@
 
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 18px;
     font-weight: 400;
+}
+
+h1, h2, h3 {
+    margin: 0;
+}
+
+ul, li {
+    padding: 0;
+    margin: 0;
 }
