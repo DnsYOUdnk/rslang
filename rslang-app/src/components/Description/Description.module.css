@@ -1,20 +1,20 @@
 .wrapper {
-    display: grid;
-    grid-template-columns: 300px auto;
-    margin: 0 50px;
-    padding: 20px 50px;
-    color: var(--main-color);
-    gap: 0 45px;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 300px auto;
+  margin: 0 50px;
+  padding: 20px 50px;
+  color: var(--main-color);
+  gap: 0 45px;
+  align-items: center;
 }
 
 .title {
-    font-weight: 700;
-    font-size: 26px;
-    padding-bottom: 10px;
+  font-weight: 700;
+  font-size: 26px;
+  padding-bottom: 10px;
 }
 
 .img {
-    width: 75%;
-    border-radius: 100%;
+  width: 75%;
+  border-radius: 100%;
 }

@@ -7,7 +7,7 @@ import { Button } from '../Button/Button';
 import { Link } from 'react-router-dom';
 
 export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
-    const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   return (
     <header {...props} className={cn(className, cl.header)}>
       <nav className={cl.nav}>
