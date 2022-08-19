@@ -3,6 +3,7 @@ import cl from './Header.module.css';
 import cn from 'classnames';
 import { Menu } from '../Menu/Menu';
 import { useState } from 'react';
+import { Button } from '../Button/Button';
 
 export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -12,12 +13,15 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
         <h1 className={cl.logo}>RsLang</h1>
 
         <div className={cl.wrap}>
-          <button className={cl.log}>Войти</button>
+          <Button className={cl.login}>Войти</Button>
           <Menu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
         </div>
       </nav>
-      {isOpenMenu? <div className={cl.overlay}></div>: ''}
-      
+      {isOpenMenu ? (
+        <div className={cl.overlay} onClick={() => setIsOpenMenu(!isOpenMenu)}></div>
+      ) : (
+        ''
+      )}
     </header>
   );
 };
