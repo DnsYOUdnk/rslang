@@ -5,29 +5,33 @@ import { Link } from 'react-router-dom';
 import { MainPageProps } from './MainPage.props';
 
 export const MainPage = ({ className, ...props }: MainPageProps): JSX.Element => {
+  const links = [
+    { link: '/book', class: cl.book, text: 'Учебник', id: 1 },
+    { link: '/audio', class: cl.audio, text: 'Аудиовызов', id: 2 },
+    { link: '/sprint', class: cl.sprint, text: 'Спринт', id: 3 },
+  ];
+  const buttons = [
+    { link: '/about', text: 'Подробнее', id: 1 },
+    { link: '/team', text: 'Наша команда', id: 2 },
+  ];
   return (
     <main className={cn(className, cl.main)}>
       <div className={cl.about}>
         <h2 className={cl.title}>Учи английский эффективно с RSLang</h2>
         <div className={cl.buttons__wrap}>
-          <Link to='/about'>
-            <Button className={cl.button}>Подробнее</Button>
-          </Link>
-          <Link to='/team'>
-            <Button>Наша команда</Button>
-          </Link>
+          {buttons.map((item) => (
+            <Link to= {item.link} key={item.id}>
+              <Button className={cl.button}>{item.text}</Button>
+            </Link>
+          ))}
         </div>
       </div>
       <div className={cl.learn}>
-        <Link to='/book' className={cn(cl.learn__link, cl.book)}>
-          <div className={cl.learn__title}>Учебник</div>
-        </Link>
-        <Link to='/audio' className={cn(cl.learn__link, cl.audio)}>
-          <div className={cl.learn__title}>Аудиовызов</div>
-        </Link>
-        <Link to='/sprint' className={cn(cl.learn__link, cl.sprint)}>
-          <div className={cl.learn__title}>Спринт</div>
-        </Link>
+        {links.map((item) => (
+          <Link to={item.link} className={cn(cl.learn__link, item.class)} key={item.id}>
+            <div className={cl.learn__title}>{item.text}</div>
+          </Link>
+        ))}
       </div>
     </main>
   );
