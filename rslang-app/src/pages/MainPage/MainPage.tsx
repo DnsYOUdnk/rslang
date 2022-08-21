@@ -20,8 +20,8 @@ export const MainPage = ({ className, ...props }: MainPageProps): JSX.Element =>
         <h2 className={cl.title}>Учи английский эффективно с RSLang</h2>
         <div className={cl.buttons__wrap}>
           {buttons.map((item) => (
-            <Link to= {item.link} key={item.id}>
-              <Button className={cl.button}>{item.text}</Button>
+            <Link to={item.link} key={item.id}>
+             g <Button className={cl.button}>{item.text}</Button>
             </Link>
           ))}
         </div>
