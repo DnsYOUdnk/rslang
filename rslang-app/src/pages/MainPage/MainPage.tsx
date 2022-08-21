@@ -21,7 +21,7 @@ export const MainPage = ({ className, ...props }: MainPageProps): JSX.Element =>
         <div className={cl.buttons__wrap}>
           {buttons.map((item) => (
             <Link to={item.link} key={item.id}>
-             g <Button className={cl.button}>{item.text}</Button>
+              <Button className={cl.button}>{item.text}</Button>
             </Link>
           ))}
         </div>
