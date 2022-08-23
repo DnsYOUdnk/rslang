@@ -7,6 +7,8 @@
   --main-bg-color: #fbfbfc;
   --menu-bg-color: #f5edff;
   --footer-bg-color: #e7eff4;
+  --green-color: rgb(29, 190, 29);
+  --red-color: rgb(196, 23, 23);
 }
 
 * {

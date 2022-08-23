@@ -27,6 +27,11 @@
   position: relative;
 }
 
+.hello {
+  font-size: 16px;
+  padding-right: 10px;gi
+}
+
 .overlay {
   position: absolute;
   top: 0;
