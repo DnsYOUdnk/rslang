@@ -80,7 +80,7 @@ export const Modal = ({
           <img src='/icons/block.svg' alt='block' className={cl.icon} />
           <span>Пользователь с таким e-mail уже существует</span>
         </div>
-      ) : statusCode === 403 || statusCode === 404 ? (
+      ) : statusCode === 403 || statusCode === 404 || statusCode === 422 ? (
         <div className={cn(cl.sign__up, cl.error)}>
           <img src='/icons/block.svg' alt='block' className={cl.icon} />
           <span>Неправильный логин или пароль</span>
