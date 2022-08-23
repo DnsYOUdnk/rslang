@@ -7,8 +7,8 @@ import { MainPageProps } from './MainPage.props';
 export const MainPage = ({ className, ...props }: MainPageProps): JSX.Element => {
   const links = [
     { link: '/book', class: cl.book, text: 'Учебник', id: 1 },
-    { link: '/audio', class: cl.audio, text: 'Аудиовызов', id: 2 },
-    { link: '/sprint', class: cl.sprint, text: 'Спринт', id: 3 },
+    { link: '/games/audio', class: cl.audio, text: 'Аудиовызов', id: 2 },
+    { link: '/games/sprint', class: cl.sprint, text: 'Спринт', id: 3 },
   ];
   const buttons = [
     { link: '/about', text: 'Подробнее', id: 1 },
