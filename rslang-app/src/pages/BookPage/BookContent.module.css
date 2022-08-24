@@ -1,0 +1,8 @@
+.BookContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+  padding-top: 60px;
+  background-attachment: fixed;
+}
