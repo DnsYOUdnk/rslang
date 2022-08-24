@@ -4,6 +4,7 @@ import styleBook from './BookMenu.module.css';
 import HomeLink from '../../../components/Buttons/HomeLink';
 import BookGames from './BookGames';
 import BookPagination from './BookPagination';
+import BookLevel from './BookLevel';
 
 const BookMenu = () => {
 
@@ -12,7 +13,7 @@ const BookMenu = () => {
       <HomeLink />
       <BookGames />
       <BookPagination />
-      BookMenu
+      <BookLevel />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 import styleBookMenu from './BookMenu.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -48,7 +48,9 @@ const BookPagination = () => {
           />
         </Link>
 
-        Pagination
+        <div className={cn(styleBookMenu.PageCounter, styleBookMenu.SelectedInput)}>
+          1 / 30
+        </div>
 
         <Link to={paginationGoTo.right}>
           <Button
