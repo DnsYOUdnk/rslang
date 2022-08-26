@@ -3,13 +3,12 @@ import cn from 'classnames';
 import { Button } from '../../components/Button/Button';
 import { Link } from 'react-router-dom';
 import { MainPageProps } from './MainPage.props';
+import { getDataGames } from '../../dataGames/dataGames';
 
 export const MainPage = ({ className, ...props }: MainPageProps): JSX.Element => {
   const links = [
-    { link: '/book', class: cl.book, text: 'Учебник', id: 1 },
-    { link: '/games/audio', class: cl.audio, text: 'Аудиовызов', id: 2 },
-    { link: '/games/sprint', class: cl.sprint, text: 'Спринт', id: 3 },
-  ];
+    { link: '/book', class: cl.book, text: 'Учебник', id: 1 }
+  ].concat(getDataGames(cl.audio, cl.sprint));
   const buttons = [
     { link: '/about', text: 'Подробнее', id: 1 },
     { link: '/team', text: 'Наша команда', id: 2 },
