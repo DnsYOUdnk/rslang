@@ -1,7 +1,7 @@
 export const getDataGames = (audio: string, sprint: string) => {
   const links = [
     { 
-      link: '/games/audio',
+      link: '/games/audiocall',
       class: audio,
       text: 'Аудиовызов',
       img: '/public/icons/audio.svg',
