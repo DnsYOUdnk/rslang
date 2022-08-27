@@ -11,8 +11,12 @@ export const GamesPage = ({ className, ...props }: GamesPageProps): JSX.Element 
     <main className={cn(className, cl.main)}>
       <div className={cl.games}>
         {links.map((item) => {
-          return <Link to={item.link} className={cn(cl.learn__link, item.class)} key={item.id}>
-            <div className={cl.learn__title}>{item.text}</div>
+          return <Link to={item.link} className={cn(cl.game__link, item.class)} key={item.id}>
+            <div className={cl.game__background}>
+              <div className={cl.game__img}></div>
+            </div>
+            <h3 className={cl.game__title}>{item.text}</h3>
+            <div className={cl.game__description}>{item.description}</div>
           </Link>
         })}
       </div>
