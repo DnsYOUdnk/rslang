@@ -16,12 +16,16 @@ export const createUser = async (name: string, email: string, password: string) 
       email: email,
       password: password,
     }),
-  }).then((res) => {
-    if (res.status >= 400 && res.status < 600) {
+  })
+    .then((res) => {
+      if (res.status >= 400 && res.status < 600) {
+        return res.status;
+      }
       return res.status;
-    }
-    return res.status;
-  });
+    })
+    .catch((error) => {
+      return error.statusCode;
+    });
   return response;
 };
 

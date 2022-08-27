@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { useState } from 'react';
 import { createUser, logIn } from '../../utils/authorization';
+import { Answer } from '../Answer/Answer';
 import { Button } from '../Button/Button';
 import cl from './Modal.module.css';
 import { ModalProps } from './Modal.props';
@@ -70,24 +71,7 @@ export const Modal = ({
           Регистрация
         </div>
       </div>
-      {statusCode === 200 ? (
-        <div className={cl.sign__up}>
-          <img src='/icons/ok.svg' alt='ok' className={cl.icon} />
-          <span>Регистрация прошла успешно. Войдите в аккаунт</span>
-        </div>
-      ) : statusCode === 417 ? (
-        <div className={cn(cl.sign__up, cl.error)}>
-          <img src='/icons/block.svg' alt='block' className={cl.icon} />
-          <span>Пользователь с таким e-mail уже существует</span>
-        </div>
-      ) : statusCode === 403 || statusCode === 404 || statusCode === 422 ? (
-        <div className={cn(cl.sign__up, cl.error)}>
-          <img src='/icons/block.svg' alt='block' className={cl.icon} />
-          <span>Неправильный логин или пароль</span>
-        </div>
-      ) : (
-        ''
-      )}
+      <Answer statusCode={statusCode} />
       <div className={cl.form__wrap}>
         {activeButton === 'singUp' ? (
           <div className={cl.form__group}>

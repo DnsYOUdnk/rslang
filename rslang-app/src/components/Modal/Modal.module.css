@@ -103,21 +103,3 @@
 .closeModal::after {
   transform: rotate(-45deg);
 }
-
-.sign__up {
-  color: var(--green-color);
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-
-.error {
-  color: var(--red-color);
-}
-
-.icon {
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-}
