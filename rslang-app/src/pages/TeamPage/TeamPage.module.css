@@ -5,12 +5,10 @@
 }
 
 .wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   width: 900px;
-  height: 400px;
   margin: 0 auto;
-  gap: 0 20px;
 }
 
 .title {

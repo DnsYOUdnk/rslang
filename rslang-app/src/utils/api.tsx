@@ -63,3 +63,27 @@ export const logIn = async (
   setIsLoading(false);
   return user;
 };
+
+export const getStatistic = async (
+  usersId: string,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
+  const response = await fetch(`${base}users/${usersId}/statistics`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => {
+      if (res.status >= 400 && res.status < 600) {
+        return JSON.stringify(res);
+      }
+      return res.status;
+    })
+    .catch((error) => {
+      return error.statusCode;
+    });
+  setIsLoading(false);
+  return response;
+};
