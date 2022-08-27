@@ -4,7 +4,12 @@ const addInLocalStorage = (user: string) => {
   localStorage.user = user;
 };
 
-export const createUser = async (name: string, email: string, password: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const createUser = async (
+  name: string,
+  email: string,
+  password: string,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
   const response = await fetch(`${base}users`, {
     method: 'POST',
     headers: {

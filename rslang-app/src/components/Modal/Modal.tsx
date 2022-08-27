@@ -21,6 +21,7 @@ export const Modal = ({
   const [passwordValue, setPasswordValue] = useState('');
   const [statusCode, setStatusCode] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPasswordShow, setIsPasswordShowg] = useState(false);
 
   const closeModal = () => setIsOpenModal(!isOpenModal);
   const log = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, operation: string) => {
@@ -119,7 +120,7 @@ export const Modal = ({
               Пароль:
             </label>
             <input
-              type='password'
+              type={isPasswordShow ? 'text' : 'password'}
               placeholder='пароль'
               name='password'
               autoComplete='current-password'
@@ -132,6 +133,14 @@ export const Modal = ({
                 setPasswordValue(e.target.value);
               }}
             ></input>
+            <div className={cl.password} onClick={() => setIsPasswordShowg(!isPasswordShow)}>
+              {
+                <img
+                  src={isPasswordShow ? '/icons/show_password.svg' : '/icons/hide_password.svg'}
+                  alt='eye'
+                />
+              }
+            </div>
           </div>
         </div>
         <Button
@@ -144,7 +153,7 @@ export const Modal = ({
         </Button>
         <div className={cl.closeModal} onClick={closeModal}></div>
       </form>
-      {isLoading ? <Loader/>: ''}
+      {isLoading ? <Loader /> : ''}
     </>
   );
 };
