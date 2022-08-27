@@ -4,7 +4,7 @@ const addInLocalStorage = (user: string) => {
   localStorage.user = user;
 };
 
-export const createUser = async (name: string, email: string, password: string) => {
+export const createUser = async (name: string, email: string, password: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
   const response = await fetch(`${base}users`, {
     method: 'POST',
     headers: {
@@ -26,10 +26,15 @@ export const createUser = async (name: string, email: string, password: string) 
     .catch((error) => {
       return error.statusCode;
     });
+  setIsLoading(false);
   return response;
 };
 
-export const logIn = async (email: string, password: string) => {
+export const logIn = async (
+  email: string,
+  password: string,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
   const response = await fetch(`${base}signin`, {
     method: 'POST',
     headers: {
@@ -50,5 +55,6 @@ export const logIn = async (email: string, password: string) => {
   if (user.status === 200) {
     addInLocalStorage(JSON.stringify(user));
   }
+  setIsLoading(false);
   return user;
 };
