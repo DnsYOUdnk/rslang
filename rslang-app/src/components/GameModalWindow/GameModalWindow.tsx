@@ -1,6 +1,7 @@
 import { GameModalWindowProps } from './GameModalWindow.props';
 import cl from './GameModalWindow.module.css';
 import cn from 'classnames';
+import { LevelGroupWords } from '../LevelGroupWords/LevelGroupWords';
 
 export const GameModalWindow = ({ dataGame, className, ...props }: GameModalWindowProps): JSX.Element => {
   return (
@@ -12,6 +13,7 @@ export const GameModalWindow = ({ dataGame, className, ...props }: GameModalWind
         </div>
         <div className={cl.game_start}>
           <p className={cl.description}>Выберите уровень сложности слов:</p>
+          <LevelGroupWords />
         </div>
       </div>
     </>

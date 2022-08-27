@@ -1,0 +1,45 @@
+.levelBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.levelBtn {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  border: 3px solid #79cbfe75;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  font-weight: 600;
+  color: #5f1a78;
+}
+
+.level_btn-0 {
+  background: radial-gradient(#d5e1da,#7ed49f);
+}
+
+.level_btn-1 {
+  background: radial-gradient(#d5dfe1,#6bc2d3);
+}
+
+.level_btn-2 {
+  background: radial-gradient(#dbe1d5,#d3c26b);
+}
+
+.level_btn-3 {
+  background: radial-gradient(#e1d5d5,#d36b6b);
+}
+
+.level_btn-4 {
+  background: radial-gradient(#d6d5e1,#005bd3);
+}
+
+.level_btn-5 {
+  background: radial-gradient(#d7d5e1,#3333b5);
+}
