@@ -1,3 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { GameElement } from '../../types/dataGamesTypes';
 
-export type GameWrapperPageProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+export interface GameWrapperPageProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  dataGame: GameElement;
+};

@@ -2,6 +2,18 @@ import { GameModalWindowProps } from './GameModalWindow.props';
 import cl from './GameModalWindow.module.css';
 import cn from 'classnames';
 
-export const GameModalWindow = ({ className, ...props }: GameModalWindowProps): JSX.Element => {
-  return <></>
+export const GameModalWindow = ({ dataGame, className, ...props }: GameModalWindowProps): JSX.Element => {
+  return (
+    <>
+      <div className={cn(className, cl.game_modal)}>
+        <div className={cl.game_description}>
+          <h3 className={cl.title}>{dataGame.text}</h3>
+          <p className={cl.description}>{dataGame.description}</p>
+        </div>
+        <div className={cl.game_start}>
+          <p className={cl.description}>Выберите уровень сложности слов:</p>
+        </div>
+      </div>
+    </>
+  )
 };

@@ -1,7 +1,7 @@
 import cl from './GamesPage.module.css';
 import cn from 'classnames';
-import { GamesPageProps } from './GamesPage.props';
 import { Link } from 'react-router-dom';
+import { GamesPageProps } from './GamesPage.props';
 import { getDataGames } from '../../dataGames/dataGames';
 
 export const GamesPage = ({ className, ...props }: GamesPageProps): JSX.Element => {
