@@ -35,7 +35,6 @@ export const createUser = async (
   return response;
 };
 
-
 export const logIn = async (
   email: string,
   password: string,
