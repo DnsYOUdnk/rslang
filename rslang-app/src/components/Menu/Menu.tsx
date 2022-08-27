@@ -46,7 +46,7 @@ export const Menu = ({
               </Link>
             </li>
             <li>
-              <Link to='/statistics' className={cl.link}>
+              <Link to='/statistic' className={cl.link}>
                 Статистика
               </Link>
             </li>

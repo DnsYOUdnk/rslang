@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useState } from 'react';
-import { createUser, logIn } from '../../utils/authorization';
+import { createUser, logIn } from '../../utils/api';
 import { Answer } from '../Answer/Answer';
 import { Button } from '../Button/Button';
 import { Loader } from '../Loader/Loader';
