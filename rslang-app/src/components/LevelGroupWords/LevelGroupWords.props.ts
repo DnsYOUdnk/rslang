@@ -1,3 +1,5 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export type LevelGroupWordsProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+export interface LevelGroupWordsProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  levelHandler: (page: number) => void; 
+};

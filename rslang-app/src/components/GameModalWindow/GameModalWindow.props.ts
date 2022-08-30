@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { GameElement } from '../../types/dataGamesTypes';
+import { LinksGameElement } from '../../types/dataGamesTypes';
 
 export interface GameModalWindowProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  dataGame: GameElement;
+  dataGame: LinksGameElement;
 }

@@ -1,9 +1,9 @@
-export interface IDataGames {
-  audiocall: GameElement;
-  sprint: GameElement;
+export interface ILinksDataGames {
+  audiocall: LinksGameElement;
+  sprint: LinksGameElement;
 }
 
-export type GameElement = {
+export type LinksGameElement = {
   link: string;
   text: string;
   img: string;

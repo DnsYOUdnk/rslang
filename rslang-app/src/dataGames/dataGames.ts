@@ -1,7 +1,7 @@
-import { IDataGames } from '../types/dataGamesTypes';
+import { ILinksDataGames } from '../types/dataGamesTypes';
 
 
-export const DATA_GAMES: IDataGames = {
+export const DATA_GAMES: ILinksDataGames = {
   audiocall: {
     link: '/games/audiocall',
     text: 'Аудиовызов',

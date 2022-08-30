@@ -3,14 +3,13 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
 }
 
 .levelBtn {
   cursor: pointer;
   width: 60px;
   height: 60px;
-  border: 3px solid #79cbfe75;
   border-radius: 16px;
   display: flex;
   justify-content: center;
@@ -18,6 +17,11 @@
   font-size: 26px;
   font-weight: 600;
   color: #5f1a78;
+  box-shadow: 0 1px 2px 1px rgb(0 0 0 / 20%), 0 2px 4px 1px rgb(0 0 0 / 20%), 0 2px 4px 2px rgb(0 0 0 / 20%), 0 4px 8px 4px rgb(0 0 0 / 15%);
+}
+
+.levelBtn:hover {
+  box-shadow: 0 1px 2px 1px rgb(0 0 0 / 30%), 0 2px 4px 1px rgb(0 0 0 / 25%);
 }
 
 .level_btn-0 {
@@ -41,5 +45,5 @@
 }
 
 .level_btn-5 {
-  background: radial-gradient(#d7d5e1,#3333b5);
+  background: radial-gradient(#d1cee1,#3333b5);
 }
