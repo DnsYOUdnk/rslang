@@ -6,6 +6,7 @@ import { GameModalWindow } from '../../components/GameModalWindow/GameModalWindo
 import { Header } from '../../components/Header/Header';
 import { LevelGroupWords } from '../../components/LevelGroupWords/LevelGroupWords';
 import { useGetWords } from '../../customHooks/useGetWords';
+import { GameLoader } from '../../components/GameLoader/GameLoader';
 
 export const GameWrapperPage = ({
   dataGame,
@@ -26,20 +27,19 @@ export const GameWrapperPage = ({
     <>
       <main className={cn(className, cl.main)}>
         {(() => {
-          if(onStart && !onLoading) {
-            return <div>
-              Начало игры
-              <div className="pull">{1}</div>
-            </div>
-          } else if(!onLoading) {
+          if(onStart && number.length >= 30) {
             return (
+              <div className={cl.games}>
+                { children }
+              </div>
+            )
+          } else {
+            return !onLoading ?
               <GameModalWindow dataGame={ dataGame }>
                 <LevelGroupWords levelHandler={levelHandler}/>
-              </GameModalWindow>)
-          } else {return<div>Загрузка</div>} })()}
-        <div className={cl.games}>
-          { children }
-        </div>
+              </GameModalWindow> : 
+              <GameLoader/>
+          } })()}
       </main>
     </>
   )

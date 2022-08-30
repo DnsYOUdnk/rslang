@@ -67,3 +67,9 @@
 .sprint .game__img  {
   background: url('/public/icons/sprint.svg') no-repeat center / contain;
 }
+
+@media screen and (max-width: 1024px) {
+  .games {
+    justify-content: center;
+  }
+}
