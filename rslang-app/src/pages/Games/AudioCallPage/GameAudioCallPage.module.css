@@ -1,3 +1,30 @@
 .main {
   background-color: var(--footer-bg-color);
 }
+
+.countDown{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #00000033;
+  backdrop-filter: blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countDown > p {
+  font-size: 8rem;
+  font-weight: 900;
+  color: #ffffffb8;
+  text-shadow: 0px 40px 30px #19192e0a;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+      0%, 100% {transform: scale(0);}
+      40% {transform: scale(3);}
+      60% {transform: scale(0);}
+}
