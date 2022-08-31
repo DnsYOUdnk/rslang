@@ -5,10 +5,10 @@ import { Button } from '../Button/Button';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff';
 
-export const ButtonSound = ({ className, ...props }: ButtonSoundProps): JSX.Element => {
+export const ButtonSound = ({ handlerSoundChange, onSound, className, ...props }: ButtonSoundProps): JSX.Element => {
   return (
-    <Button className={cn(className, cl.btn_sound)}>
-      {<NotificationsActiveIcon/>}
+    <Button title={'Выключить звук'} className={cn(className, cl.btn_sound)} onClick= {() => handlerSoundChange()}>
+      {!onSound ? <NotificationsActiveIcon/> : <NotificationsOffIcon/>}
     </Button>
   );
 };

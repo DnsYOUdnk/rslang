@@ -4,13 +4,19 @@ import { GameAudioCallProps } from './GameAudioCallPage.props';
 import { useEffect, useState } from 'react';
 import { CountDown } from '../../../components/CountDown/CountDown';
 import { ButtonSound } from '../../../components/ButtonSound/ButtonSound';
+import { ButtonFullscreen } from '../../../components/ButtonFullScreen/ButtonFullscreen';
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const {words} = props;
   const [startGame, setStartGame] = useState(false);
+  const [onSound, setOnSound] = useState(false);
 
   const countDownHandler = (start: boolean): void => {
     setStartGame(start)
+  }
+
+  const handlerSoundChange = () => {
+    setOnSound(!onSound);
   }
 
   return <>
@@ -18,8 +24,8 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     <div className={cn(className, cl.audiocall)}>
       <div className="games_panel">
         <div className="games__setting">
-          <ButtonSound/>
-          <div className="fullscreen">123</div>
+          <ButtonSound handlerSoundChange={handlerSoundChange} onSound={onSound}/>
+          <ButtonFullscreen/>
         </div>
         <div className="games__setting-right">
           <ul className="games__lives">
