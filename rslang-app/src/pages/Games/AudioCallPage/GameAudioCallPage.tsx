@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { CountDown } from '../../../components/CountDown/CountDown';
 import { ButtonSound } from '../../../components/ButtonSound/ButtonSound';
 import { ButtonFullscreen } from '../../../components/ButtonFullScreen/ButtonFullscreen';
+import { Lives } from '../../../components/Lives/Lives';
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const {words} = props;
@@ -28,13 +29,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
           <ButtonFullscreen/>
         </div>
         <div className="games__setting-right">
-          <ul className="games__lives">
-            <li className="games__live">1</li>
-            <li className="games__live">1</li>
-            <li className="games__live">1</li>
-            <li className="games__live">1</li>
-            <li className="games__live">1</li>
-          </ul>
+          <Lives/>
           <div className="games__close">x</div>
         </div>
       </div>

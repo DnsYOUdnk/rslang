@@ -1,0 +1,10 @@
+.games__lives {
+  display: flex;
+  gap: 5px;
+  color: var(--link-color);
+  list-style: none;
+}
+
+.games__live:hover {
+  color: #8400ff;
+}

@@ -30,6 +30,6 @@
 }
 
 .audiocall {
-  flex: 1;
+  flex-grow: 1;
   align-self: flex-start;
 }

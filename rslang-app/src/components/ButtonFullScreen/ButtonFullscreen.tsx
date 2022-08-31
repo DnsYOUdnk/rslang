@@ -18,7 +18,11 @@ export const ButtonFullscreen = ({ className, ...props }: ButtonFullscreenProps)
   }
 
   return (
-    <Button title={'Во весь экран'} className={cn(className, cl.btn_fullscreen)} onClick= {() => handlerFullscreenChange()}>
+    <Button 
+      title={onFullscreen ? 'Выход из полноэкранного режима' : 'Полноэкранный режим'}
+      className={cn(className, cl.btn_fullscreen)}
+      onClick= {() => handlerFullscreenChange()}
+    >
       {<FullscreenIcon/>}
     </Button>
   );
