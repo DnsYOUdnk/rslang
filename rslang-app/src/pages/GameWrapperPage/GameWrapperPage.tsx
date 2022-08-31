@@ -1,12 +1,13 @@
 import cl from './GameWrapperPage.module.css';
 import cn from 'classnames';
-import { useEffect, useState } from 'react';
+import React, { cloneElement, useEffect, useState } from 'react';
 import { GameWrapperPageProps } from './GameWrapperPage.props';
 import { GameModalWindow } from '../../components/GameModalWindow/GameModalWindow';
 import { Header } from '../../components/Header/Header';
 import { LevelGroupWords } from '../../components/LevelGroupWords/LevelGroupWords';
 import { useGetWords } from '../../customHooks/useGetWords';
 import { GameLoader } from '../../components/GameLoader/GameLoader';
+import { IWord } from '../../types/dataWordTypes';
 
 export const GameWrapperPage = ({
   dataGame,
@@ -16,22 +17,36 @@ export const GameWrapperPage = ({
 }: GameWrapperPageProps): JSX.Element => {
 
   const [ onStart, setOnStart ] = useState(false);
-  const {onLoading, number, getWords} = useGetWords();
+  const {onLoading, listWords, getWords} = useGetWords();
 
   const levelHandler = (group: number): void => {
     getWords(group);
     setOnStart(true)
   }
 
+  interface IGameProps {
+    words: IWord[];
+  }
+
+  const gameContent = (() => {
+    if (children && !onLoading && onStart && listWords.length >= 30) {
+      const gameProps = {
+        words: listWords
+      }
+      return cloneElement(children as React.ReactElement<IGameProps>, gameProps)
+    }
+    return null
+  })()
+
   return (
     <>
       <main className={cn(className, cl.main)}>
         {(() => {
-          if(onStart && number.length >= 30) {
+          if(onStart && listWords.length >= 30) {
             return (
-              <div className={cl.games}>
-                { children }
-              </div>
+              <>
+                { gameContent }
+              </>
             )
           } else {
             return !onLoading ?

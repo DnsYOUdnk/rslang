@@ -5,7 +5,7 @@ import { getWordsRequest } from '../utils/getWordsRequest';
 const DEFAULT_QUANTITY_PAGES = 30;
 
 export const useGetWords = () => {
-  const [ number, setNumber ] = useState<IWord[]>([]);
+  const [ listWords, setListWords ] = useState<IWord[]>([]);
   const [ onLoading, setOnLoading ] = useState(false);
 
   const getWords = async (group: number): Promise<void> => {
@@ -14,14 +14,14 @@ export const useGetWords = () => {
     const promiseArr = pageArr.map((_, page) => getWordsRequest(group, page));
     const responseArr = await Promise.all(promiseArr);
     const response: Array<Array<IWord>> = await Promise.all(responseArr.map(res => res.json()));
-    setNumber(response.flat())
+    setListWords(response.flat())
   }
 
   useEffect(() => {
-    if(number.length >= 30) {
+    if(listWords.length >= 30) {
       setOnLoading(false);
     }
-  },[number])
+  },[listWords])
 
-  return {onLoading, number, getWords};
+  return {onLoading, listWords, getWords};
 }

@@ -28,3 +28,8 @@
       40% {transform: scale(3);}
       60% {transform: scale(0);}
 }
+
+.audiocall {
+  flex: 1;
+  align-self: flex-start;
+}
