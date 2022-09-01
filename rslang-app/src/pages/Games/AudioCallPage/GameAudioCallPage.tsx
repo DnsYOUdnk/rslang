@@ -14,6 +14,8 @@ import { shuffleArray } from '../../../utils/shuffleArray';
 import { IWord } from '../../../types/dataWordTypes';
 import { getRandomWord, getRandomWords } from '../../../utils/getRandomWords';
 
+const BASE_URL = 'https://react-learn-language.herokuapp.com/';
+
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const {words} = props;
   const [startGame, setStartGame] = useState(false);
@@ -40,9 +42,9 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     }
   }, [ words, wordLearn ])
 
-  const playAudioWord = (): void => {
+  const playAudioWord = (url: string): void => {
     setOnPlayWord(!onPlayWord)
-    audioPlayer.src = 'https://react-learn-language.herokuapp.com/files/01_0018.mp3';
+    audioPlayer.src = BASE_URL + url;
     audioPlayer.play();
   }
 
@@ -53,7 +55,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   const countDownHandler = (start: boolean): void => {
     setStartGame(start);
     setOnPlayWord(start);
-    playAudioWord()
+    playAudioWord(wordLearn[0].audio)
   }
 
   const handlerSoundChange = () => {
@@ -61,7 +63,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   }
 
   return <>
-    {!startGame && <CountDown className={cl.countDown} seconds = {0} countDownHandler={countDownHandler}/>}
+    {!startGame && <CountDown className={cl.countDown} seconds = {1} countDownHandler={countDownHandler}/>}
     <div className={cn(className, cl.audiocall)}>
       <div className={cl.games_panel}>
         <div className={cn(cl.games__setting, cl.games__setting_left)}>
@@ -76,7 +78,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
       <div className={cn(cl.container)}>
         <div 
           className={onPlayWord ? cn(cl.learn_word, cl.enable_play) : cn(cl.learn_word)} 
-          onClick={() => !onPlayWord && playAudioWord()}
+          onClick={() => !onPlayWord && playAudioWord(wordLearn[0].audio)}
         >
           <Lottie
             className={cn(className, cl.word_player)}
@@ -86,12 +88,18 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
             title={'Воспроизвести слово'}
           />
         </div>
-        <ul ref={al} className={cn(className, cl.translation_words)} onClick= {() => console.log(words, wordLearn, translateWordsArr)}>
-          <li className="audiocall__transition__word"><Button className={cn(cl.button__translation_word)}>Не знаю</Button></li>
-          <li className="audiocall__transition__word"><Button className={cn(cl.button__translation_word)}>Не знаю</Button></li>
-          <li className="audiocall__transition__word"><Button className={cn(cl.button__translation_word)}>Не знаю</Button></li>
-          <li className="audiocall__transition__word"><Button className={cn(cl.button__translation_word)}>Не знаю</Button></li>
-          <li className="audiocall__transition__word"><Button className={cn(cl.button__translation_word)}>Не знаю</Button></li>
+        <ul className={cn(className, cl.translation_words)}>
+          {translateWordsArr.map((word, index) => (
+            <li 
+              className="audiocall__transition__word"
+              key={`btn_word-${index}`}
+              onClick={() => console.log(word)}>
+              <Button 
+                className={cn(cl.button__translation_word)}>
+                {word.wordTranslate}
+              </Button>
+            </li>
+          ))}
         </ul>
         <div className="audiocall__button">
           <Button className={cn(cl.button__next)}>Не знаю</Button>
