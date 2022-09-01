@@ -1,5 +1,8 @@
-.main {
-  background-color: var(--footer-bg-color);
+.audiocall {
+  flex-grow: 1;
+  align-self: flex-start;
+  width: 100%;
+  padding: 30px 80px;
 }
 
 .countDown{
@@ -29,7 +32,23 @@
       60% {transform: scale(0);}
 }
 
-.audiocall {
-  flex-grow: 1;
-  align-self: flex-start;
+.games_panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.games_panel svg {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+.games__setting {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.games__setting_right {
+  gap: 50px;
 }

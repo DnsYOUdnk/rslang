@@ -24,12 +24,12 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   return <>
     {!startGame && <CountDown className={cl.countDown} seconds = {3} countDownHandler={countDownHandler}/>}
     <div className={cn(className, cl.audiocall)}>
-      <div className="games_panel">
-        <div className="games__setting">
+      <div className={cl.games_panel}>
+        <div className={cn(cl.games__setting, cl.games__setting_left)}>
           <ButtonSound handlerSoundChange={handlerSoundChange} onSound={onSound}/>
           <ButtonFullscreen/>
         </div>
-        <div className="games__setting-right">
+        <div className={cn(cl.games__setting, cl.games__setting_right)}>
           <Lives/>
           <ButtonClose/>
         </div>
