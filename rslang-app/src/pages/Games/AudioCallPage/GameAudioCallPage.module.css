@@ -31,9 +31,13 @@
 }
 
 @keyframes bounce {
-      0%, 100% {transform: scale(0);}
+      0% {
+        transform: scale(0);
+        color: transparent;
+      }
       40% {transform: scale(3);}
       60% {transform: scale(0);}
+      100% {transform: scale(0);}
 }
 
 .games_panel {

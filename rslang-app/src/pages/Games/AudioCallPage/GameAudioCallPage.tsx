@@ -10,16 +10,35 @@ import { Lives } from '../../../components/Lives/Lives';
 import { ButtonClose } from '../../../components/ButtonClose/ButtonClose';
 import soundOn from './../../../assets/json-animation/soundOn.json';
 import { Button } from '../../../components/Button/Button';
-import { Button as Btn } from '@mui/material';
+import { shuffleArray } from '../../../utils/shuffleArray';
+import { IWord } from '../../../types/dataWordTypes';
+import { getRandomWord, getRandomWords } from '../../../utils/getRandomWords';
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const {words} = props;
   const [startGame, setStartGame] = useState(false);
   const [onSound, setOnSound] = useState(false);
   const [onPlayWord, setOnPlayWord] = useState(false);
+  const [wordLearn, setWordLearn] = useState<IWord[]>([]);
+  const [translateWordsArr, setTranslateWordsArr] = useState<IWord[]>([]);
   const al = useRef(null);
 
   const audioPlayer = new Audio();
+
+  useEffect(() => {
+    shuffleArray(words as IWord[]);
+  }, [ words ])
+
+  useEffect(() => {
+    if(!wordLearn.length && words) {
+      const randomLearnWord = getRandomWord(words);
+      const randomTranslateWords = getRandomWords(words);
+      const translateWords = randomLearnWord.concat(randomTranslateWords)
+      shuffleArray(translateWords);
+      setWordLearn(randomLearnWord)
+      setTranslateWordsArr(translateWords)
+    }
+  }, [ words, wordLearn ])
 
   const playAudioWord = (): void => {
     setOnPlayWord(!onPlayWord)
@@ -42,7 +61,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   }
 
   return <>
-    {!startGame && <CountDown className={cl.countDown} seconds = {3} countDownHandler={countDownHandler}/>}
+    {!startGame && <CountDown className={cl.countDown} seconds = {0} countDownHandler={countDownHandler}/>}
     <div className={cn(className, cl.audiocall)}>
       <div className={cl.games_panel}>
         <div className={cn(cl.games__setting, cl.games__setting_left)}>
@@ -67,7 +86,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
             title={'Воспроизвести слово'}
           />
         </div>
-        <ul ref={al} className={cn(className, cl.translation_words)} onClick= {() => console.log(words)}>
+        <ul ref={al} className={cn(className, cl.translation_words)} onClick= {() => console.log(words, wordLearn, translateWordsArr)}>
           <li className="audiocall__transition__word"><Button className={cn(cl.button__translation_word)}>Не знаю</Button></li>
           <li className="audiocall__transition__word"><Button className={cn(cl.button__translation_word)}>Не знаю</Button></li>
           <li className="audiocall__transition__word"><Button className={cn(cl.button__translation_word)}>Не знаю</Button></li>

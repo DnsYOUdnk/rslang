@@ -6,7 +6,7 @@ export const CountDown = ({ className, seconds = 0, countDownHandler }: CountDow
   const [time, setTime] = useState(seconds);
 
   const changeCount = () => {
-    if (time-1 === 0) {
+    if (time-1 <= 0) {
       countDownHandler(true);
     } else {
       setTime(time - 1);
