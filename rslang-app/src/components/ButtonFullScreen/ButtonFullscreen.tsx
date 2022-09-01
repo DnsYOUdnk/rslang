@@ -1,9 +1,10 @@
 import cn from 'classnames';
 import cl from './ButtonFullscreen.module.css';
+import { useState } from 'react';
 import { ButtonFullscreenProps } from './ButtonFullscreen.props';
 import { Button } from '../Button/Button';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import { useState } from 'react';
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 
 export const ButtonFullscreen = ({ className, ...props }: ButtonFullscreenProps): JSX.Element => {
   const [onFullscreen, setOnFullscreen] = useState(false);
@@ -23,7 +24,7 @@ export const ButtonFullscreen = ({ className, ...props }: ButtonFullscreenProps)
       className={cn(className, cl.btn_fullscreen)}
       onClick= {() => handlerFullscreenChange()}
     >
-      {<FullscreenIcon/>}
+      {onFullscreen ? <CloseFullscreenIcon/> : <FullscreenIcon/>}
     </Button>
   );
 };

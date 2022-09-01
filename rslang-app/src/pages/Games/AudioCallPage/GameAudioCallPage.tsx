@@ -6,6 +6,7 @@ import { CountDown } from '../../../components/CountDown/CountDown';
 import { ButtonSound } from '../../../components/ButtonSound/ButtonSound';
 import { ButtonFullscreen } from '../../../components/ButtonFullScreen/ButtonFullscreen';
 import { Lives } from '../../../components/Lives/Lives';
+import { ButtonClose } from '../../../components/ButtonClose/ButtonClose';
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const {words} = props;
@@ -30,7 +31,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
         </div>
         <div className="games__setting-right">
           <Lives/>
-          <div className="games__close">x</div>
+          <ButtonClose/>
         </div>
       </div>
       <div className="audiocall__container">
