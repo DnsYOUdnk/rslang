@@ -1,3 +1,5 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
-export type LivesProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+export interface LivesProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+  countLives: number;
+}

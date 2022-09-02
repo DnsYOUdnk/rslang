@@ -115,6 +115,7 @@
   margin: 0;
 }
 
+
 .button__next,
 .button__translation_word {
   color: #0A3E6E;
@@ -147,4 +148,13 @@
 .button__translation_word:hover {
   color: #60707F;
   background: #EAF5FE;
+}
+
+.word_correct:disabled {
+  background-color: #678f32df;
+  color: #ffffff;
+}
+
+.word_error:disabled {
+  color: transparent;
 }

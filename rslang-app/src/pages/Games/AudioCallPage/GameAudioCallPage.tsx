@@ -1,6 +1,6 @@
 import cl from './GameAudioCallPage.module.css';
 import cn from 'classnames';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Lottie from 'lottie-react';
 import { GameAudioCallProps } from './GameAudioCallPage.props';
 import { CountDown } from '../../../components/CountDown/CountDown';
@@ -15,6 +15,7 @@ import { IWord } from '../../../types/dataWordTypes';
 import { getRandomWord, getRandomWords } from '../../../utils/getRandomWords';
 
 const BASE_URL = 'https://react-learn-language.herokuapp.com/';
+const DEFAULT_MAX_LIVES = 5;
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const {words} = props;
@@ -25,26 +26,22 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   const [onBlockPlayWord, setOnBlockPlayWord] = useState(false);
   const [viewAnswer, setViewAnswer] = useState(false);
   const [nextWord, setNextWord] = useState(false);
-  const [correctAnswer, setCorrectAnswer] = useState(false);
+  const [countLives, setCountLives] = useState(DEFAULT_MAX_LIVES);
 
   const audioPlayer = useMemo(() => new Audio(), []);
-
-  useEffect(() => {
-    shuffleArray(words as IWord[]);
-  }, [ words ])
 
   const playAudioWord = useCallback((url: string): void => {
     setOnBlockPlayWord(!onBlockPlayWord)
     audioPlayer.src = BASE_URL + url;
     audioPlayer.play();
   }, [audioPlayer, onBlockPlayWord])
-
+  
   audioPlayer.addEventListener('ended',() => {
     setOnBlockPlayWord(false)
   })
 
   useEffect(() => {
-    if((!wordLearn.id || nextWord) && words && words.length) {
+    if((!wordLearn.id || nextWord) && words && words.length && countLives > 0) {
       const randomLearnWord = getRandomWord(words);
       const randomTranslateWords = getRandomWords(words);
       randomTranslateWords.push(randomLearnWord)
@@ -53,11 +50,8 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
       setTranslateWordsArr(randomTranslateWords)
       if(startGame) playAudioWord(randomLearnWord.audio)
       setNextWord(false);
-    } 
-    // else if (words &&!words.length) {
-    //   alert('the end')
-    // }
-  }, [words, wordLearn, nextWord, startGame, playAudioWord])
+    }
+  }, [words, wordLearn, nextWord, startGame, countLives, playAudioWord])
 
   const countDownHandler = (start: boolean): void => {
     setStartGame(start);
@@ -65,22 +59,63 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     playAudioWord(wordLearn.audio)
   }
 
-  const handlerSoundChange = () => {
-    setOnSound(!onSound);
-  }
-
-  const checkCorrectAnswer = (word: IWord) => {
-    console.log('click word')
-    setViewAnswer(true);
-    setCorrectAnswer(word.id === wordLearn.id);
-  }
-
-  const showCorrectAnswer = () => {
-    if(viewAnswer) {
-      setNextWord(true)
+  const checkCorrectAnswer = useCallback((word?: IWord) => {
+    if (word?.id !== wordLearn.id || !word) {
+      setCountLives(countLives - 1);
     }
+    setViewAnswer(true);
+  }, [wordLearn.id, countLives])
+
+  const moveNextWord = useCallback(() => {
+    setNextWord(true)
     setViewAnswer(!viewAnswer);
-  }
+  },[viewAnswer])
+
+  const handlerSoundChange = useCallback(() => {
+    if(startGame) setOnSound(!onSound);
+  },[onSound, startGame])
+
+
+  const btnW = useRef(null);
+  const onKeypress = useCallback(({code}: {code: string}) => {
+    if(!startGame || onBlockPlayWord) return;
+    switch (code) {
+      case 'KeyM':handlerSoundChange();
+        break;
+      case 'Digit1': checkCorrectAnswer(translateWordsArr[0]);
+        break;
+      case 'Digit2': checkCorrectAnswer(translateWordsArr[1]);
+        break;
+      case 'Digit3': checkCorrectAnswer(translateWordsArr[2]);
+        break;
+      case 'Digit4': checkCorrectAnswer(translateWordsArr[3]);
+        break;
+      case 'Digit5': checkCorrectAnswer(translateWordsArr[4]);
+        break;
+      case 'Enter': return viewAnswer ? moveNextWord() : checkCorrectAnswer();
+        break;
+      case 'KeyR': playAudioWord(wordLearn.audio);
+        break;
+      default: 
+        break;
+    }
+  },[startGame,
+    onBlockPlayWord,
+    viewAnswer,
+    handlerSoundChange,
+    checkCorrectAnswer,
+    translateWordsArr,
+    moveNextWord,
+    playAudioWord,
+    wordLearn.audio]);
+
+  useEffect(() => {
+    shuffleArray(words as IWord[]);
+    document.addEventListener('keypress', onKeypress);
+    return () => {
+      document.removeEventListener('keypress', onKeypress);
+    };
+  }, [onKeypress, words, countLives])
 
   return <>
     {!startGame && <CountDown className={cl.countDown} seconds = {3} countDownHandler={countDownHandler}/>}
@@ -91,7 +126,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
           <ButtonFullscreen/>
         </div>
         <div className={cn(cl.games__setting, cl.games__setting_right)}>
-          <Lives/>
+          <Lives countLives={countLives}/>
           <ButtonClose/>
         </div>
       </div>
@@ -123,12 +158,15 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
         </div>
         <ul className={cn(className, cl.translation_words)}>
           {translateWordsArr.map((word, index) => (
-            <li 
+            <li ref={btnW}
               className="audiocall__transition__word"
               key={`btn_word-${index}`}
-              onClick={() => checkCorrectAnswer(word)}>
+              onClick={() => checkCorrectAnswer(word)}
+            >
               <Button 
-                className={cn(cl.button__translation_word)}
+                className={viewAnswer && word.id === wordLearn.id ? 
+                  cn(cl.button__translation_word, cl.word_correct) : 
+                  cn(cl.button__translation_word, cl.word_error)}
                 disabled={viewAnswer}
               >
                 {`${index + 1}. ${word.wordTranslate}`}
@@ -139,7 +177,8 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
         <div className="audiocall__button">
           <Button
             className={cn(cl.button__next)}
-            onClick={() => viewAnswer ? showCorrectAnswer() : showCorrectAnswer()}
+            onClick={() => {return viewAnswer ? moveNextWord() : checkCorrectAnswer()}}
+            title={'Используй enter'}
           >
             {viewAnswer ? 'Следующее слово' : 'Не знаю'}
           </Button>

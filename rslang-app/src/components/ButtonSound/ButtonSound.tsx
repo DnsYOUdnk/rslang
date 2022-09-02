@@ -4,21 +4,8 @@ import { ButtonSoundProps } from './ButtonSound.props';
 import { Button } from '../Button/Button';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff';
-import { useEffect } from 'react';
 
 export const ButtonSound = ({ handlerSoundChange, onSound, className, ...props }: ButtonSoundProps): JSX.Element => {
-  
-  useEffect(() => {
-    const onKeypress = ({code}: {code: string}) => {
-      if(code === 'KeyM') {
-        handlerSoundChange()
-      }
-    };
-    document.addEventListener('keypress', onKeypress);
-    return () => {
-      document.removeEventListener('keypress', onKeypress);
-    };
-  });
 
   return (
     <Button 
