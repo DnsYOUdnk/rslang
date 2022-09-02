@@ -8,11 +8,12 @@ import { ButtonSound } from '../../../components/ButtonSound/ButtonSound';
 import { ButtonFullscreen } from '../../../components/ButtonFullScreen/ButtonFullscreen';
 import { Lives } from '../../../components/Lives/Lives';
 import { ButtonClose } from '../../../components/ButtonClose/ButtonClose';
-import soundOn from './../../../assets/json-animation/soundOn.json';
 import { Button } from '../../../components/Button/Button';
 import { shuffleArray } from '../../../utils/shuffleArray';
 import { IWord } from '../../../types/dataWordTypes';
 import { getRandomWord, getRandomWords } from '../../../utils/getRandomWords';
+import voiceWordOn from './../../../assets/json-animation/voiceWordOn.json';
+import { playSoundEffects } from '../../../utils/playSoundEffects';
 
 const BASE_URL = 'https://react-learn-language.herokuapp.com/';
 const DEFAULT_MAX_LIVES = 5;
@@ -22,7 +23,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   const [wordLearn, setWordLearn] = useState({} as IWord);
   const [translateWordsArr, setTranslateWordsArr] = useState<IWord[]>([]);
   const [startGame, setStartGame] = useState(false);
-  const [onSound, setOnSound] = useState(false);
+  const [onMute, setOnMute] = useState(false);
   const [onBlockPlayWord, setOnBlockPlayWord] = useState(false);
   const [viewAnswer, setViewAnswer] = useState(false);
   const [nextWord, setNextWord] = useState(false);
@@ -63,17 +64,20 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     if (word?.id !== wordLearn.id || !word) {
       setCountLives(countLives - 1);
     }
+    playSoundEffects(onMute, word?.id === wordLearn.id)
     setViewAnswer(true);
-  }, [wordLearn.id, countLives])
+  }, [wordLearn.id, countLives, onMute])
 
   const moveNextWord = useCallback(() => {
+    playSoundEffects(onMute)
     setNextWord(true)
     setViewAnswer(!viewAnswer);
-  },[viewAnswer])
+  },[viewAnswer, onMute])
 
   const handlerSoundChange = useCallback(() => {
-    if(startGame) setOnSound(!onSound);
-  },[onSound, startGame])
+    playSoundEffects(onMute)
+    if(startGame) setOnMute(!onMute);
+  },[onMute, startGame])
 
 
   const btnW = useRef(null);
@@ -122,7 +126,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     <div className={cn(className, cl.audiocall)}>
       <div className={cl.games_panel}>
         <div className={cn(cl.games__setting, cl.games__setting_left)}>
-          <ButtonSound handlerSoundChange={handlerSoundChange} onSound={onSound}/>
+          <ButtonSound handlerSoundChange={handlerSoundChange} onSound={onMute}/>
           <ButtonFullscreen/>
         </div>
         <div className={cn(cl.games__setting, cl.games__setting_right)}>
@@ -149,7 +153,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
             :
             <Lottie
               className={cn(className, cl.word_player)}
-              animationData={soundOn}
+              animationData={voiceWordOn}
               loop={onBlockPlayWord}
               autoplay={onBlockPlayWord}
               title={'Воспроизвести слово'}
