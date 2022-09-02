@@ -1,6 +1,6 @@
 import cl from './GameWrapperPage.module.css';
 import cn from 'classnames';
-import React, { cloneElement, useEffect, useState } from 'react';
+import React, { cloneElement, useState } from 'react';
 import { GameWrapperPageProps } from './GameWrapperPage.props';
 import { GameModalWindow } from '../../components/GameModalWindow/GameModalWindow';
 import { Header } from '../../components/Header/Header';
