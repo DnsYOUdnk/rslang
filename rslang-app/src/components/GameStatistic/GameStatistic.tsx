@@ -5,7 +5,7 @@ import { GameStatisticProps } from './GameStatistic.props';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { playAudioWord } from '../../utils/audioPlayer';
 
-export const GameStatistic = ({className, ...props}: GameStatisticProps): JSX.Element => {
+export const GameStatistic = ({resultWordsArr, className}: GameStatisticProps): JSX.Element => {
   const [onPlayWord, setOnPlayWord] = useState<boolean>(false);
 
   return (
@@ -19,40 +19,27 @@ export const GameStatistic = ({className, ...props}: GameStatisticProps): JSX.El
         </div>
         <div className={cn(cl.statistic_table)}>
           <ul className={cn(cl.words_items)}>
-            <li className={cn(cl.word_item)}>
-              <div className={cn(cl.play_word)} onClick={() => playAudioWord('sad')}>
-                <VolumeUpIcon/>
-              </div>
-              <div className={cn(cl.word_original)}>
-                {'name'}
-              </div>
-              <div className={cn(cl.word_transcription)}>
-                {'[name]'}
-              </div>
-              <div className={cn(cl.word_translate)}>
-                {'имя'}
-              </div>
-              <div className={cn(cl.word_translate)}>
-                {'icon'}
-              </div>
-            </li>
-            <li className={cn(cl.word_item)}>
-              <div className={cn(cl.play_word)}>
-                {'play_word'}
-              </div>
-              <div className={cn(cl.word_original)}>
-                {'name'}
-              </div>
-              <div className={cn(cl.word_transcription)}>
-                {'[name]'}
-              </div>
-              <div className={cn(cl.word_translate)}>
-                {'имя'}
-              </div>
-              <div className={cn(cl.word_translate)}>
-                {'icon'}
-              </div>
-            </li>
+            {resultWordsArr.map((element, index) => {
+              return (
+                <li className={cn(cl.word_item)} key={`statistic_word-${index}`}>
+                  <div className={cn(cl.play_word)} onClick={() => playAudioWord(element.audio)}>
+                    <VolumeUpIcon/>
+                  </div>
+                  <div className={cn(cl.word_original)}>
+                    {element.word}
+                  </div>
+                  <div className={cn(cl.word_transcription)}>
+                    {element.transcription}
+                  </div>
+                  <div className={cn(cl.word_translate)}>
+                    {element.wordTranslate}
+                  </div>
+                  <div className={cn(cl.word_translate)}>
+                    {element.correctAnswer ? 'yes' : 'no'}
+                  </div>
+                </li>
+              )
+            })}
           </ul>
         </div>
       </div>
