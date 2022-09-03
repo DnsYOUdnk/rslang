@@ -2,11 +2,10 @@
   flex-grow: 1;
   align-self: flex-start;
   width: 100%;
-  padding: 30px 80px;
+  padding: 20px 80px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  background: linear-gradient(#e1eef7,#bfdff3);
+  background: linear-gradient(var(--menu-bg-color),#bfdff366);
 }
 
 .countDown{

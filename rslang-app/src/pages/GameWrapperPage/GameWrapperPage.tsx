@@ -8,6 +8,7 @@ import { LevelGroupWords } from '../../components/LevelGroupWords/LevelGroupWord
 import { useGetWords } from '../../customHooks/useGetWords';
 import { GameLoader } from '../../components/GameLoader/GameLoader';
 import { IWord } from '../../types/dataWordTypes';
+import { GameStatistic } from '../../components/GameStatistic/GameStatistic';
 
 export const GameWrapperPage = ({
   dataGame,
@@ -41,6 +42,7 @@ export const GameWrapperPage = ({
 
   return (
     <>
+      <Header className={cn(cl.game_header)}/>
       <main className={cn(className, cl.main)}>
         {
           (() => {
@@ -53,13 +55,15 @@ export const GameWrapperPage = ({
                 )
               } else {
                 return !onLoading ?
-                  <GameModalWindow dataGame={ dataGame }>
+                  <GameModalWindow className={cn(cl.modal_window)} dataGame={ dataGame }>
                     <LevelGroupWords levelHandler={levelHandler}/>
                   </GameModalWindow> : 
                   <GameLoader/>
               }
             } else {
-              return <div>FINISH HIM</div>
+              return (
+                <GameStatistic/>
+              )
             }
           })()
         }
