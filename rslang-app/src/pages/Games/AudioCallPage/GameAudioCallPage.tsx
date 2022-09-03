@@ -1,6 +1,6 @@
 import cl from './GameAudioCallPage.module.css';
 import cn from 'classnames';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Lottie from 'lottie-react';
 import { GameAudioCallProps } from './GameAudioCallPage.props';
 import { CountDown } from '../../../components/CountDown/CountDown';
@@ -24,12 +24,13 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   const {words, quantityWords, setEndGame , resultWordsArr, setResultWordsArr} = props;
   const [wordLearn, setWordLearn] = useState({} as IWord);
   const [translateWordsArr, setTranslateWordsArr] = useState<IWord[]>([]);
-  const [startGame, setStartGame] = useState(false);
-  const [onMute, setOnMute] = useState(false);
-  const [onBlockPlayWord, setOnBlockPlayWord] = useState(false);
-  const [viewAnswer, setViewAnswer] = useState(false);
-  const [nextWord, setNextWord] = useState(false);
-  const [countLives, setCountLives] = useState(DEFAULT_MAX_LIVES);
+  const [startGame, setStartGame] = useState<boolean>(false);
+  const [onMute, setOnMute] = useState<boolean>(false);
+  const [onBlockPlayWord, setOnBlockPlayWord] = useState<boolean>(false);
+  const [viewAnswer, setViewAnswer] = useState<boolean>(false);
+  const [nextWord, setNextWord] = useState<boolean>(false);
+  const [countLives, setCountLives] = useState<number>(DEFAULT_MAX_LIVES);
+  const audiocallPage = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     shuffleArray(words as IWord[]);
@@ -136,11 +137,11 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
 
   return <>
     {!startGame && <CountDown className={cl.countDown} seconds = {3} countDownHandler={countDownHandler}/>}
-    <div className={cn(className, cl.audiocall)}>
+    <div ref={audiocallPage} className={cn(className, cl.audiocall)}>
       <div className={cl.games_panel}>
         <div className={cn(cl.games__setting, cl.games__setting_left)}>
           <ButtonSound handlerSoundChange={handlerSoundChange} onSound={onMute}/>
-          <ButtonFullscreen/>
+          <ButtonFullscreen audiocallPage={audiocallPage.current}/>
         </div>
         <div className={cn(cl.games__setting, cl.games__setting_right)}>
           <Lives countLives={countLives}/>

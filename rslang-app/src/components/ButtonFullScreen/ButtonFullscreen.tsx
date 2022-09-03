@@ -6,14 +6,14 @@ import { Button } from '../Button/Button';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 
-export const ButtonFullscreen = ({ className, ...props }: ButtonFullscreenProps): JSX.Element => {
+export const ButtonFullscreen = ({ audiocallPage, className, ...props }: ButtonFullscreenProps): JSX.Element => {
   const [onFullscreen, setOnFullscreen] = useState(false);
 
   const handlerFullscreenChange = () => {
-    if (onFullscreen) {
+    if (document.fullscreenElement) {
       document.exitFullscreen()
     } else {
-      document.documentElement.requestFullscreen();
+      audiocallPage!.requestFullscreen();
     }
     setOnFullscreen(!onFullscreen)
   }

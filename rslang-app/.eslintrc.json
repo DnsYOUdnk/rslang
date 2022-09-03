@@ -29,6 +29,7 @@
     "no-console": "warn",
     "react/react-in-jsx-scope": "off",
     "camelcase": "error",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "quotes": ["error", "single"],
     "indent": [
       "warn",
