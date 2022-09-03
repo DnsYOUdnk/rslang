@@ -1,17 +1,25 @@
+.game_statistic__wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 50px;
+}
+
 .game_statistic {
-  margin-top: 100px;
   min-width: 500px;
   min-height: 420px;
   max-height: 65vh;
-  margin: auto;
   border-radius: 36px;
-  background-color: rgba(231, 212, 253, 0.3);
+  background-color: transparent;
   padding: 20px;
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 1px 2px 1px rgb(0 0 0 / 20%), 0 2px 4px 1px rgb(0 0 0 / 15%);
-  color: #46017ba3;
+  color: #46017bc5;
 }
 
 .title {
@@ -58,25 +66,63 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 0;
+  height: auto;
+  width: 100%;
+  text-align: center;
 }
 
 .word_item:nth-child(odd) {
   background-color: #dbaffd43;
 }
 
-.word_item div:first-child {
-  padding-left: 10px;
-}
-
-.word_item div:last-child {
-  padding-right: 10px;
-}
-
 .play_word {
   display: flex;
   cursor: pointer;
+  padding: 0 10px;
 }
 
 .play_word:hover {
   opacity: .7;
+}
+
+.word_original,
+.word_transcription,
+.word_translate {
+  width: 137px;
+}
+
+.correct_answer {
+  padding: 0 10px;
+  display: flex;
+}
+
+.correct {
+  color: rgba(21, 160, 21, 0.7);
+}
+
+.incorrect {
+  color: rgba(186, 28, 28, 0.7);
+}
+
+.repeat_btn {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+.repeat_btn > svg {
+  width: 100%;
+  height: 100%;
+  transition: 0.7s;
+}
+
+.repeat_btn:hover > svg {
+  transform: rotate(-180deg);
+  opacity: 0.8;
 }

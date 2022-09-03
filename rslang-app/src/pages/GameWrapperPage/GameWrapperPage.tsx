@@ -26,11 +26,17 @@ export const GameWrapperPage = ({
     setOnStart(true)
   }
 
+  const repeatGame = () => {
+    setResultWordsArr([]);
+    setEndGame(false);
+    setOnStart(true);
+  }
+
   const gameContent = (() => {
     if (children && !onLoading && onStart && listWords.length >= 20) {
       const gameProps = {
-        words: listWords,
-        quantityWords: listWords.length,
+        words: JSON.parse(JSON.stringify(listWords)),
+        quantityWords: JSON.parse(JSON.stringify(listWords)).length,
         setEndGame: setEndGame,
         resultWordsArr: resultWordsArr,
         setResultWordsArr: setResultWordsArr
@@ -62,7 +68,7 @@ export const GameWrapperPage = ({
               }
             } else {
               return (
-                <GameStatistic resultWordsArr={resultWordsArr}/>
+                <GameStatistic resultWordsArr={resultWordsArr} repeatGame={repeatGame}/>
               )
             }
           })()
