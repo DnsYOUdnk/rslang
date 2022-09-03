@@ -15,3 +15,9 @@ export interface IWord {
   textExampleTranslate: 'string',
   correctAnswer?: boolean
 }
+
+export interface ILocalDataWords {
+  [key: number]: {
+    [key: number]: IWord[]
+  } 
+}

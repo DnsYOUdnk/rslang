@@ -25,6 +25,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   const {words, quantityWords, setEndGame , resultWordsArr, setResultWordsArr} = props;
   const [wordLearn, setWordLearn] = useState({} as IWord);
   const [translateWordsArr, setTranslateWordsArr] = useState<IWord[]>([]);
+  const [copyWordsArr, setCopyWordsArr] = useState<IWord[]>([]);
   const [startGame, setStartGame] = useState<boolean>(false);
   const [onMute, setOnMute] = useState<boolean>(false);
   const [onBlockPlayWord, setOnBlockPlayWord] = useState<boolean>(false);
@@ -35,6 +36,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
 
   useEffect(() => {
     shuffleArray(words as IWord[]);
+    setCopyWordsArr(JSON.parse(JSON.stringify(words)));
   }, [words])
 
   audioPlayer.addEventListener('play',() => {
@@ -46,9 +48,9 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   })
   
   useEffect(() => {
-    if((!wordLearn.id || nextWord) && words && words.length && countLives > ZERO_LIVES) {
-      const randomLearnWord = getRandomWord(words);
-      const randomTranslateWords = words.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!): getRandomWords(words);
+    if((!wordLearn.id || nextWord) && copyWordsArr && copyWordsArr.length && countLives > ZERO_LIVES) {
+      const randomLearnWord = getRandomWord(copyWordsArr);
+      const randomTranslateWords = copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!): getRandomWords(copyWordsArr);
       randomTranslateWords.push(randomLearnWord)
       shuffleArray(randomTranslateWords);
       setWordLearn(randomLearnWord)
@@ -58,7 +60,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     } else if (resultWordsArr!.length === quantityWords || !countLives) {
       setEndGame!(true)
     }
-  }, [words, wordLearn, nextWord, startGame, countLives, translateWordsArr, setEndGame, resultWordsArr, quantityWords, onBlockPlayWord])
+  }, [wordLearn, nextWord, startGame, countLives, translateWordsArr, setEndGame, resultWordsArr, quantityWords, onBlockPlayWord, copyWordsArr])
 
   const countDownHandler = (start: boolean): void => {
     setStartGame(start);

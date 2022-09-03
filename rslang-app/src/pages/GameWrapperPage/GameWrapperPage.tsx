@@ -23,7 +23,7 @@ export const GameWrapperPage = ({
 
   const levelHandler = (group: number): void => {
     getWords(group);
-    setOnStart(true)
+    setOnStart(true);
   }
 
   const repeatGame = () => {
@@ -31,12 +31,12 @@ export const GameWrapperPage = ({
     setEndGame(false);
     setOnStart(true);
   }
-
+  
   const gameContent = (() => {
-    if (children && !onLoading && onStart && listWords.length >= 20) {
+    if (children && !onLoading && onStart && listWords.length) {
       const gameProps = {
-        words: JSON.parse(JSON.stringify(listWords)),
-        quantityWords: JSON.parse(JSON.stringify(listWords)).length,
+        words: listWords,
+        quantityWords: listWords.length,
         setEndGame: setEndGame,
         resultWordsArr: resultWordsArr,
         setResultWordsArr: setResultWordsArr
@@ -44,7 +44,7 @@ export const GameWrapperPage = ({
       return cloneElement(children as React.ReactElement, gameProps)
     }
     return null
-  })()
+  })();
 
   return (
     <>
@@ -53,7 +53,7 @@ export const GameWrapperPage = ({
         {
           (() => {
             if(!endGame) {
-              if(onStart && listWords.length >= 20) {
+              if(onStart && listWords.length) {
                 return (
                   <>
                     { gameContent }
