@@ -15,25 +15,26 @@ export const GameWrapperPage = ({
   className,
   ...props
 }: GameWrapperPageProps): JSX.Element => {
-
-  const [ onStart, setOnStart ] = useState(false);
   const {onLoading, listWords, getWords} = useGetWords();
+  const [resultWordsArr, setResultWordsArr] = useState<IWord[]>([]);
+  const [ onStart, setOnStart ] = useState(false);
+  const [ endGame, setEndGame ] = useState(false);
 
   const levelHandler = (group: number): void => {
     getWords(group);
     setOnStart(true)
   }
 
-  interface IGameProps {
-    words: IWord[];
-  }
-
   const gameContent = (() => {
-    if (children && !onLoading && onStart && listWords.length >= 30) {
+    if (children && !onLoading && onStart && listWords.length >= 20) {
       const gameProps = {
-        words: listWords
+        words: listWords,
+        quantityWords: listWords.length,
+        setEndGame: setEndGame,
+        resultWordsArr: resultWordsArr,
+        setResultWordsArr: setResultWordsArr
       }
-      return cloneElement(children as React.ReactElement<IGameProps>, gameProps)
+      return cloneElement(children as React.ReactElement, gameProps)
     }
     return null
   })()
@@ -41,20 +42,27 @@ export const GameWrapperPage = ({
   return (
     <>
       <main className={cn(className, cl.main)}>
-        {(() => {
-          if(onStart && listWords.length >= 30) {
-            return (
-              <>
-                { gameContent }
-              </>
-            )
-          } else {
-            return !onLoading ?
-              <GameModalWindow dataGame={ dataGame }>
-                <LevelGroupWords levelHandler={levelHandler}/>
-              </GameModalWindow> : 
-              <GameLoader/>
-          } })()}
+        {
+          (() => {
+            if(!endGame) {
+              if(onStart && listWords.length >= 20) {
+                return (
+                  <>
+                    { gameContent }
+                  </>
+                )
+              } else {
+                return !onLoading ?
+                  <GameModalWindow dataGame={ dataGame }>
+                    <LevelGroupWords levelHandler={levelHandler}/>
+                  </GameModalWindow> : 
+                  <GameLoader/>
+              }
+            } else {
+              return <div>FINISH HIM</div>
+            }
+          })()
+        }
       </main>
     </>
   )

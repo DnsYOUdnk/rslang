@@ -9,7 +9,7 @@ export const ButtonSound = ({ handlerSoundChange, onSound, className, ...props }
 
   return (
     <Button 
-      title={'Выключить звук'}
+      title={'Выключить звук (Нажми M)'}
       className={cn(className, cl.btn_sound)}
       onClick={() => handlerSoundChange()}>
       {!onSound ? <NotificationsActiveIcon/> : <NotificationsOffIcon/>}

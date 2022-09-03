@@ -18,7 +18,7 @@ export const useGetWords = () => {
   }
 
   useEffect(() => {
-    if(listWords.length >= 30) {
+    if(listWords.length >= 20) {
       setOnLoading(false);
     }
   },[listWords])

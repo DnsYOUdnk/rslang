@@ -1,6 +1,6 @@
 import cl from './GameAudioCallPage.module.css';
 import cn from 'classnames';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Lottie from 'lottie-react';
 import { GameAudioCallProps } from './GameAudioCallPage.props';
 import { CountDown } from '../../../components/CountDown/CountDown';
@@ -17,9 +17,11 @@ import { playSoundEffects } from '../../../utils/playSoundEffects';
 
 const BASE_URL = 'https://react-learn-language.herokuapp.com/';
 const DEFAULT_MAX_LIVES = 5;
+const ZERO_LIVES = 0;
+const MIN_QUANTITY_WORDS = 5;
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
-  const {words} = props;
+  const {words, quantityWords, setEndGame , resultWordsArr, setResultWordsArr} = props;
   const [wordLearn, setWordLearn] = useState({} as IWord);
   const [translateWordsArr, setTranslateWordsArr] = useState<IWord[]>([]);
   const [startGame, setStartGame] = useState(false);
@@ -29,6 +31,10 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   const [nextWord, setNextWord] = useState(false);
   const [countLives, setCountLives] = useState(DEFAULT_MAX_LIVES);
 
+  useEffect(() => {
+    shuffleArray(words as IWord[]);
+  }, [words])
+
   const audioPlayer = useMemo(() => new Audio(), []);
 
   const playAudioWord = useCallback((url: string): void => {
@@ -36,23 +42,36 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     audioPlayer.src = BASE_URL + url;
     audioPlayer.play();
   }, [audioPlayer, onBlockPlayWord])
-  
+
   audioPlayer.addEventListener('ended',() => {
     setOnBlockPlayWord(false)
   })
 
   useEffect(() => {
-    if((!wordLearn.id || nextWord) && words && words.length && countLives > 0) {
+    if((!wordLearn.id || nextWord) && words && words.length && countLives > ZERO_LIVES) {
       const randomLearnWord = getRandomWord(words);
-      const randomTranslateWords = getRandomWords(words);
+      const randomTranslateWords = words.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!): getRandomWords(words);
       randomTranslateWords.push(randomLearnWord)
       shuffleArray(randomTranslateWords);
       setWordLearn(randomLearnWord)
       setTranslateWordsArr(randomTranslateWords)
       if(startGame) playAudioWord(randomLearnWord.audio)
       setNextWord(false);
+    } else if (resultWordsArr!.length === quantityWords || !countLives) {
+      setEndGame!(true)
     }
-  }, [words, wordLearn, nextWord, startGame, countLives, playAudioWord])
+  }, [
+    words,
+    wordLearn,
+    nextWord,
+    startGame,
+    countLives,
+    translateWordsArr,
+    playAudioWord,
+    setEndGame,
+    resultWordsArr,
+    quantityWords
+  ])
 
   const countDownHandler = (start: boolean): void => {
     setStartGame(start);
@@ -61,12 +80,16 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   }
 
   const checkCorrectAnswer = useCallback((word?: IWord) => {
-    if (word?.id !== wordLearn.id || !word) {
+    wordLearn.correctAnswer = word ? word.id === wordLearn.id : false;
+    setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
+
+    if (!wordLearn.correctAnswer) {
       setCountLives(countLives - 1);
     }
-    playSoundEffects(onMute, word?.id === wordLearn.id)
+
+    playSoundEffects(onMute, wordLearn.correctAnswer)
     setViewAnswer(true);
-  }, [wordLearn.id, countLives, onMute])
+  }, [wordLearn, setResultWordsArr, resultWordsArr, onMute, countLives])
 
   const moveNextWord = useCallback(() => {
     playSoundEffects(onMute)
@@ -79,27 +102,18 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     if(startGame) setOnMute(!onMute);
   },[onMute, startGame])
 
-
-  const btnW = useRef(null);
   const onKeypress = useCallback(({code}: {code: string}) => {
     if(!startGame || onBlockPlayWord) return;
     switch (code) {
       case 'KeyM':handlerSoundChange();
         break;
-      case 'Digit1': checkCorrectAnswer(translateWordsArr[0]);
-        break;
-      case 'Digit2': checkCorrectAnswer(translateWordsArr[1]);
-        break;
-      case 'Digit3': checkCorrectAnswer(translateWordsArr[2]);
-        break;
-      case 'Digit4': checkCorrectAnswer(translateWordsArr[3]);
-        break;
-      case 'Digit5': checkCorrectAnswer(translateWordsArr[4]);
-        break;
+      case 'Digit1': return checkCorrectAnswer(translateWordsArr[0]);
+      case 'Digit2': return checkCorrectAnswer(translateWordsArr[1]);
+      case 'Digit3': return checkCorrectAnswer(translateWordsArr[2]);
+      case 'Digit4': return checkCorrectAnswer(translateWordsArr[3]);
+      case 'Digit5': return checkCorrectAnswer(translateWordsArr[4]);
       case 'Enter': return viewAnswer ? moveNextWord() : checkCorrectAnswer();
-        break;
-      case 'KeyR': playAudioWord(wordLearn.audio);
-        break;
+      case 'KeyR': return playAudioWord(wordLearn.audio);
       default: 
         break;
     }
@@ -114,12 +128,11 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     wordLearn.audio]);
 
   useEffect(() => {
-    shuffleArray(words as IWord[]);
     document.addEventListener('keypress', onKeypress);
     return () => {
       document.removeEventListener('keypress', onKeypress);
     };
-  }, [onKeypress, words, countLives])
+  }, [onKeypress, countLives])
 
   return <>
     {!startGame && <CountDown className={cl.countDown} seconds = {3} countDownHandler={countDownHandler}/>}
@@ -156,16 +169,17 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
               animationData={voiceWordOn}
               loop={onBlockPlayWord}
               autoplay={onBlockPlayWord}
-              title={'Воспроизвести слово'}
+              title={'Воспроизвести слово (Нажми R)'}
             />
           }
         </div>
         <ul className={cn(className, cl.translation_words)}>
           {translateWordsArr.map((word, index) => (
-            <li ref={btnW}
+            <li
               className="audiocall__transition__word"
               key={`btn_word-${index}`}
               onClick={() => checkCorrectAnswer(word)}
+              title={`Если верно кликни или нажми (${index+1})`}
             >
               <Button 
                 className={viewAnswer && word.id === wordLearn.id ? 
@@ -182,7 +196,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
           <Button
             className={cn(cl.button__next)}
             onClick={() => {return viewAnswer ? moveNextWord() : checkCorrectAnswer()}}
-            title={'Используй enter'}
+            title={'Нажми Enter'}
           >
             {viewAnswer ? 'Следующее слово' : 'Не знаю'}
           </Button>

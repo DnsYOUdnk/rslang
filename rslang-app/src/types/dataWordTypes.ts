@@ -12,5 +12,6 @@ export interface IWord {
   transcription: 'string',
   wordTranslate: 'string',
   textMeaningTranslate: 'string',
-  textExampleTranslate: 'string'
+  textExampleTranslate: 'string',
+  correctAnswer?: boolean
 }
