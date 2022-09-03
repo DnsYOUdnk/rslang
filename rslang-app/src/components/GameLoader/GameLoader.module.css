@@ -1,5 +1,4 @@
 .game_loader {
   max-width: 180px;
-  display: flex;
-  height: 100%;
+  margin: auto;
 }

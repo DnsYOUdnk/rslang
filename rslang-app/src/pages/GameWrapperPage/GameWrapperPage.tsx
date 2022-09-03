@@ -46,7 +46,7 @@ export const GameWrapperPage = ({
       <main className={cn(className, cl.main)}>
         {
           (() => {
-            if(!endGame) {
+            if(endGame) {
               if(onStart && listWords.length >= 20) {
                 return (
                   <>

@@ -1,7 +1,7 @@
 import cl from './GameAudioCallPage.module.css';
 import cn from 'classnames';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Lottie from 'lottie-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { GameAudioCallProps } from './GameAudioCallPage.props';
 import { CountDown } from '../../../components/CountDown/CountDown';
 import { ButtonSound } from '../../../components/ButtonSound/ButtonSound';
@@ -14,6 +14,7 @@ import { IWord } from '../../../types/dataWordTypes';
 import { getRandomWord, getRandomWords } from '../../../utils/getRandomWords';
 import voiceWordOn from './../../../assets/json-animation/voiceWordOn.json';
 import { playSoundEffects } from '../../../utils/playSoundEffects';
+import { audioPlayer, playAudioWord } from '../../../utils/audioPlayer';
 
 const BASE_URL = 'https://react-learn-language.herokuapp.com/';
 const DEFAULT_MAX_LIVES = 5;
@@ -36,18 +37,14 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     shuffleArray(words as IWord[]);
   }, [words])
 
-  const audioPlayer = useMemo(() => new Audio(), []);
-
-  const playAudioWord = useCallback((url: string): void => {
-    setOnBlockPlayWord(!onBlockPlayWord)
-    audioPlayer.src = BASE_URL + url;
-    audioPlayer.play();
-  }, [audioPlayer, onBlockPlayWord])
+  audioPlayer.addEventListener('play',() => {
+    setOnBlockPlayWord(true)
+  })
 
   audioPlayer.addEventListener('ended',() => {
     setOnBlockPlayWord(false)
   })
-
+  
   useEffect(() => {
     if((!wordLearn.id || nextWord) && words && words.length && countLives > ZERO_LIVES) {
       const randomLearnWord = getRandomWord(words);
@@ -61,18 +58,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     } else if (resultWordsArr!.length === quantityWords || !countLives) {
       setEndGame!(true)
     }
-  }, [
-    words,
-    wordLearn,
-    nextWord,
-    startGame,
-    countLives,
-    translateWordsArr,
-    playAudioWord,
-    setEndGame,
-    resultWordsArr,
-    quantityWords
-  ])
+  }, [words, wordLearn, nextWord, startGame, countLives, translateWordsArr, setEndGame, resultWordsArr, quantityWords, onBlockPlayWord])
 
   const countDownHandler = (start: boolean): void => {
     setStartGame(start);
@@ -118,15 +104,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
       default: 
         break;
     }
-  },[startGame,
-    onBlockPlayWord,
-    viewAnswer,
-    handlerSoundChange,
-    checkCorrectAnswer,
-    translateWordsArr,
-    moveNextWord,
-    playAudioWord,
-    wordLearn.audio]);
+  },[startGame, onBlockPlayWord, viewAnswer, handlerSoundChange, checkCorrectAnswer, translateWordsArr, moveNextWord, wordLearn.audio]);
 
   useEffect(() => {
     document.addEventListener('keypress', onKeypress);
