@@ -1,15 +1,8 @@
-.game_header {
-  background: linear-gradient(var(--main-bg-color) 60%, var(--menu-bg-color));
-}
-
-.main {
-  height: calc(100vh - 113px);
-  background: linear-gradient(var(--menu-bg-color), #bfdff366);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.modal_window {
-  margin-top: 100px;
+.main { 
+  grid-area: body; 
+  background: linear-gradient(var(--menu-bg-color), #bfdff366); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
 }

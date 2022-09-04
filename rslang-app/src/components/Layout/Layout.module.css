@@ -17,6 +17,10 @@
   grid-area: footer;
 }
 
+.game_header { 
+  background: linear-gradient(var(--main-bg-color) 60%, var(--menu-bg-color)); 
+}
+
 @media (max-width: 768px) {
   .wrapper {
     grid-template-columns: minmax(320px, 1fr);

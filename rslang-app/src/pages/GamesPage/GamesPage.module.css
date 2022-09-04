@@ -9,6 +9,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 50px;
+  justify-content: center;
 }
 
 .game__link {
