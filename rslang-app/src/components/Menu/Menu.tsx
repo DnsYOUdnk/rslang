@@ -22,7 +22,7 @@ export const Menu = ({
         className={cn(cl.hamburger, {
           [cl.hamburger__active]: isOpenMenu == true,
         })}
-        onClick={() => setIsOpenMenu(prev => !prev)}
+        onClick={() => setIsOpenMenu((prev) => !prev)}
       >
         <span></span>
         <span className={cl.long}></span>
@@ -35,7 +35,11 @@ export const Menu = ({
             {menuLinks.map((item) => {
               return (
                 <li key={item.id}>
-                  <Link to={item.link} className={cl.link} onClick={() => setIsOpenMenu(prev => !prev)}>
+                  <Link
+                    to={item.link}
+                    className={cl.link}
+                    onClick={() => setIsOpenMenu((prev) => !prev)}
+                  >
                     {item.text}
                   </Link>
                 </li>

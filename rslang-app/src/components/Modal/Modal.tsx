@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { useState } from 'react';
 import { createUser, logIn } from '../../utils/api';
+import { validateEmail, validateValue } from '../../utils/validator';
 import { Answer } from '../Answer/Answer';
 import { Button } from '../Button/Button';
 import { Loader } from '../Loader/Loader';
@@ -21,7 +22,13 @@ export const Modal = ({
   const [passwordValue, setPasswordValue] = useState('');
   const [statusCode, setStatusCode] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPasswordShow, setIsPasswordShowg] = useState(false);
+  const [isPasswordShow, setIsPasswordShow] = useState(false);
+
+  const [isValidateName, setIsValidateName] = useState(false);
+  const [isValidateEmail, setIsValidateEmail] = useState(false);
+  const [isValidatePassword, setIsValidatePassword] = useState(false);
+  const isValidateFormLogin = isValidateEmail && isValidatePassword;
+  const isValidateFormRegistation = isValidateName && isValidateEmail && isValidatePassword;
 
   const closeModal = () => setIsOpenModal(!isOpenModal);
   const log = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, operation: string) => {
@@ -76,9 +83,12 @@ export const Modal = ({
             Регистрация
           </div>
         </div>
-        <Answer statusCode={statusCode} />
+
+        {!isValidateName && activeButton === 'singUp' && (
+          <div className={cl.validate}>Имя пользователя меньше 2 символов</div>
+        )}
         <div className={cl.form__wrap}>
-          {activeButton === 'singUp' ? (
+          {activeButton === 'singUp' && (
             <div className={cl.form__group}>
               <label className={cl.form__label} htmlFor='username'>
                 Имя:
@@ -89,14 +99,20 @@ export const Modal = ({
                 autoComplete='username'
                 required
                 id='username'
-                className={cl.form__control}
+                className={cn(cl.form__control, {
+                  [cl.form__invalid]: isValidateName === false,
+                })}
                 value={nameValue}
-                onChange={(e) => setNameValue(e.target.value)}
+                onChange={(e) => {
+                  setNameValue(e.target.value);
+                  setIsValidateName(validateValue(2, e.target.value));
+                  setStatusCode(0);
+                }}
               ></input>
             </div>
-          ) : (
-            ''
           )}
+          <Answer statusCode={statusCode} />
+          {!isValidateEmail && <div className={cl.validate}>Такого e-mail не существует</div>}
           <div className={cl.form__group}>
             <label className={cl.form__label} htmlFor='login'>
               Логин:
@@ -107,14 +123,18 @@ export const Modal = ({
               autoComplete='login'
               required
               id='login'
-              className={cl.form__control}
+              className={cn(cl.form__control, {
+                [cl.form__invalid]: !isValidateEmail,
+              })}
               value={emailValue}
               onChange={(e) => {
                 setStatusCode(0);
                 setEmailValue(e.target.value);
+                setIsValidateEmail(!!validateEmail(e.target.value));
               }}
             ></input>
           </div>
+          {!isValidatePassword && <div className={cl.validate}>Длина пароля меньше 6 символов</div>}
           <div className={cl.form__group}>
             <label className={cl.form__label} htmlFor='password'>
               Пароль:
@@ -126,14 +146,17 @@ export const Modal = ({
               autoComplete='current-password'
               required
               id='password'
-              className={cl.form__control}
+              className={cn(cl.form__control, {
+                [cl.form__invalid]: isValidatePassword === false,
+              })}
               value={passwordValue}
               onChange={(e) => {
                 setStatusCode(0);
                 setPasswordValue(e.target.value);
+                setIsValidatePassword(validateValue(6, e.target.value));
               }}
             ></input>
-            <div className={cl.password} onClick={() => setIsPasswordShowg(!isPasswordShow)}>
+            <div className={cl.password} onClick={() => setIsPasswordShow(!isPasswordShow)}>
               {
                 <img
                   src={isPasswordShow ? '/icons/show_password.svg' : '/icons/hide_password.svg'}
@@ -147,7 +170,7 @@ export const Modal = ({
           type='submit'
           className={cl.form__button}
           onClick={(e) => log(e, activeButton)}
-          disabled={isLoading}
+          disabled={activeButton === 'logIn' ? !isValidateFormLogin : !isValidateFormRegistation}
         >
           {activeButton == 'logIn' ? 'Войти' : 'Зарегестрироваться'}
         </Button>

@@ -11,7 +11,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(() => {
-    return localStorage.getItem('user') ? true : false
+    return localStorage.getItem('user') ? true : false;
   });
 
   const closeOverlay = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
