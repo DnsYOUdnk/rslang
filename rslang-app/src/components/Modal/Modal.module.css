@@ -4,12 +4,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: var(--main-bg-color);
-  padding: 55px 30px 15px;
+  padding: 60px 40px 30px;
   cursor: unset;
   outline: 3px solid var(--link-color);
   box-shadow: 1px 1px 87px 77px rgba(255, 255, 255, 0.21);
   border-radius: 5px;
-  width: 400px;
+  width: 500px;
 }
 
 .form__switch {
