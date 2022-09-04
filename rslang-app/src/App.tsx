@@ -18,7 +18,14 @@ function App() {
           <Route path='/team' element={<TeamPage />} />
           <Route path='/games' element={<GamesPage />} />
         </Route>
-        <Route path='/games/audiocall' element={<GameWrapperPage dataGame={ DATA_GAMES.audiocall }><GameAudioCallPage/></GameWrapperPage>} />
+        <Route
+          path='/games/audiocall'
+          element={
+            <GameWrapperPage dataGame={DATA_GAMES.audiocall}>
+              <GameAudioCallPage />
+            </GameWrapperPage>
+          }
+        />
       </Routes>
     </>
   );

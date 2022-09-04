@@ -6,17 +6,17 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const DEFAULT_MAX_LIVES = 5;
 
-export const Lives = ({className, ...props }: LivesProps): JSX.Element => {
-  const {countLives} = props;
+export const Lives = ({ className, ...props }: LivesProps): JSX.Element => {
+  const { countLives } = props;
   const lostLives = DEFAULT_MAX_LIVES - countLives;
   return (
-    <ul className={cn(className,cl.games__lives)}>
+    <ul className={cn(className, cl.games__lives)}>
       {new Array(DEFAULT_MAX_LIVES).fill(null).map((_, index) => {
         return (
-          <li className={cn(className,cl.games__live)} key={`live-${index}`}>
-            {lostLives > index ?<FavoriteBorderIcon/> : <FavoriteIcon/> }
+          <li className={cn(className, cl.games__live)} key={`live-${index}`}>
+            {lostLives > index ? <FavoriteBorderIcon /> : <FavoriteIcon />}
           </li>
-        )
+        );
       })}
     </ul>
   );

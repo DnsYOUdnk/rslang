@@ -16,22 +16,22 @@ export const GameWrapperPage = ({
   className,
   ...props
 }: GameWrapperPageProps): JSX.Element => {
-  const {onLoading, listWords, getWords} = useGetWords();
+  const { onLoading, listWords, getWords } = useGetWords();
   const [resultWordsArr, setResultWordsArr] = useState<IWord[]>([]);
-  const [ onStart, setOnStart ] = useState(false);
-  const [ endGame, setEndGame ] = useState(false);
+  const [onStart, setOnStart] = useState(false);
+  const [endGame, setEndGame] = useState(false);
 
   const levelHandler = (group: number): void => {
     getWords(group);
     setOnStart(true);
-  }
+  };
 
   const repeatGame = () => {
     setResultWordsArr([]);
     setEndGame(false);
     setOnStart(true);
-  }
-  
+  };
+
   const gameContent = (() => {
     if (children && !onLoading && onStart && listWords.length) {
       const gameProps = {
@@ -39,41 +39,35 @@ export const GameWrapperPage = ({
         quantityWords: listWords.length,
         setEndGame: setEndGame,
         resultWordsArr: resultWordsArr,
-        setResultWordsArr: setResultWordsArr
-      }
-      return cloneElement(children as React.ReactElement, gameProps)
+        setResultWordsArr: setResultWordsArr,
+      };
+      return cloneElement(children as React.ReactElement, gameProps);
     }
-    return null
+    return null;
   })();
 
   return (
     <>
-      <Header className={cn(cl.game_header)}/>
+      <Header className={cn(cl.game_header)} />
       <main className={cn(className, cl.main)}>
-        {
-          (() => {
-            if(!endGame) {
-              if(onStart && listWords.length) {
-                return (
-                  <>
-                    { gameContent }
-                  </>
-                )
-              } else {
-                return !onLoading ?
-                  <GameModalWindow className={cn(cl.modal_window)} dataGame={ dataGame }>
-                    <LevelGroupWords levelHandler={levelHandler}/>
-                  </GameModalWindow> : 
-                  <GameLoader/>
-              }
+        {(() => {
+          if (!endGame) {
+            if (onStart && listWords.length) {
+              return <>{gameContent}</>;
             } else {
-              return (
-                <GameStatistic resultWordsArr={resultWordsArr} repeatGame={repeatGame}/>
-              )
+              return !onLoading ? (
+                <GameModalWindow className={cn(cl.modal_window)} dataGame={dataGame}>
+                  <LevelGroupWords levelHandler={levelHandler} />
+                </GameModalWindow>
+              ) : (
+                <GameLoader />
+              );
             }
-          })()
-        }
+          } else {
+            return <GameStatistic resultWordsArr={resultWordsArr} repeatGame={repeatGame} />;
+          }
+        })()}
       </main>
     </>
-  )
-}
+  );
+};

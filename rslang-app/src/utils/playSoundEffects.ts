@@ -1,7 +1,7 @@
 const soundPlayer = new Audio();
 
 export const playSoundEffects = (onMute: boolean, correctAnswer?: boolean) => {
-  if(!onMute) {
+  if (!onMute) {
     switch (correctAnswer) {
       case false:
         soundPlayer.src = '/sound-effects/incorrect_answer-1.mp3';
@@ -15,4 +15,4 @@ export const playSoundEffects = (onMute: boolean, correctAnswer?: boolean) => {
     }
     soundPlayer.play();
   }
-}
+};

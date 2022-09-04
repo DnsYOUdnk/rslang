@@ -10,4 +10,4 @@ export type LinksGameElement = {
   description: string;
   id: number;
   class?: string;
-}
+};

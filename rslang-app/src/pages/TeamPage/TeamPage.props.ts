@@ -1,3 +1,3 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export type TeamPageProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+export type TeamPageProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;

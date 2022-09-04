@@ -5,10 +5,10 @@
   padding: 20px 80px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(var(--menu-bg-color),#bfdff366);
+  background: linear-gradient(var(--menu-bg-color), #bfdff366);
 }
 
-.countDown{
+.countDown {
   position: fixed;
   top: 0;
   left: 0;
@@ -31,13 +31,19 @@
 }
 
 @keyframes bounce {
-      0% {
-        transform: scale(0);
-        color: transparent;
-      }
-      40% {transform: scale(3);}
-      60% {transform: scale(0);}
-      100% {transform: scale(0);}
+  0% {
+    transform: scale(0);
+    color: transparent;
+  }
+  40% {
+    transform: scale(3);
+  }
+  60% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(0);
+  }
 }
 
 .games_panel {
@@ -98,10 +104,9 @@
   text-align: center;
 }
 
-
 .word_player {
   background-color: rgba(176, 72, 255, 0.3);
-  opacity: .7;
+  opacity: 0.7;
   transition: 0.8s;
 }
 
@@ -113,17 +118,16 @@
 .learn__view_word {
   font-size: 32px;
   font-weight: 700;
-  color: #0A3E6E;
+  color: #0a3e6e;
   margin: 0;
 }
 
-
 .button__next,
 .button__translation_word {
-  color: #0A3E6E;
+  color: #0a3e6e;
   border-radius: 6px;
   font-size: 20px;
-  transition: .6s;
+  transition: 0.6s;
   padding: 10px 40px;
   font-weight: 600;
 }
@@ -148,8 +152,8 @@
 }
 
 .button__translation_word:hover {
-  color: #60707F;
-  background: #EAF5FE;
+  color: #60707f;
+  background: #eaf5fe;
 }
 
 .word_correct:disabled {
