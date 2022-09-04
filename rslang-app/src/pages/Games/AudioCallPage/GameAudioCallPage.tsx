@@ -20,6 +20,7 @@ const BASE_URL = 'https://react-learn-language.herokuapp.com/';
 const DEFAULT_MAX_LIVES = 5;
 const ZERO_LIVES = 0;
 const MIN_QUANTITY_WORDS = 5;
+const MIN_LEARNED_WORDS = 10;
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const { words, quantityWords, setEndGame, resultWordsArr, setResultWordsArr } = props;
@@ -89,6 +90,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
 
   const checkCorrectAnswer = useCallback(
     (word?: IWord) => {
+      if(viewAnswer) return;
       wordLearn.correctAnswer = word ? word.id === wordLearn.id : false;
       setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
 
@@ -97,9 +99,9 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
       }
 
       playSoundEffects(onMute, wordLearn.correctAnswer);
-      setViewAnswer(true);
+      setViewAnswer(!viewAnswer);
     },
-    [wordLearn, setResultWordsArr, resultWordsArr, onMute, countLives],
+    [viewAnswer, wordLearn, setResultWordsArr, resultWordsArr, onMute, countLives],
   );
 
   const moveNextWord = useCallback(() => {
@@ -168,6 +170,13 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
             <ButtonSound handlerSoundChange={handlerSoundChange} onSound={onMute} />
             <ButtonFullscreen audiocallPage={audiocallPage.current} />
           </div>
+          {(resultWordsArr && resultWordsArr.length > MIN_LEARNED_WORDS) && 
+          <div className={cn(cl.games__setting__btn_end)}>
+            <Button 
+              onClick={() => setEndGame!(true)}
+              title={'Завершить и получить результат игры'}
+            >Завершить игру</Button>
+          </div>}
           <div className={cn(cl.games__setting, cl.games__setting_right)}>
             <Lives countLives={countLives} />
             <ButtonClose />
