@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Rubik, sans-serif;
+}
+
+.BookPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  background: radial-gradient(#7cfff2, #33ffeb);
+}
+
+.Level1 {
+  background: radial-gradient(#7cfff2, #33ffeb);
+}
+
+.Level2 {
+  background: radial-gradient(#6be099, #47d47f);
+}
+
+.Level3 {
+  background: radial-gradient(#ffce66, #ffc003);
+}
+
+.Level4 {
+  background: radial-gradient(#ff7759, #ff5733);
+}
+
+.Level5 {
+  background: radial-gradient(#e33063, #c70039);
+}
+
+.Level6 {
+  background: radial-gradient(#892e6d, #581845);
+}
+
+.textbook {
+  background: lightblue;
+}
+
+.textbook a {
+  color: black;
+}
+
+.textbook__header {
+  background: rgba(0, 0, 0, 0.25);
+  width: 100%;
+  box-shadow: 0px 0px 16px 1px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 0px 30px 0px rgba(130, 155, 174, 0.501);
+  z-index: 20;
+}
+
+.textbook__main_A1 {
+
+  /* url("../../assets/svg/true.svg") no-repeat */
+  background-position: top left;
+  background-size: 60px 60px;
+  border-radius: 15px;
+  color: blue;
+}
+
+@media (max-width: 550px) {
+  .textbook__main_A1 {
+    background-size: 45px 45px;
+    background-position: 0 25px;
+  }
+}
+
+.textbook__main_A2 {
+  background: blue /* url("../../assets/icons/true.svg") */ no-repeat;
+  background-position: top left;
+  background-size: 60px 60px;
+  border-radius: 15px;
+  color: red;
+}
+
+@media (max-width: 768px) {
+  .textbook__main_A2 {
+    background-size: 45px 45px;
+    background-position: 0 25px;
+  }
+}
+
+.textbook__main_B1 {
+  background: rgba(241, 226, 139, 0.25) /* url("../../assets/svg/true.svg") */ no-repeat;
+  background-position: top left;
+  background-size: 60px 60px;
+  border-radius: 15px;
+}
+
+@media (max-width: 550px) {
+  .textbook__main_B1 {
+    background-size: 45px 45px;
+    background-position: 0 25px;
+  }
+}
+
+.textbook__main_B2 {
+  background: rgba(253, 171, 117, 0.25) /* url("../../assets/svg/true.svg") */ no-repeat;
+  background-position: top left;
+  background-size: 60px 60px;
+  border-radius: 15px;
+}
+
+@media (max-width: 550px) {
+  .textbook__main_B2 {
+    background-size: 45px 45px;
+    background-position: 0 25px;
+  }
+}
+
+.textbook__main_C1 {
+  background: rgba(249, 123, 123, 0.25) /* url("../../assets/svg/true.svg") */ no-repeat;
+  background-position: top left;
+  background-size: 60px 60px;
+  border-radius: 15px;
+}
+
+@media (max-width: 768px) {
+  .textbook__main_C1 {
+    background-size: 45px 45px;
+    background-position: 0 25px;
+  }
+}
+
+.textbook__main_C2 {
+  background: rgba(199, 150, 189, 0.25) /* url("../../assets/svg/true.svg") */ no-repeat;
+  background-position: top left;
+  background-size: 60px 60px;
+  border-radius: 15px;
+}
+
+@media (max-width: 768px) {
+  .textbook__main_C2 {
+    background-size: 45px 45px;
+    background-position: 0 25px;
+  }
+}
