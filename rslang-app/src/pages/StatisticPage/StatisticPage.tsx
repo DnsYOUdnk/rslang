@@ -4,11 +4,7 @@ import cl from './StatisticPage.module.css';
 import { useEffect } from 'react';
 
 export const StatisticPage = ({ className, ...props }: StatisticPageProps): JSX.Element => {
-  const text = [
-    'Изучено 0 слов',
-    'Правильных ответов: 0%',
-    'Самая длинная серия правильных ответов: 0.',
-  ];
+  const text = ['Изучено 0 слов', 'Правильных ответов: 0%', 'Самая длинная серия правильных ответов: 0.'];
   return (
     <main className={cn(className, cl.main)}>
       <h2 className={cl.title}>

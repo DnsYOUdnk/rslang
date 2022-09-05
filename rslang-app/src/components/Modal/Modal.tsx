@@ -134,21 +134,11 @@ export const Modal = ({
               }}
             ></input>
             <div className={cl.password} onClick={() => setIsPasswordShowg(!isPasswordShow)}>
-              {
-                <img
-                  src={isPasswordShow ? '/icons/show_password.svg' : '/icons/hide_password.svg'}
-                  alt='eye'
-                />
-              }
+              {<img src={isPasswordShow ? '/icons/show_password.svg' : '/icons/hide_password.svg'} alt='eye' />}
             </div>
           </div>
         </div>
-        <Button
-          type='submit'
-          className={cl.form__button}
-          onClick={(e) => log(e, activeButton)}
-          disabled={isLoading}
-        >
+        <Button type='submit' className={cl.form__button} onClick={(e) => log(e, activeButton)} disabled={isLoading}>
           {activeButton == 'logIn' ? 'Войти' : 'Зарегестрироваться'}
         </Button>
         <div className={cl.closeModal} onClick={closeModal}></div>

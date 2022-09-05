@@ -53,28 +53,26 @@ export default function TextBookPageNav({ group, page }: Props) {
             className={cl.buttonPrev}
             href={`#/textbook/${group.activeGroup}/${page.activePage - 1}`}
             onClick={prevPage}
-            role="button"
+            role='button'
           ></a>
         </li>
         {navItems.map((navItemPage: string | number, index: number) => {
           return typeof navItemPage === 'string' ? (
-            <li
-              className={cn(cl.textbookPageNav__listItem)}
-              key={`textbookPage_${index}`}
-            >
+            <li className={cn(cl.textbookPageNav__listItem)} key={`textbookPage_${index}`}>
               {' '}
               <span className={cl.textbookPageNav__link}>{navItemPage}</span>{' '}
             </li>
           ) : (
             <li
-              className={`textbookPageNav__listItem textbookPageNav__listItem_pageNumber ${page.activePage === +navItemPage ? `textbookPageNav__listItem_active-${group.activeGroup}` : ''
+              className={`textbookPageNav__listItem textbookPageNav__listItem_pageNumber ${
+                page.activePage === +navItemPage ? `textbookPageNav__listItem_active-${group.activeGroup}` : ''
               }`}
               key={`textbookPage_${index}`}
             >
               <a
                 className={cl.textbookPageNav__link}
                 href={`#/textbook/${group.activeGroup}/${navItemPage}`}
-                role="button"
+                role='button'
               >
                 {navItemPage}
               </a>
@@ -86,7 +84,7 @@ export default function TextBookPageNav({ group, page }: Props) {
             className={cl.buttonNext}
             href={`#/textbook/${group.activeGroup}/${page.activePage + 1}`}
             onClick={nextPage}
-            role="button"
+            role='button'
           ></a>
         </li>
       </ul>

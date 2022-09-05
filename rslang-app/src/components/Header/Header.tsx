@@ -54,20 +54,10 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
           <Menu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
         </div>
       </nav>
-      {isOpenMenu ? (
-        <div className={cl.overlay} onClick={() => setIsOpenMenu(!isOpenMenu)}></div>
-      ) : (
-        ''
-      )}
+      {isOpenMenu ? <div className={cl.overlay} onClick={() => setIsOpenMenu(!isOpenMenu)}></div> : ''}
       {isOpenModal ? (
         <div className={cl.overlay} onClick={(e) => closeOverlay(e)}>
-          {
-            <Modal
-              isOpenModal={isOpenModal}
-              setIsOpenModal={setIsOpenModal}
-              setIsAuthorized={setIsAuthorized}
-            />
-          }
+          {<Modal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} setIsAuthorized={setIsAuthorized} />}
         </div>
       ) : (
         ''

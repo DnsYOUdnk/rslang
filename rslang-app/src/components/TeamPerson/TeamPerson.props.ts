@@ -1,11 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
-<<<<<<< HEAD
-export interface TeamPersonProps extends DetailedHTMLProps<HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {
-=======
-export interface TeamPersonProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
->>>>>>> develop
+export interface TeamPersonProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title: string;
   img: string;
   link: string;

@@ -2,9 +2,6 @@ import { TeamPersonProps } from './TeamPerson.props';
 import cl from './TeamPerson.module.css';
 import cn from 'classnames';
 
-<<<<<<< HEAD
-export const TeamPerson = ({ title, img, link, children, className, ...props }: TeamPersonProps): JSX.Element => {
-=======
 export const TeamPerson = ({
   title,
   img,
@@ -15,7 +12,6 @@ export const TeamPerson = ({
   className,
   ...props
 }: TeamPersonProps): JSX.Element => {
->>>>>>> develop
   return (
     <div
       {...props}

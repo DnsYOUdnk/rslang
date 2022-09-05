@@ -9,7 +9,10 @@ import { Footer } from '../../components/Footer/Footer';
 import { Header } from '../../components/Header/Header';
 
 export const TextBook = () => {
-  const [activeGroup, setActiveGroup] = useState('A1'); {/* ('') */}
+  const [activeGroup, setActiveGroup] = useState('A1');
+  {
+    /* ('') */
+  }
   const [activePage, setActivePage] = useState(1);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [disabledGameButtons, setDisabledGameButtons] = useState(false);
@@ -54,16 +57,13 @@ export const TextBook = () => {
       </div>
       <Footer />
     </div>
-
   );
 };
 
-
-        // <TextBookPage
-        //   group={{ activeGroup, setActiveGroup }}
-        //   page={{ activePage, setActivePage }}
-        //   authorization={{ userData, setUserData }}
-        //   gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
-        //   key={`${activeGroup}_${activePage}`}
-        // />
-
+// <TextBookPage
+//   group={{ activeGroup, setActiveGroup }}
+//   page={{ activePage, setActivePage }}
+//   authorization={{ userData, setUserData }}
+//   gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
+//   key={`${activeGroup}_${activePage}`}
+// />
