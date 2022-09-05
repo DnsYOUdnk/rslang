@@ -6,9 +6,7 @@ import { MainPageProps } from './MainPage.props';
 import { getDataGames } from '../../dataGames/dataGames';
 
 export const MainPage = ({ className, ...props }: MainPageProps): JSX.Element => {
-  const links = [{ link: '/book', class: cl.book, text: 'Учебник', id: 1 }].concat(
-    getDataGames(cl.audio, cl.sprint),
-  );
+  const links = [{ link: '/book', class: cl.book, text: 'Учебник', id: 1 }].concat(getDataGames(cl.audio, cl.sprint));
   const buttons = [
     { link: '/about', text: 'Подробнее', id: 1 },
     { link: '/team', text: 'Наша команда', id: 2 },

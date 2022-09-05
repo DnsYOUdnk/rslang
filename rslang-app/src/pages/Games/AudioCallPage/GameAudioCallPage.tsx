@@ -49,17 +49,10 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   });
 
   useEffect(() => {
-    if (
-      (!wordLearn.id || nextWord) &&
-      copyWordsArr &&
-      copyWordsArr.length &&
-      countLives > ZERO_LIVES
-    ) {
+    if ((!wordLearn.word || nextWord) && copyWordsArr && copyWordsArr.length && countLives > ZERO_LIVES) {
       const randomLearnWord = getRandomWord(copyWordsArr);
       const randomTranslateWords =
-        copyWordsArr.length < MIN_QUANTITY_WORDS
-          ? getRandomWords(resultWordsArr!)
-          : getRandomWords(copyWordsArr);
+        copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!) : getRandomWords(copyWordsArr);
       randomTranslateWords.push(randomLearnWord);
       shuffleArray(randomTranslateWords);
       setWordLearn(randomLearnWord);
@@ -89,9 +82,9 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
   };
 
   const checkCorrectAnswer = useCallback(
-    (word?: IWord) => {
-      if(viewAnswer) return;
-      wordLearn.correctAnswer = word ? word.id === wordLearn.id : false;
+    (wordSelected?: IWord) => {
+      if (viewAnswer) return;
+      wordLearn.correctAnswer = wordSelected ? wordSelected.word === wordLearn.word : false;
       setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
 
       if (!wordLearn.correctAnswer) {
@@ -99,7 +92,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
       }
 
       playSoundEffects(onMute, wordLearn.correctAnswer);
-      setViewAnswer(!viewAnswer);
+      setViewAnswer(true);
     },
     [viewAnswer, wordLearn, setResultWordsArr, resultWordsArr, onMute, countLives],
   );
@@ -161,22 +154,20 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
 
   return (
     <>
-      {!startGame && (
-        <CountDown className={cl.countDown} seconds={3} countDownHandler={countDownHandler} />
-      )}
+      {!startGame && <CountDown className={cl.countDown} seconds={3} countDownHandler={countDownHandler} />}
       <div ref={audiocallPage} className={cn(className, cl.audiocall)}>
         <div className={cl.games_panel}>
           <div className={cn(cl.games__setting, cl.games__setting_left)}>
             <ButtonSound handlerSoundChange={handlerSoundChange} onSound={onMute} />
             <ButtonFullscreen audiocallPage={audiocallPage.current} />
           </div>
-          {(resultWordsArr && resultWordsArr.length > MIN_LEARNED_WORDS) && 
-          <div className={cn(cl.games__setting__btn_end)}>
-            <Button 
-              onClick={() => setEndGame!(true)}
-              title={'Завершить и получить результат игры'}
-            >Завершить игру</Button>
-          </div>}
+          {resultWordsArr && resultWordsArr.length > MIN_LEARNED_WORDS && (
+            <div className={cn(cl.games__setting__btn_end)}>
+              <Button onClick={() => setEndGame!(true)} title={'Завершить и получить результат игры'}>
+                Завершить игру
+              </Button>
+            </div>
+          )}
           <div className={cn(cl.games__setting, cl.games__setting_right)}>
             <Lives countLives={countLives} />
             <ButtonClose />
@@ -189,11 +180,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
           >
             {viewAnswer ? (
               <>
-                <img
-                  src={`${BASE_URL}${wordLearn.image}`}
-                  alt={wordLearn.word}
-                  className={cn(cl.learn_image)}
-                />
+                <img src={`${BASE_URL}${wordLearn.image}`} alt={wordLearn.word} className={cn(cl.learn_image)} />
                 <p className={cn(cl.learn__view_word)}>{wordLearn.word}</p>
               </>
             ) : (
@@ -207,22 +194,22 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
             )}
           </div>
           <ul className={cn(className, cl.translation_words)}>
-            {translateWordsArr.map((word, index) => (
+            {translateWordsArr.map((wordElem, index) => (
               <li
                 className='audiocall__transition__word'
                 key={`btn_word-${index}`}
-                onClick={() => checkCorrectAnswer(word)}
+                onClick={() => checkCorrectAnswer(wordElem)}
                 title={`Если верно кликни или нажми (${index + 1})`}
               >
                 <Button
                   className={
-                    viewAnswer && word.id === wordLearn.id
+                    viewAnswer && wordElem.word === wordLearn.word
                       ? cn(cl.button__translation_word, cl.word_correct)
                       : cn(cl.button__translation_word, cl.word_error)
                   }
                   disabled={viewAnswer}
                 >
-                  {`${index + 1}. ${word.wordTranslate}`}
+                  {`${index + 1}. ${wordElem.wordTranslate}`}
                 </Button>
               </li>
             ))}

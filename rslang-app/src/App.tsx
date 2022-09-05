@@ -11,21 +11,21 @@ import { TeamPage } from './pages/TeamPage/TeamPage';
 function App() {
   return (
     <>
-      <Routes> 
-        <Route path='/' element={<Layout />}> 
-          <Route path='/' element={<MainPage />} /> 
-          <Route path='/about' element={<AboutPage />} /> 
-          <Route path='/team' element={<TeamPage />} /> 
-          <Route path='/games' element={<GamesPage />} /> 
-          <Route 
-            path='/games/audiocall' 
-            element={ 
-              <GameWrapperPage dataGame={DATA_GAMES.audiocall}> 
-                <GameAudioCallPage /> 
-              </GameWrapperPage> 
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route path='/' element={<MainPage />} />
+          <Route path='/about' element={<AboutPage />} />
+          <Route path='/team' element={<TeamPage />} />
+          <Route path='/games' element={<GamesPage />} />
+          <Route
+            path='/games/audiocall'
+            element={
+              <GameWrapperPage dataGame={DATA_GAMES.audiocall}>
+                <GameAudioCallPage />
+              </GameWrapperPage>
             }
           />
-        </Route> 
+        </Route>
       </Routes>
     </>
   );

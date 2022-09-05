@@ -4,11 +4,7 @@ import cn from 'classnames';
 
 const LEVEL_GROUP_WORDS = 6;
 
-export const LevelGroupWords = ({
-  levelHandler,
-  className,
-  ...props
-}: LevelGroupWordsProps): JSX.Element => {
+export const LevelGroupWords = ({ levelHandler, className, ...props }: LevelGroupWordsProps): JSX.Element => {
   const levelArr = new Array(LEVEL_GROUP_WORDS).fill(null);
 
   return (

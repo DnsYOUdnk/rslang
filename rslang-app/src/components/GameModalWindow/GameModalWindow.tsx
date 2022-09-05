@@ -2,12 +2,7 @@ import { GameModalWindowProps } from './GameModalWindow.props';
 import cl from './GameModalWindow.module.css';
 import cn from 'classnames';
 
-export const GameModalWindow = ({
-  dataGame,
-  children,
-  className,
-  ...props
-}: GameModalWindowProps): JSX.Element => {
+export const GameModalWindow = ({ dataGame, children, className, ...props }: GameModalWindowProps): JSX.Element => {
   return (
     <>
       <div className={cn(className, cl.game_modal)}>

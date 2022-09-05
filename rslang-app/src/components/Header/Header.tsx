@@ -20,11 +20,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
           <Menu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
         </div>
       </nav>
-      {isOpenMenu ? (
-        <div className={cl.overlay} onClick={() => setIsOpenMenu(!isOpenMenu)}></div>
-      ) : (
-        ''
-      )}
+      {isOpenMenu ? <div className={cl.overlay} onClick={() => setIsOpenMenu(!isOpenMenu)}></div> : ''}
     </header>
   );
 };

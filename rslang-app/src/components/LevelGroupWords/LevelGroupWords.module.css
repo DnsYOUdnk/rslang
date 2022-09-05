@@ -17,8 +17,8 @@
   font-size: 26px;
   font-weight: 600;
   color: #5f1a78;
-  box-shadow: 0 1px 2px 1px rgb(0 0 0 / 20%), 0 2px 4px 1px rgb(0 0 0 / 20%),
-    0 2px 4px 2px rgb(0 0 0 / 20%), 0 4px 8px 4px rgb(0 0 0 / 15%);
+  box-shadow: 0 1px 2px 1px rgb(0 0 0 / 20%), 0 2px 4px 1px rgb(0 0 0 / 20%), 0 2px 4px 2px rgb(0 0 0 / 20%),
+    0 4px 8px 4px rgb(0 0 0 / 15%);
 }
 
 .levelBtn:hover {

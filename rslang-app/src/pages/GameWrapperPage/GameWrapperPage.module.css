@@ -1,8 +1,8 @@
-.main { 
-  grid-area: body; 
-  background: linear-gradient(var(--menu-bg-color), #bfdff366); 
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
+.main {
+  grid-area: body;
+  background: linear-gradient(var(--menu-bg-color), #bfdff366);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
