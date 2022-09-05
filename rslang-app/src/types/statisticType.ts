@@ -15,13 +15,13 @@ type Optional = {
   sprint: Data;
 };
 
-type Data = {
+export type Data = {
   [key: string]: GameData;
 };
 
 type GameData = {
   newWords: number;
   procCorrectWord: number;
-  bestSeries?: number;
-  learnedWords?: number;
+  bestSeries: number;
+  learnedWords: number;
 };

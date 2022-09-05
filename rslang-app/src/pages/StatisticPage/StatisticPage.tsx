@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Context, ContextStatistic } from '../../utils/context';
 import { getStatistic } from '../../utils/api';
 import { getTodayData } from '../../utils/getTodayData';
+import { Chart } from '../../components/Chart/Chart';
 
 export const StatisticPage = ({ className, ...props }: StatisticPageProps): JSX.Element => {
   const context = useContext(Context);
@@ -87,6 +88,7 @@ export const StatisticPage = ({ className, ...props }: StatisticPageProps): JSX.
           <h2 className={cn(cl.title, cl.title__stat)}>
             <span>Статистика за всё время</span>
           </h2>
+          <Chart statistic={statistic.optional.commonData} />
         </>
       ) : (
         <h3 className={cl.subtitle}>Страница доступна только авторизированным пользователям</h3>

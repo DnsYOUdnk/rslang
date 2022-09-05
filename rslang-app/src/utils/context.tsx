@@ -1,30 +1,36 @@
 import React from 'react';
 import { ContextInterface, Resp } from '../types/statisticType';
+import { getTodayData } from './getTodayData';
 
 export const Context = React.createContext<ContextInterface | null>(null);
+
+const today = getTodayData();
 
 const statistic = {
   id: '631418bf88b69cf71d43a47e',
   learnedWords: 0,
   optional: {
     commonData: {
-      '05.09.2022': {
+      [today]: {
         newWords: 0,
         procCorrectWord: 0,
         learnedWords: 0,
+        bestSeries: 0,
       },
     },
     audiocall: {
-      '05.09.2022': {
+      [today]: {
         newWords: 0,
         procCorrectWord: 0,
+        learnedWords: 0,
         bestSeries: 0,
       },
     },
     sprint: {
-      '05.09.2022': {
+      [today]: {
         newWords: 0,
         procCorrectWord: 0,
+        learnedWords: 0,
         bestSeries: 0,
       },
     },
