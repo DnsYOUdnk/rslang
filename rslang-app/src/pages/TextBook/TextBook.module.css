@@ -40,6 +40,7 @@ body {
 }
 
 .textbook {
+  grid-area: body;
   background: lightblue;
 }
 
