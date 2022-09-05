@@ -37,13 +37,20 @@ export const TextBook = () => {
       </div>
 
       <div className={cl.textbook__main_A1}>
-        <TextBookPage
-          group={{ activeGroup, setActiveGroup }}
-          page={{ activePage, setActivePage }}
-          authorization={{ userData, setUserData }}
-          gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
-          key={`${activeGroup}_${activePage}`}
-        />
+        <Routes>
+          <Route
+            path=':groupId/:pageId'
+            element={
+              <TextBookPage
+                group={{ activeGroup, setActiveGroup }}
+                page={{ activePage, setActivePage }}
+                authorization={{ userData, setUserData }}
+                gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
+                key={`${activeGroup}_${activePage}`}
+              />
+            }
+          />
+        </Routes>
       </div>
       <Footer />
     </div>
@@ -52,19 +59,11 @@ export const TextBook = () => {
 };
 
 
+        // <TextBookPage
+        //   group={{ activeGroup, setActiveGroup }}
+        //   page={{ activePage, setActivePage }}
+        //   authorization={{ userData, setUserData }}
+        //   gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
+        //   key={`${activeGroup}_${activePage}`}
+        // />
 
-
-{/* <Routes>
-  <Route
-    path=':groupId/:pageId'
-    element={
-      <TextBookPage
-        group={{ activeGroup, setActiveGroup }}
-        page={{ activePage, setActivePage }}
-        authorization={{ userData, setUserData }}
-        gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
-        key={`${activeGroup}_${activePage}`}
-      />
-    }
-  />
-</Routes> */}
