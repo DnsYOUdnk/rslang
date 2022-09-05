@@ -1,7 +1,7 @@
 const base = 'https://react-learn-language.herokuapp.com/';
 
-const addInLocalStorage = (user: string) => {
-  localStorage.user = user;
+const addInLocalStorage = (name: string, user: string) => {
+  localStorage.setItem(name, user);
 };
 
 export const createUser = async (
@@ -58,32 +58,25 @@ export const logIn = async (
   });
   const user = { status: 200, ...response };
   if (user.status === 200) {
-    addInLocalStorage(JSON.stringify(user));
+    addInLocalStorage('user', JSON.stringify(user));
   }
   setIsLoading(false);
   return user;
 };
 
-export const getStatistic = async (
-  usersId: string,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-) => {
+export const getStatistic = async (usersId: string) => {
   const response = await fetch(`${base}users/${usersId}/statistics`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  })
-    .then((res) => {
-      if (res.status >= 400 && res.status < 600) {
-        return JSON.stringify(res);
-      }
-      return res.status;
-    })
-    .catch((error) => {
-      return error.statusCode;
-    });
-  setIsLoading(false);
-  return response;
+  }).then((res) => {
+    if (res.status >= 400 && res.status < 600) {
+      return { status: res.status };
+    }
+    return res.json();
+  });
+
+  return { status: 200, ...response };
 };
