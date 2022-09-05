@@ -1,0 +1,38 @@
+.main {
+  grid-area: body;
+  padding: 30px 80px;
+  background-color: var(--main-bg-color);
+}
+
+.title {
+  position: relative;
+  text-align: center;
+  font-size: 36px;
+  color: var(--link-color);
+}
+
+.title span {
+  position: relative;
+  z-index: 1;
+  background-color: var(--main-bg-color);
+  padding: 0 15px;
+}
+
+.title::before {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 2px;
+  background-color: var(--link-color);
+}
+
+.title::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.special {
+  margin-bottom: 40px;
+}
