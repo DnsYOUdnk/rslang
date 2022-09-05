@@ -25,7 +25,11 @@ export const MainPage = ({ className, ...props }: MainPageProps): JSX.Element =>
       </div>
       <div className={cl.learn}>
         {links.map((item) => (
-          <Link to={item.link} className={cn(cl.learn__link, item.class)} key={item.id}>
+          <Link
+            to={item.link}
+            className={cn(cl.learn__link, item.class)}
+            key={item.id}
+          >
             <div className={cl.learn__title}>{item.text}</div>
           </Link>
         ))}

@@ -9,22 +9,31 @@ export const TeamPage = ({ className, ...props }: TeamPageProps): JSX.Element =>
       title: 'Валентин',
       img: 'https://avatars.githubusercontent.com/u/79157063?v=4',
       link: 'https://github.com/ValentinBrest',
-      text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
+      about:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
+      done: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
       id: 1,
+      position: 'normal',
     },
     {
       title: 'Денис',
       img: 'https://avatars.githubusercontent.com/u/89945375?v=4',
       link: 'https://github.com/DnsYOUdnk',
-      text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
+      about:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
+      done: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
       id: 2,
+      position: 'reverse',
     },
     {
       title: 'Дмитрий',
       img: 'https://avatars.githubusercontent.com/u/86970087?v=4',
       link: 'https://github.com/KuzmakD',
-      text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
+      about:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
+      done: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
       id: 3,
+      position: 'normal',
     },
   ];
   return (
@@ -34,8 +43,15 @@ export const TeamPage = ({ className, ...props }: TeamPageProps): JSX.Element =>
       </h2>
       <div className={cl.wrapper}>
         {arrayTeamPerson.map((item) => (
-          <TeamPerson title={item.title} img={item.img} link={item.link} key={item.id}>
-            {item.text}
+          <TeamPerson
+            title={item.title}
+            img={item.img}
+            link={item.link}
+            key={item.id}
+            position={item.position}
+            done={item.done}
+          >
+            {item.about}
           </TeamPerson>
         ))}
       </div>

@@ -41,7 +41,7 @@ export const Menu = ({ isOpenMenu, setIsOpenMenu, className, ...props }: MenuPro
               </Link>
             </li>
             <li>
-              <Link to='/statistics' className={cl.link}>
+              <Link to='/statistic' className={cl.link}>
                 Статистика
               </Link>
             </li>

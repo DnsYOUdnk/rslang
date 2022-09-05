@@ -6,7 +6,9 @@ import { GameAudioCallPage } from './pages/Games/AudioCallPage/GameAudioCallPage
 import { GamesPage } from './pages/GamesPage/GamesPage';
 import { GameWrapperPage } from './pages/GameWrapperPage/GameWrapperPage';
 import { MainPage } from './pages/MainPage/MainPage';
+import { StatisticPage } from './pages/StatisticPage/StatisticPage';
 import { TeamPage } from './pages/TeamPage/TeamPage';
+import { TextBook } from './pages/TextBook/TextBook';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
               </GameWrapperPage>
             }
           />
+          <Route path='/statistic' element={<StatisticPage />} />
+          <Route path='/textbook' element={<TextBook />} />
         </Route>
       </Routes>
     </>
