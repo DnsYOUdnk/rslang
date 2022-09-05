@@ -1,4 +1,4 @@
-import { HashRouter as BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
 import { AboutPage } from './pages/AboutPage/AboutPage';
 import { MainPage } from './pages/MainPage/MainPage';
@@ -10,7 +10,6 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route path='/' element={<MainPage />} />
@@ -20,7 +19,6 @@ function App() {
             <Route path='/textbook/*' element={<TextBook />} />
           </Route>
         </Routes>
-      </BrowserRouter>
     </>
   );
 };
