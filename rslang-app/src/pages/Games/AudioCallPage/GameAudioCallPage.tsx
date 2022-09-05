@@ -15,15 +15,13 @@ import { getRandomWord, getRandomWords } from '../../../utils/getRandomWords';
 import voiceWordOn from './../../../assets/json-animation/voiceWordOn.json';
 import { playSoundEffects } from '../../../utils/playSoundEffects';
 import { audioPlayer, playAudioWord } from '../../../utils/audioPlayer';
-import { createUserWord, updateUserWord } from '../../../utils/createUserWord';
+import { updateUserWord } from '../../../utils/createUserWord';
 
 const BASE_URL = 'https://react-learn-language.herokuapp.com/';
 const DEFAULT_MAX_LIVES = 5;
 const ZERO_LIVES = 0;
-const RESET = 0;
 const MIN_QUANTITY_WORDS = 5;
 const MIN_LEARNED_WORDS = 10;
-const ONCE_PER_GAME = 1;
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const { 
@@ -34,7 +32,8 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     resultWordsArr, 
     setResultWordsArr,
     userWord,
-    setUserWord
+    getUserWord,
+    changeUserWord
   } = props;
   const [translateWordsArr, setTranslateWordsArr] = useState<IWord[]>([]);
   const [copyWordsArr, setCopyWordsArr] = useState<IWord[]>([]);
@@ -60,20 +59,10 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     setOnBlockPlayWord(false);
   });
 
-  const getUserWord = useCallback(async (learnWord: IWord) => {
-    if (!learnWord.userWord) {
-      const res = await createUserWord(learnWord);
-      const data = await res.json();
-      setUserWord!(data)
-    } else {
-      setUserWord!({wordId: learnWord._id, ...learnWord.userWord})
-    }
-  },[setUserWord]);
-
   useEffect(() => {
     if ((!wordLearn!.word || nextWord) && copyWordsArr && copyWordsArr.length && countLives > ZERO_LIVES) {
       const randomLearnWord = getRandomWord(copyWordsArr);
-      if (isUserLogged) {
+      if (isUserLogged && getUserWord) {
         getUserWord(randomLearnWord)
       }
       const randomTranslateWords =
@@ -95,27 +84,11 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     playAudioWord(wordLearn!.audio);
   };
 
-  const changeUserWord = useCallback((correct: boolean) => {
-    const newUserWord = JSON.parse(JSON.stringify(userWord));
-    if (userWord && correct) {
-      newUserWord.optional.countCorrectSeries = RESET;
-      newUserWord.optional.isWordLearned = false;
-    } else {
-      newUserWord.optional.countCorrectSeries += ONCE_PER_GAME;
-      newUserWord.optional.countLearn += ONCE_PER_GAME;
-      const numberCorrectAnswer = newUserWord.difficulty === 'easy' ? 
-        3 : newUserWord.difficulty === 'hard' ? 5 : 4;
-      newUserWord.optional.isWordLearned = newUserWord.optional.countCorrectSeries >= numberCorrectAnswer;
-    }
-    newUserWord.optional.numberUses += ONCE_PER_GAME;
-    setUserWord!(newUserWord);
-  },[setUserWord, userWord])
-
   const checkCorrectAnswer = useCallback(
     (wordSelected?: IWord) => {
       if (viewAnswer || !wordLearn) return;
       wordLearn.correctAnswer = wordSelected ? wordSelected.word === wordLearn.word : false;
-      if (isUserLogged) changeUserWord(!wordLearn.correctAnswer)
+      if (isUserLogged && changeUserWord) changeUserWord(!wordLearn.correctAnswer)
       setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
       if (!wordLearn.correctAnswer) {
         setCountLives(countLives - 1);

@@ -10,5 +10,6 @@ export interface GameAudioCallProps extends DetailedHTMLProps<HTMLAttributes<HTM
   resultWordsArr?: IWord[];
   setResultWordsArr?: React.Dispatch<React.SetStateAction<IWord[]>>;
   userWord?: IUserWord;
-  setUserWord?: React.Dispatch<React.SetStateAction<IUserWord>>
+  getUserWord?: (learnWord: IWord) => Promise<void>;
+  changeUserWord?: (correct: boolean) => void;
 }
