@@ -69,12 +69,13 @@ export const logIn = async (
   return user;
 };
 
-export const getStatistic = async (usersId: string) => {
+export const getStatistic = async (usersId: string, token: string) => {
   const response = await fetch(`${base}users/${usersId}/statistics`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
     },
   }).then((res) => {
     if (res.status >= 400 && res.status < 600) {

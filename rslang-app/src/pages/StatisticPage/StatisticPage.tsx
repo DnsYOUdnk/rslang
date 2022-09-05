@@ -27,7 +27,7 @@ export const StatisticPage = ({ className, ...props }: StatisticPageProps): JSX.
     if (context?.isAuthorized === true) {
       const fetchData = async () => {
         const user = JSON.parse(localStorage.user);
-        const response = await getStatistic(user.userId);
+        const response = await getStatistic(user.userId, user.token);
         setStatusCode(response.status);
         if (response.staus === 200) {
           setStatistic(response);

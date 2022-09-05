@@ -87,7 +87,7 @@ export const Modal = ({
         {!isValidateName && activeButton === 'singUp' && (
           <div className={cl.validate}>Имя пользователя меньше 2 символов</div>
         )}
-        <div className={cl.form__wrap}>
+        <div>
           {activeButton === 'singUp' && (
             <div className={cl.form__group}>
               <label className={cl.form__label} htmlFor='username'>

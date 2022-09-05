@@ -11,7 +11,7 @@ export const Menu = ({
 }: MenuProps): JSX.Element => {
   const menuLinks = [
     { link: '/', text: 'Главная', id: 0 },
-    { link: '/book', text: 'Учебник', id: 1 },
+    { link: '/textbook', text: 'Учебник', id: 1 },
     { link: '/games', text: 'Мини-Игры', id: 2 },
     { link: '/statistic', text: 'Статистика', id: 3 },
     { link: '/team', text: 'O команде', id: 4 },
