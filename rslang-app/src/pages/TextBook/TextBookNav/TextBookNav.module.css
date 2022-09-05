@@ -60,7 +60,7 @@ bookNav__levelCard {
   font-size: 16px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
   .levelCard__name {
     padding: 1px;
   }
