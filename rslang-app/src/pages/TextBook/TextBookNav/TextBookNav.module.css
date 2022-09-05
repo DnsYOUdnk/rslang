@@ -1,0 +1,146 @@
+.bookNav {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+bookNav__levelCard {
+
+}
+
+.bookNav__list {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.bookNav__listItem {
+  list-style: none;
+  cursor: pointer;
+}
+
+.bookNav__listItem_disabled:hover {
+  box-shadow: none;
+}
+
+.bookNav__link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bookNav__link_disabled {
+  cursor: default;
+}
+
+.bookNav__linkText {
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .bookNav__list {
+    gap: 5px;
+  }
+}
+
+.levelCard {
+  display: block;
+}
+
+.levelCard__name {
+  display: inline-block;
+  padding: 10px;
+  font-size: 0;
+}
+
+.levelCard__name:last-child {
+  font-size: 16px;
+}
+
+@media (max-width: 500px) {
+  .levelCard__name {
+    padding: 1px;
+  }
+
+  .levelCard__name:last-child {
+    padding: 10px;
+  }
+}
+
+.levelCard__level {
+  display: inline-block;
+  padding: 10px;
+}
+
+.levelA1 {
+  background: radial-gradient(#7cfff2, #33ffeb);
+}
+
+.levelA2 {
+background: radial-gradient(#6be099, #47d47f);;
+}
+
+.levelB1 {
+  background: radial-gradient(#ffce66, #ffc003);
+}
+
+.levelB2 {
+  background: radial-gradient(#ff7759, #ff5733);
+}
+
+.levelC1 {
+  background: radial-gradient(#e33063, #c70039);
+}
+
+.levelC2 {
+  background: radial-gradient(#892e6d, #581845);
+}
+
+.btn2 {
+  color: #fff;
+  transition: color .5s ease-in-out;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 35px;
+  max-width: 170px;
+  text-transform: uppercase;
+  border: 2px solid white;
+  background-color: transparent;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.btn-2:before {
+  right: -50px;
+  border-right: 50px solid transparent;
+  border-bottom: 80px solid blue;
+  transform: translateX(-100%);
+}
+.btn-2:after {
+  left: -50px;
+  border-left: 50px solid transparent;
+  border-top: 80px solid blue;
+  transform: translateX(100%);
+}
+.btn-2:before,
+.btn-2:after {
+  content: "";
+  position: absolute;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: .5s ease-in-out;
+  z-index: -1;
+}
+.btn2 .book {
+  height: 35px;
+}
