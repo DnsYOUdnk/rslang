@@ -10,6 +10,10 @@
   box-shadow: 1px 1px 87px 77px rgba(255, 255, 255, 0.21);
   border-radius: 5px;
   width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .form__switch {
@@ -39,10 +43,6 @@
   opacity: 1;
   border-top: 1px solid var(--link-color);
   box-shadow: unset;
-}
-
-.form__wrap {
-  margin-bottom: 30px;
 }
 
 .form__group {

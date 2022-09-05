@@ -9,9 +9,8 @@ export const TeamPage = ({ className, ...props }: TeamPageProps): JSX.Element =>
       title: 'Валентин',
       img: 'https://avatars.githubusercontent.com/u/79157063?v=4',
       link: 'https://github.com/ValentinBrest',
-      about:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
-      done: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
+      about: 'Программирование - штука сложная, но жутко интересная.',
+      done: 'Вместе с ребятами работал над проектом. Разработал главную страницу, меню, страницу статистики, авторизациию и страницу о команде. ',
       id: 1,
       position: 'normal',
     },
