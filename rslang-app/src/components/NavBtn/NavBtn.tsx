@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import styleButton from './Button.module.css';
+import cl from './NavBtn.module.css';
 import cn from 'classnames';
 
 type ButtonProps = {
@@ -7,14 +7,14 @@ type ButtonProps = {
   className: string;
 }
 
-const Button = ({label, className, ...props}: ButtonProps) => {
+const NavBtn = ({label, className, ...props}: ButtonProps) => {
   return(
     <button 
       {...props}
-      className={cn(styleButton.Button, className)}>
+      className={cn(cl.NavBtn, className)}>
       {label}
     </button>
   )
 }
 
-export default Button;
+export default NavBtn;

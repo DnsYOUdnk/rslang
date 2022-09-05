@@ -3,26 +3,26 @@ import { useParams } from 'react-router-dom';
 import { Word, UserData } from '../../../common/types';
 import WordCard from '../../../components/WordCard/WordCard';
 import TextBookPageNav from './TextBookPageNav/TextBookPageNav';
-import { getWords, getWordsRequest } from '../../../api/Api';
+import { getWords, getWordsRequest } from '../../../utils/Api';
 import cl from './TextBookPage.module.css';
 import cn from 'classnames';
 
 type Props = {
   group: {
     activeGroup: string;
-    setActiveGroup: any;
+    setActiveGroup: React.Dispatch<React.SetStateAction<string>>;
   };
   page: {
     activePage: number;
-    setActivePage: any;
+    setActivePage: React.Dispatch<React.SetStateAction<number>>;
   };
   authorization: {
     userData: UserData | null;
-    setUserData: any;
+    setUserData: React.Dispatch<React.SetStateAction<UserData | null>>;
   };
   gamesButtonsState: {
     disabledGameButtons: boolean;
-    setDisabledGameButtons: any;
+    setDisabledGameButtons: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
 

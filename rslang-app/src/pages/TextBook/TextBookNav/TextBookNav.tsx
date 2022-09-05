@@ -1,20 +1,20 @@
 import React from 'react';
 import cl from  './TextBookNav.module.css';
 import cn from 'classnames';
-import Button from '../../../components/Buttons/Button';
+import NavBtn from '../../../components/NavBtn/NavBtn';
 
 type Props = {
   group: {
     activeGroup: string;
-    setActiveGroup: any;
+    setActiveGroup: React.Dispatch<React.SetStateAction<string>>;
   };
   page: {
     activePage: number;
-    setActivePage: any;
+    setActivePage: React.Dispatch<React.SetStateAction<number>>;
   };
   gamesButtonsState: {
     disabledGameButtons: boolean;
-    setDisabledGameButtons: any;
+    setDisabledGameButtons: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
 
@@ -26,17 +26,16 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
       <ul className={cl.bookNav__list}>
         <li className={cn(cl.bookNav__listItem)}>
           <a className={cl.bookNav__link} href={'#/textbook/A1/1'}>
-            <Button 
-              className={cl.level1}
-              label='A1'
-            />
+            <NavBtn
+              className={cl.levelA1}
+              label='A1' />
           </a>
         </li>
 
         <li className={cn(cl.bookNav__listItem)}>
           <a className={cl.bookNav__link} href={'#/textbook/A2/1'}>
-            <Button
-              className={cl.level2}
+            <NavBtn
+              className={cl.levelA2}
               label='A2'
             />
           </a>
@@ -44,8 +43,8 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
 
         <li className={cn(cl.bookNav__listItem)}>
           <a className={cl.bookNav__link} href={'#/textbook/B1/1'}>
-            <Button
-              className={cl.level3}
+            <NavBtn
+              className={cl.levelB1}
               label='B1'
             />
           </a>
@@ -53,8 +52,8 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
 
         <li className={cn(cl.bookNav__listItem)}>
           <a className={cl.bookNav__link} href={'#/textbook/B1/1'}>
-            <Button
-              className={cl.level4}
+            <NavBtn
+              className={cl.levelB2}
               label='B2'
             />
           </a>
@@ -62,8 +61,8 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
 
         <li className={cn(cl.bookNav__listItem)}>
           <a className={cl.bookNav__link} href={'#/textbook/C1/1'}>
-            <Button
-              className={cl.level5}
+            <NavBtn
+              className={cl.levelC1}
               label='C1'
             />
           </a>
@@ -71,8 +70,8 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
 
         <li className={cn(cl.bookNav__listItem)}>
           <a className={cl.bookNav__link} href={'#/textbook/C2/1'}>
-            <Button
-              className={cl.level6}
+            <NavBtn
+              className={cl.levelC2}
               label='C2'
             />
           </a>

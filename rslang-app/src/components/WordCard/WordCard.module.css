@@ -76,7 +76,7 @@
   flex: 0 0 33.33%;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .wordCard__picture {
     max-height: 150px;
   }
@@ -94,6 +94,7 @@
   width: 30px;
   height: 30px;
   position: absolute;
+  border: none;
   top: 0;
   right: 0;
   background: url('/public/icons/volume.svg') no-repeat;
@@ -111,7 +112,7 @@
 .wordCard__word__wordExample {}
 .wordCard__word__wordExampleEn {}
 
-@media (max-width: 680px) {
+@media (max-width: 7680px) {
   .wordCard__word {
     margin-bottom: 0px;
   }

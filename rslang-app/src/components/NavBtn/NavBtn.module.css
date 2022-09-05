@@ -1,9 +1,8 @@
-.Button {
+.NavBtn {
   background-color: transparent;
   border: none;
   cursor: pointer;
   outline: none;
-  transition: background-color .3s, color .3s;
   padding: 5px;
   font-family: inherit;
   font-size: inherit;
@@ -14,5 +13,9 @@
   border: 3px solid #fff;
   color: #fff;
   padding: 0;
+  transition: all .5s ease;
 }
-.button:hover {}
+
+.NavBtn:hover {
+  transform: scale(1.5);
+}

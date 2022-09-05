@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Word, UserData } from '../../common/types';
-import { createUserWord, updateUserWord } from '../../api/Api';
+import { createUserWord, updateUserWord } from '../../utils/Api';
 import cl from './WordCard.module.css';
 import cn from 'classnames';
 // import falseIcon from '../../assets/icons/false.svg';
@@ -12,15 +12,15 @@ type Props = {
   info: Word;
   audio: {
     audiotrack: HTMLAudioElement | null;
-    setAudiotrack: any;
+    setAudiotrack: React.Dispatch<React.SetStateAction<HTMLAudioElement | null>>;
   };
   authorization: {
     userData: UserData | null;
-    setUserData: any;
+    setUserData: React.Dispatch<React.SetStateAction<UserData | null>>;
   };
   wordState: {
     wordChanged: boolean;
-    setWordChanged: any;
+    setWordChanged: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
 

@@ -40,7 +40,7 @@ bookNav__levelCard {
   padding: 10px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
   .bookNav__list {
     gap: 5px;
   }
@@ -75,27 +75,27 @@ bookNav__levelCard {
   padding: 10px;
 }
 
-.level1 {
+.levelA1 {
   background: radial-gradient(#7cfff2, #33ffeb);
 }
 
-.level2 {
+.levelA2 {
 background: radial-gradient(#6be099, #47d47f);;
 }
 
-.level3 {
+.levelB1 {
   background: radial-gradient(#ffce66, #ffc003);
 }
 
-.level4 {
+.levelB2 {
   background: radial-gradient(#ff7759, #ff5733);
 }
 
-.level5 {
+.levelC1 {
   background: radial-gradient(#e33063, #c70039);
 }
 
-.level6 {
+.levelC2 {
   background: radial-gradient(#892e6d, #581845);
 }
 

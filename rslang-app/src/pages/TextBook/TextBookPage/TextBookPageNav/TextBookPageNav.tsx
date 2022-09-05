@@ -5,11 +5,11 @@ import cl from './TextBookPageNav.module.css';
 type Props = {
   group: {
     activeGroup: string;
-    setActiveGroup: any;
+    setActiveGroup: React.Dispatch<React.SetStateAction<string>>;
   };
   page: {
     activePage: number;
-    setActivePage: any;
+    setActivePage: React.Dispatch<React.SetStateAction<number>>;
   };
 };
 
