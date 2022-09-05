@@ -2,6 +2,7 @@ import React from 'react';
 import cl from  './TextBookNav.module.css';
 import cn from 'classnames';
 import NavBtn from '../../../components/NavBtn/NavBtn';
+import { Link } from 'react-router-dom';
 
 type Props = {
   group: {
@@ -33,6 +34,12 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
         </li>
 
         <li className={cn(cl.bookNav__listItem)}>
+          {/* <Link to={'#/textbook/A2/1'} key={'textbook/A2/1'} className={cl.bookNav__link}>
+            <NavBtn
+              className={cl.levelA2}
+              label='A2'
+            />
+          </Link> */}
           <a className={cl.bookNav__link} href={'#/textbook/A2/1'}>
             <NavBtn
               className={cl.levelA2}
