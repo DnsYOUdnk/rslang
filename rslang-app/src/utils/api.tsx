@@ -1,7 +1,8 @@
-import { Word, UserWord, UserData, AgregatedWords, UserStatistics } from '../common/types';
+import { Word, UserWord, UserData, AgregatedWords } from '../common/types';
 import axios, { AxiosError } from 'axios';
 
 const URL = 'https://react-learn-language.herokuapp.com';
+const URL2 = 'https://react-learn-language.herokuapp.com/words';
 
 export default function removeUserDataFromStorage() {
   localStorage.removeItem('userData');
@@ -17,16 +18,10 @@ type Params = {
 
 export function getWords(params?: Params) {
   return axios
-    .get<Word[]>(`${URL}/words`, { params, })
+    .get<Word[]>(`${URL2}`, { params, })
     .then((response) => response.data)
     .catch((err) => console.log('Error getWords', err));
 }
-
-export const getWordsRequest = async (group: number, page: number) => {
-  const response = await fetch(`${URL}words?group=${group}&page=${page}`);
-  return response;
-};
-
 
 type RequestBody = {
   difficulty?: string;
@@ -97,3 +92,11 @@ export function getUserAggregatedWords(userId: string, token: string, params?: P
     });
 };
 
+export const getWordsRequest = async (group: number, page: number) => {
+  const response = await fetch(`${URL}words?group=${group}&page=${page}`);
+  return response;
+};
+
+export function isUserData(obj: any): obj is UserData {
+  return 'id' in obj && 'token' in obj;
+}

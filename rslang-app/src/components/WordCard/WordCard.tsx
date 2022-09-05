@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Word, UserData } from '../../common/types';
-import { createUserWord, updateUserWord } from '../../utils/Api';
+import { createUserWord, updateUserWord } from '../../utils/api';
 import cl from './WordCard.module.css';
 import cn from 'classnames';
 // import falseIcon from '../../assets/icons/false.svg';
