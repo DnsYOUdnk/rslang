@@ -24,16 +24,16 @@ const MIN_QUANTITY_WORDS = 5;
 const MIN_LEARNED_WORDS = 10;
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
-  const { 
-    words, 
-    quantityWords, 
-    isUserLogged, 
-    setEndGame, 
-    resultWordsArr, 
+  const {
+    words,
+    quantityWords,
+    isUserLogged,
+    setEndGame,
+    resultWordsArr,
     setResultWordsArr,
     userWord,
     getUserWord,
-    changeUserWord
+    changeUserWord,
   } = props;
   const [translateWordsArr, setTranslateWordsArr] = useState<IWord[]>([]);
   const [copyWordsArr, setCopyWordsArr] = useState<IWord[]>([]);
@@ -63,7 +63,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     if ((!wordLearn!.word || nextWord) && copyWordsArr && copyWordsArr.length && countLives > ZERO_LIVES) {
       const randomLearnWord = getRandomWord(copyWordsArr);
       if (isUserLogged && getUserWord) {
-        getUserWord(randomLearnWord)
+        getUserWord(randomLearnWord);
       }
       const randomTranslateWords =
         copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!) : getRandomWords(copyWordsArr);
@@ -76,7 +76,21 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     } else if (resultWordsArr!.length === quantityWords || !countLives) {
       setEndGame!(true);
     }
-  }, [wordLearn, nextWord, startGame, countLives, translateWordsArr, setEndGame, resultWordsArr, quantityWords, onBlockPlayWord, copyWordsArr, isUserLogged, getUserWord, setWordLearn]);
+  }, [
+    wordLearn,
+    nextWord,
+    startGame,
+    countLives,
+    translateWordsArr,
+    setEndGame,
+    resultWordsArr,
+    quantityWords,
+    onBlockPlayWord,
+    copyWordsArr,
+    isUserLogged,
+    getUserWord,
+    setWordLearn,
+  ]);
 
   const countDownHandler = (start: boolean): void => {
     setStartGame(start);
@@ -88,7 +102,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     (wordSelected?: IWord) => {
       if (viewAnswer || !wordLearn) return;
       wordLearn.correctAnswer = wordSelected ? wordSelected.word === wordLearn.word : false;
-      if (isUserLogged && changeUserWord) changeUserWord(!wordLearn.correctAnswer)
+      if (isUserLogged && changeUserWord) changeUserWord(!wordLearn.correctAnswer);
       setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
       if (!wordLearn.correctAnswer) {
         setCountLives(countLives - 1);
@@ -136,7 +150,16 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
           break;
       }
     },
-    [startGame, onBlockPlayWord, handlerSoundChange, checkCorrectAnswer, translateWordsArr, viewAnswer, moveNextWord, wordLearn],
+    [
+      startGame,
+      onBlockPlayWord,
+      handlerSoundChange,
+      checkCorrectAnswer,
+      translateWordsArr,
+      viewAnswer,
+      moveNextWord,
+      wordLearn,
+    ],
   );
 
   useEffect(() => {

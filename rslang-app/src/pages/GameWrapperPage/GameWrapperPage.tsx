@@ -20,31 +20,36 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
   const [onStart, setOnStart] = useState(false);
   const [endGame, setEndGame] = useState(false);
 
-  const getUserWord = useCallback(async (learnWord: IWord) => {
-    if (!learnWord.userWord) {
-      const res = await createUserWord(learnWord);
-      const data = await res.json();
-      setUserWord!(data)
-    } else {
-      setUserWord!({wordId: learnWord._id, ...learnWord.userWord})
-    }
-  },[setUserWord]);
+  const getUserWord = useCallback(
+    async (learnWord: IWord) => {
+      if (!learnWord.userWord) {
+        const res = await createUserWord(learnWord);
+        const data = await res.json();
+        setUserWord!(data);
+      } else {
+        setUserWord!({ wordId: learnWord._id, ...learnWord.userWord });
+      }
+    },
+    [setUserWord],
+  );
 
-  const changeUserWord = useCallback((correct: boolean) => {
-    const newUserWord = JSON.parse(JSON.stringify(userWord));
-    if (userWord && correct) {
-      newUserWord.optional.countCorrectSeries = RESET;
-      newUserWord.optional.isWordLearned = false;
-    } else {
-      newUserWord.optional.countCorrectSeries += ONCE_PER_GAME;
-      newUserWord.optional.countLearn += ONCE_PER_GAME;
-      const numberCorrectAnswer = newUserWord.difficulty === 'easy' ? 
-        3 : newUserWord.difficulty === 'hard' ? 5 : 4;
-      newUserWord.optional.isWordLearned = newUserWord.optional.countCorrectSeries >= numberCorrectAnswer;
-    }
-    newUserWord.optional.numberUses += ONCE_PER_GAME;
-    setUserWord!(newUserWord);
-  },[setUserWord, userWord])
+  const changeUserWord = useCallback(
+    (correct: boolean) => {
+      const newUserWord = JSON.parse(JSON.stringify(userWord));
+      if (userWord && correct) {
+        newUserWord.optional.countCorrectSeries = RESET;
+        newUserWord.optional.isWordLearned = false;
+      } else {
+        newUserWord.optional.countCorrectSeries += ONCE_PER_GAME;
+        newUserWord.optional.countLearn += ONCE_PER_GAME;
+        const numberCorrectAnswer = newUserWord.difficulty === 'easy' ? 3 : newUserWord.difficulty === 'hard' ? 5 : 4;
+        newUserWord.optional.isWordLearned = newUserWord.optional.countCorrectSeries >= numberCorrectAnswer;
+      }
+      newUserWord.optional.numberUses += ONCE_PER_GAME;
+      setUserWord!(newUserWord);
+    },
+    [setUserWord, userWord],
+  );
 
   const levelHandler = (group: number): void => {
     getWords(group);
@@ -98,4 +103,4 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
       </main>
     </>
   );
-}
+};

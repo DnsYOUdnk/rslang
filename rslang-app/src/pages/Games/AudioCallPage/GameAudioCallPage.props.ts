@@ -1,10 +1,9 @@
 import { IWord, IUserWord } from './../../../types/dataWordTypes';
 import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-
 export interface GameAudioCallProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   words?: IWord[];
-  quantityWords?: number
+  quantityWords?: number;
   isUserLogged?: boolean;
   setEndGame?: React.Dispatch<React.SetStateAction<boolean>>;
   resultWordsArr?: IWord[];

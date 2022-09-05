@@ -21,10 +21,10 @@ export interface IWord {
 export interface IUserWord {
   difficulty: string;
   optional: {
-    countCorrectSeries: number,
-    numberUses: number,
-    countLearn: number,
-    isWordLearned: boolean
+    countCorrectSeries: number;
+    numberUses: number;
+    countLearn: number;
+    isWordLearned: boolean;
   };
   id?: string;
   wordId?: string;
