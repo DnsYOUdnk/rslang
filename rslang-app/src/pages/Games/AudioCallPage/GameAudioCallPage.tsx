@@ -10,23 +10,35 @@ import { Lives } from '../../../components/Lives/Lives';
 import { ButtonClose } from '../../../components/ButtonClose/ButtonClose';
 import { Button } from '../../../components/Button/Button';
 import { shuffleArray } from '../../../utils/shuffleArray';
-import { IWord } from '../../../types/dataWordTypes';
+import { IUserWord, IWord } from '../../../types/dataWordTypes';
 import { getRandomWord, getRandomWords } from '../../../utils/getRandomWords';
 import voiceWordOn from './../../../assets/json-animation/voiceWordOn.json';
 import { playSoundEffects } from '../../../utils/playSoundEffects';
 import { audioPlayer, playAudioWord } from '../../../utils/audioPlayer';
+import { createUserWord, updateUserWord } from '../../../utils/createUserWord';
 
 const BASE_URL = 'https://react-learn-language.herokuapp.com/';
 const DEFAULT_MAX_LIVES = 5;
 const ZERO_LIVES = 0;
+const RESET = 0;
 const MIN_QUANTITY_WORDS = 5;
 const MIN_LEARNED_WORDS = 10;
+const ONCE_PER_GAME = 1;
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
-  const { words, quantityWords, setEndGame, resultWordsArr, setResultWordsArr } = props;
-  const [wordLearn, setWordLearn] = useState({} as IWord);
+  const { 
+    words, 
+    quantityWords, 
+    isUserLogged, 
+    setEndGame, 
+    resultWordsArr, 
+    setResultWordsArr,
+    userWord,
+    setUserWord
+  } = props;
   const [translateWordsArr, setTranslateWordsArr] = useState<IWord[]>([]);
   const [copyWordsArr, setCopyWordsArr] = useState<IWord[]>([]);
+  const [wordLearn, setWordLearn] = useState({} as IWord);
   const [startGame, setStartGame] = useState<boolean>(false);
   const [onMute, setOnMute] = useState<boolean>(false);
   const [onBlockPlayWord, setOnBlockPlayWord] = useState<boolean>(false);
@@ -48,60 +60,78 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
     setOnBlockPlayWord(false);
   });
 
+  const getUserWord = useCallback(async (learnWord: IWord) => {
+    if (!learnWord.userWord) {
+      const res = await createUserWord(learnWord);
+      const data = await res.json();
+      setUserWord!(data)
+    } else {
+      setUserWord!({wordId: learnWord._id, ...learnWord.userWord})
+    }
+  },[setUserWord]);
+
   useEffect(() => {
-    if ((!wordLearn.word || nextWord) && copyWordsArr && copyWordsArr.length && countLives > ZERO_LIVES) {
+    if ((!wordLearn!.word || nextWord) && copyWordsArr && copyWordsArr.length && countLives > ZERO_LIVES) {
       const randomLearnWord = getRandomWord(copyWordsArr);
+      if (isUserLogged) {
+        getUserWord(randomLearnWord)
+      }
       const randomTranslateWords =
         copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!) : getRandomWords(copyWordsArr);
       randomTranslateWords.push(randomLearnWord);
       shuffleArray(randomTranslateWords);
-      setWordLearn(randomLearnWord);
+      setWordLearn!(randomLearnWord);
       setTranslateWordsArr(randomTranslateWords);
       if (startGame) playAudioWord(randomLearnWord.audio);
       setNextWord(false);
     } else if (resultWordsArr!.length === quantityWords || !countLives) {
       setEndGame!(true);
     }
-  }, [
-    wordLearn,
-    nextWord,
-    startGame,
-    countLives,
-    translateWordsArr,
-    setEndGame,
-    resultWordsArr,
-    quantityWords,
-    onBlockPlayWord,
-    copyWordsArr,
-  ]);
+  }, [wordLearn, nextWord, startGame, countLives, translateWordsArr, setEndGame, resultWordsArr, quantityWords, onBlockPlayWord, copyWordsArr, isUserLogged, getUserWord, setWordLearn]);
 
   const countDownHandler = (start: boolean): void => {
     setStartGame(start);
     setOnBlockPlayWord(start);
-    playAudioWord(wordLearn.audio);
+    playAudioWord(wordLearn!.audio);
   };
+
+  const changeUserWord = useCallback((correct: boolean) => {
+    const newUserWord = JSON.parse(JSON.stringify(userWord));
+    if (userWord && correct) {
+      newUserWord.optional.countCorrectSeries = RESET;
+      newUserWord.optional.isWordLearned = false;
+    } else {
+      newUserWord.optional.countCorrectSeries += ONCE_PER_GAME;
+      newUserWord.optional.countLearn += ONCE_PER_GAME;
+      const numberCorrectAnswer = newUserWord.difficulty === 'easy' ? 
+        3 : newUserWord.difficulty === 'hard' ? 5 : 4;
+      newUserWord.optional.isWordLearned = newUserWord.optional.countCorrectSeries >= numberCorrectAnswer;
+    }
+    newUserWord.optional.numberUses += ONCE_PER_GAME;
+    setUserWord!(newUserWord);
+  },[setUserWord, userWord])
 
   const checkCorrectAnswer = useCallback(
     (wordSelected?: IWord) => {
-      if (viewAnswer) return;
+      if (viewAnswer || !wordLearn) return;
       wordLearn.correctAnswer = wordSelected ? wordSelected.word === wordLearn.word : false;
+      if (isUserLogged) changeUserWord(!wordLearn.correctAnswer)
       setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
-
       if (!wordLearn.correctAnswer) {
         setCountLives(countLives - 1);
       }
-
       playSoundEffects(onMute, wordLearn.correctAnswer);
       setViewAnswer(true);
     },
-    [viewAnswer, wordLearn, setResultWordsArr, resultWordsArr, onMute, countLives],
+    [viewAnswer, wordLearn, isUserLogged, changeUserWord, setResultWordsArr, resultWordsArr, onMute, countLives],
   );
 
   const moveNextWord = useCallback(() => {
     playSoundEffects(onMute);
     setNextWord(true);
+    if (isUserLogged) updateUserWord(userWord as IUserWord);
     setViewAnswer(!viewAnswer);
-  }, [viewAnswer, onMute]);
+  }, [isUserLogged, onMute, userWord, viewAnswer]);
 
   const handlerSoundChange = useCallback(() => {
     playSoundEffects(onMute);
@@ -128,21 +158,12 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
         case 'Enter':
           return viewAnswer ? moveNextWord() : checkCorrectAnswer();
         case 'KeyR':
-          return playAudioWord(wordLearn.audio);
+          return playAudioWord(wordLearn!.audio);
         default:
           break;
       }
     },
-    [
-      startGame,
-      onBlockPlayWord,
-      viewAnswer,
-      handlerSoundChange,
-      checkCorrectAnswer,
-      translateWordsArr,
-      moveNextWord,
-      wordLearn.audio,
-    ],
+    [startGame, onBlockPlayWord, handlerSoundChange, checkCorrectAnswer, translateWordsArr, viewAnswer, moveNextWord, wordLearn],
   );
 
   useEffect(() => {
@@ -176,9 +197,9 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
         <div className={cn(cl.container)}>
           <div
             className={onBlockPlayWord ? cn(cl.learn_word, cl.enable_play) : cn(cl.learn_word)}
-            onClick={() => !onBlockPlayWord && playAudioWord(wordLearn.audio)}
+            onClick={() => !onBlockPlayWord && playAudioWord(wordLearn!.audio)}
           >
-            {viewAnswer ? (
+            {viewAnswer && wordLearn ? (
               <>
                 <img src={`${BASE_URL}${wordLearn.image}`} alt={wordLearn.word} className={cn(cl.learn_image)} />
                 <p className={cn(cl.learn__view_word)}>{wordLearn.word}</p>
@@ -203,7 +224,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
               >
                 <Button
                   className={
-                    viewAnswer && wordElem.word === wordLearn.word
+                    viewAnswer && wordElem.word === wordLearn!.word
                       ? cn(cl.button__translation_word, cl.word_correct)
                       : cn(cl.button__translation_word, cl.word_error)
                   }

@@ -6,12 +6,13 @@ import { GameModalWindow } from '../../components/GameModalWindow/GameModalWindo
 import { LevelGroupWords } from '../../components/LevelGroupWords/LevelGroupWords';
 import { useGetWords } from '../../customHooks/useGetWords';
 import { GameLoader } from '../../components/GameLoader/GameLoader';
-import { IWord } from '../../types/dataWordTypes';
+import { IUserWord, IWord } from '../../types/dataWordTypes';
 import { GameStatistic } from '../../components/GameStatistic/GameStatistic';
 
 export const GameWrapperPage = ({ dataGame, children, className, ...props }: GameWrapperPageProps): JSX.Element => {
   const { onLoading, listWords, isUserLogged, getWords } = useGetWords();
   const [resultWordsArr, setResultWordsArr] = useState<IWord[]>([]);
+  const [userWord, setUserWord] = useState({} as IUserWord);
   const [onStart, setOnStart] = useState(false);
   const [endGame, setEndGame] = useState(false);
 
@@ -35,6 +36,8 @@ export const GameWrapperPage = ({ dataGame, children, className, ...props }: Gam
         setEndGame: setEndGame,
         resultWordsArr: resultWordsArr,
         setResultWordsArr: setResultWordsArr,
+        userWord: userWord,
+        setUserWord: setUserWord,
       };
       return cloneElement(children as React.ReactElement, gameProps);
     }
@@ -64,4 +67,4 @@ export const GameWrapperPage = ({ dataGame, children, className, ...props }: Gam
       </main>
     </>
   );
-};
+}
