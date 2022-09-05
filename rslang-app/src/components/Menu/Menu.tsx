@@ -9,13 +9,20 @@ export const Menu = ({
   className,
   ...props
 }: MenuProps): JSX.Element => {
+  const menuLinks = [
+    { link: '/', text: 'Главная', id: 0 },
+    { link: '/book', text: 'Учебник', id: 1 },
+    { link: '/games', text: 'Мини-Игры', id: 2 },
+    { link: '/statistic', text: 'Статистика', id: 3 },
+    { link: '/team', text: 'O команде', id: 4 },
+  ];
   return (
     <>
       <div
         className={cn(cl.hamburger, {
           [cl.hamburger__active]: isOpenMenu == true,
         })}
-        onClick={() => setIsOpenMenu(!isOpenMenu)}
+        onClick={() => setIsOpenMenu((prev) => !prev)}
       >
         <span></span>
         <span className={cl.long}></span>
@@ -25,36 +32,19 @@ export const Menu = ({
       {isOpenMenu ? (
         <>
           <ul className={cl.menu}>
-            <li>
-              <Link to='/' className={cl.link}>
-                Главная
-              </Link>
-            </li>
-            <li>
-              <Link to='/book' className={cl.link}>
-                Учебник
-              </Link>
-            </li>
-            <li>
-              <Link to='/games' className={cl.link}>
-                Мини-Игры
-              </Link>
-            </li>
-            <li>
-              <Link to='/dictionary' className={cl.link}>
-                Словарь
-              </Link>
-            </li>
-            <li>
-              <Link to='/statistic' className={cl.link}>
-                Статистика
-              </Link>
-            </li>
-            <li>
-              <Link to='/team' className={cl.link}>
-                O команде
-              </Link>
-            </li>
+            {menuLinks.map((item) => {
+              return (
+                <li key={item.id}>
+                  <Link
+                    to={item.link}
+                    className={cl.link}
+                    onClick={() => setIsOpenMenu((prev) => !prev)}
+                  >
+                    {item.text}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </>
       ) : (

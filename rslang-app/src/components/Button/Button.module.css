@@ -18,3 +18,13 @@
   background-color: var(--link-color);
   color: var(--main-bg-color);
 }
+
+.button:disabled {
+  opacity: 0.3;
+}
+
+.button:disabled:hover {
+  background-color: var(--main-bg-color);
+  color: var(--link-color);
+  cursor: auto;
+}
