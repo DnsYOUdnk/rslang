@@ -121,13 +121,12 @@ type RequestBody = {
 };
 
 export function createUserWord(wordId: string, userId: string, token: string, requestBody: RequestBody) {
-  return axios
-    .post<UserWord>(`${URL}/users/${userId}/words/${wordId}`, requestBody, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
-    })
+  return axios.post<UserWord>(`${URL}/users/${userId}/words/${wordId}`, requestBody, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  })
     .then((response) => response.data)
     .catch((err: AxiosError) => {
       if (err.response?.status === 401) removeUserDataFromStorage();
@@ -136,13 +135,12 @@ export function createUserWord(wordId: string, userId: string, token: string, re
 };
 
 export function getUserWordById(wordId: string, userId: string, token: string) {
-  return axios
-    .get<UserWord>(`${URL}/users/${userId}/words/${wordId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
-    })
+  return axios.get<UserWord>(`${URL}/users/${userId}/words/${wordId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  })
     .then((response) => response.data)
     .catch((err: AxiosError) => {
       if (err.response?.status === 401) removeUserDataFromStorage();
@@ -151,13 +149,12 @@ export function getUserWordById(wordId: string, userId: string, token: string) {
 };
 
 export function updateUserWord(wordId: string, userId: string, token: string, requestBody: RequestBody) {
-  return axios
-    .put<UserWord>(`${URL}/users/${userId}/words/${wordId}`, requestBody, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
-    })
+  return axios.put<UserWord>(`${URL}/users/${userId}/words/${wordId}`, requestBody, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  })
     .then((response) => response.data)
     .catch((err: AxiosError) => {
       if (err.response?.status === 401) removeUserDataFromStorage();
@@ -166,14 +163,13 @@ export function updateUserWord(wordId: string, userId: string, token: string, re
 };
 
 export function getUserAggregatedWords(userId: string, token: string, params?: Params) {
-  return axios
-    .get<AgregatedWords>(`${URL}/users/${userId}/aggregatedWords`, { 
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
-      params,
-    })
+  return axios.get<AgregatedWords>(`${URL}/users/${userId}/aggregatedWords`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+    params,
+  })
     .then((response) => response.data[0].paginatedResults)
     .catch((err: AxiosError) => {
       if (err.response?.status === 401) removeUserDataFromStorage();

@@ -13,6 +13,7 @@ export const playSoundEffects = (onMute: boolean, correctAnswer?: boolean) => {
         soundPlayer.src = '/sound-effects/click.mp3';
         break;
     }
+    soundPlayer.load();
     soundPlayer.play();
   }
 };
