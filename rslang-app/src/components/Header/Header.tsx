@@ -1,6 +1,7 @@
 import cn from 'classnames';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Context } from '../../utils/context';
 import { Button } from '../Button/Button';
 import { Menu } from '../Menu/Menu';
 import { Modal } from '../Modal/Modal';
@@ -10,7 +11,7 @@ import { HeaderProps } from './Header.props';
 export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const context = useContext(Context);
 
   const closeOverlay = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as Element;
@@ -20,7 +21,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
   };
 
   const logOut = () => {
-    setIsAuthorized(false);
+    context?.setIsAuthorized(false);
     delete localStorage.user;
   };
 
@@ -49,15 +50,25 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
               }
             }}
           >
-            {isAuthorized ? 'Выйти' : 'Войти'}
+            {context?.isAuthorized ? 'Выйти' : 'Войти'}
           </Button>
           <Menu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
         </div>
       </nav>
-      {isOpenMenu ? <div className={cl.overlay} onClick={() => setIsOpenMenu(!isOpenMenu)}></div> : ''}
+      {isOpenMenu ? (
+        <div className={cl.overlay} onClick={() => setIsOpenMenu(!isOpenMenu)}></div>
+      ) : (
+        ''
+      )}
       {isOpenModal ? (
         <div className={cl.overlay} onClick={(e) => closeOverlay(e)}>
-          {<Modal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} setIsAuthorized={setIsAuthorized} />}
+          {context && (
+            <Modal
+              isOpenModal={isOpenModal}
+              setIsOpenModal={setIsOpenModal}
+              setIsAuthorized={context.setIsAuthorized}
+            />
+          )}
         </div>
       ) : (
         ''
