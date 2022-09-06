@@ -157,12 +157,7 @@ export const Modal = ({
               }}
             ></input>
             <div className={cl.password} onClick={() => setIsPasswordShow(!isPasswordShow)}>
-              {
-                <img
-                  src={isPasswordShow ? '/icons/show_password.svg' : '/icons/hide_password.svg'}
-                  alt='eye'
-                />
-              }
+              {<img src={isPasswordShow ? '/icons/show_password.svg' : '/icons/hide_password.svg'} alt='eye' />}
             </div>
           </div>
         </div>
