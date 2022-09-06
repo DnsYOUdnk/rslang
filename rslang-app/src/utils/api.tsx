@@ -69,10 +69,7 @@ export const logIn = async (
   return user;
 };
 
-export const getStatistic = async (
-  usersId: string,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-) => {
+export const getStatistic = async (usersId: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
   const response = await fetch(`${base}users/${usersId}/statistics`, {
     method: 'GET',
     headers: {
@@ -103,11 +100,11 @@ type Params = {
   group?: number;
   page?: number;
   filter?: unknown;
-}
+};
 
 export function getWords(params?: Params) {
   return axios
-    .get<Word[]>(`${URL2}`, { params, })
+    .get<Word[]>(`${URL2}`, { params })
     .then((response) => response.data)
     .catch((err) => console.log('Error getWords', err));
 }
@@ -121,61 +118,65 @@ type RequestBody = {
 };
 
 export function createUserWord(wordId: string, userId: string, token: string, requestBody: RequestBody) {
-  return axios.post<UserWord>(`${URL}/users/${userId}/words/${wordId}`, requestBody, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  })
+  return axios
+    .post<UserWord>(`${URL}/users/${userId}/words/${wordId}`, requestBody, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    })
     .then((response) => response.data)
     .catch((err: AxiosError) => {
       if (err.response?.status === 401) removeUserDataFromStorage();
       return new Error(String(err.response?.status));
     });
-};
+}
 
 export function getUserWordById(wordId: string, userId: string, token: string) {
-  return axios.get<UserWord>(`${URL}/users/${userId}/words/${wordId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  })
+  return axios
+    .get<UserWord>(`${URL}/users/${userId}/words/${wordId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    })
     .then((response) => response.data)
     .catch((err: AxiosError) => {
       if (err.response?.status === 401) removeUserDataFromStorage();
       return new Error(String(err.response?.status));
     });
-};
+}
 
 export function updateUserWord(wordId: string, userId: string, token: string, requestBody: RequestBody) {
-  return axios.put<UserWord>(`${URL}/users/${userId}/words/${wordId}`, requestBody, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  })
+  return axios
+    .put<UserWord>(`${URL}/users/${userId}/words/${wordId}`, requestBody, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    })
     .then((response) => response.data)
     .catch((err: AxiosError) => {
       if (err.response?.status === 401) removeUserDataFromStorage();
       return new Error(String(err.response?.status));
     });
-};
+}
 
 export function getUserAggregatedWords(userId: string, token: string, params?: Params) {
-  return axios.get<AgregatedWords>(`${URL}/users/${userId}/aggregatedWords`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-    params,
-  })
+  return axios
+    .get<AgregatedWords>(`${URL}/users/${userId}/aggregatedWords`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+      params,
+    })
     .then((response) => response.data[0].paginatedResults)
     .catch((err: AxiosError) => {
       if (err.response?.status === 401) removeUserDataFromStorage();
       return new Error(String(err.response?.status));
     });
-};
+}
 
 export const getWordsRequest = async (group: number, page: number) => {
   const response = await fetch(`${URL}words?group=${group}&page=${page}`);

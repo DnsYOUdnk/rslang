@@ -34,30 +34,32 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
     const gameName = hashArr[hashArr.length - 1];
     const today = new Date().toLocaleDateString();
     const quantityCorrectWords = resultWordsArr.filter(({ correctAnswer }) => correctAnswer).length;
-    const precent = Math.floor((quantityCorrectWords / resultWordsArr.length ) * 100);
+    const precent = Math.floor((quantityCorrectWords / resultWordsArr.length) * 100);
     let objStatistic = statistic;
-    if(!Object.keys(objStatistic).length) {
+    if (!Object.keys(objStatistic).length) {
       objStatistic = defaultStatistic();
     }
     let defaultOptional = {
       learnedWords: 0,
       newWords: 0,
       procCorrectWord: 0,
-      bestSeries: 0
+      bestSeries: 0,
     };
-    if(objStatistic.optional[gameName][today]) {
+    if (objStatistic.optional[gameName][today]) {
       defaultOptional = objStatistic.optional[gameName][today];
       defaultOptional.bestSeries = defaultOptional.bestSeries < bestSeries ? bestSeries : defaultOptional.bestSeries;
       defaultOptional.newWords += newWords;
       defaultOptional.learnedWords += learnedWords;
-      defaultOptional.procCorrectWord = defaultOptional.procCorrectWord !== 0 ? Math.floor((defaultOptional.procCorrectWord + precent)/2) : precent;
+      defaultOptional.procCorrectWord =
+        defaultOptional.procCorrectWord !== 0 ? Math.floor((defaultOptional.procCorrectWord + precent) / 2) : precent;
       objStatistic.optional[gameName][today] = defaultOptional;
 
       objStatistic.optional.commonData[today].learnedWords += learnedWords;
       const commonSeries = objStatistic.optional.commonData[today].bestSeries;
-      objStatistic.optional.commonData[today].bestSeries = commonSeries < bestSeries ? bestSeries : commonSeries ;
-      const commonProc = objStatistic.optional.commonData[today].procCorrectWord ;
-      objStatistic.optional.commonData[today].procCorrectWord = commonProc !== 0 ? Math.floor((commonProc + precent)/2) : precent;
+      objStatistic.optional.commonData[today].bestSeries = commonSeries < bestSeries ? bestSeries : commonSeries;
+      const commonProc = objStatistic.optional.commonData[today].procCorrectWord;
+      objStatistic.optional.commonData[today].procCorrectWord =
+        commonProc !== 0 ? Math.floor((commonProc + precent) / 2) : precent;
       objStatistic.optional.commonData[today].newWords += newWords;
     } else {
       defaultOptional.bestSeries = bestSeries;
@@ -67,36 +69,36 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
       objStatistic.optional[gameName][today] = defaultOptional;
     }
 
-    setStatistic(objStatistic)
-    setIsUpdateStatic(false)
-    updateStatistic(objStatistic)
-  },[bestSeries, learnedWords, location.pathname, newWords, resultWordsArr, setStatistic, statistic, updateStatistic])
+    setStatistic(objStatistic);
+    setIsUpdateStatic(false);
+    updateStatistic(objStatistic);
+  }, [bestSeries, learnedWords, location.pathname, newWords, resultWordsArr, setStatistic, statistic, updateStatistic]);
 
   useEffect(() => {
-    if(!isGetStatic && onStart) {
+    if (!isGetStatic && onStart) {
       getStatistic();
-      setIsUpdateStatic(true)
+      setIsUpdateStatic(true);
     }
-    
-  },[getStatistic, isGetStatic, location.key, onLoading, onStart])
+  }, [getStatistic, isGetStatic, location.key, onLoading, onStart]);
 
   useEffect(() => {
-    if(endGame && resultWordsArr.length && isUserLogged && isUpdateStatic) {
-      updateGameStat()
+    if (endGame && resultWordsArr.length && isUserLogged && isUpdateStatic) {
+      updateGameStat();
     }
-  },[endGame, isUpdateStatic, isUserLogged, location, resultWordsArr.length, updateGameStat])
+  }, [endGame, isUpdateStatic, isUserLogged, location, resultWordsArr.length, updateGameStat]);
 
   const getNewUserWord = useCallback(
     async (learnWord: IWord) => {
       if (!learnWord.userWord) {
-        setNewWords(newWords+1)
+        setNewWords(newWords + 1);
         const res = await createUserWord(learnWord);
         const data = await res.json();
         setUserWord!(data);
       } else {
         setUserWord!({ wordId: learnWord._id, ...learnWord.userWord });
       }
-    },[newWords]
+    },
+    [newWords],
   );
 
   const changeUserWord = useCallback(
@@ -105,16 +107,16 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
       if (userWord && incorrect) {
         const bestRow = bestCorrectSeries < bestSeries ? bestSeries : bestCorrectSeries;
         setBestSeries(bestRow);
-        setBestCorrectSeries(0)
+        setBestCorrectSeries(0);
         newUserWord.optional.countCorrectSeries = RESET;
         newUserWord.optional.isWordLearned = false;
       } else {
-        setBestCorrectSeries(bestCorrectSeries+1)
+        setBestCorrectSeries(bestCorrectSeries + 1);
         newUserWord.optional.countCorrectSeries += ONCE_PER_GAME;
         newUserWord.optional.countLearn += ONCE_PER_GAME;
         const numberCorrectAnswer = newUserWord.difficulty === 'easy' ? 3 : newUserWord.difficulty === 'hard' ? 5 : 4;
         newUserWord.optional.isWordLearned = newUserWord.optional.countCorrectSeries >= numberCorrectAnswer;
-        if(newUserWord.optional.isWordLearned) setLearnedWords(learnedWords + 1)
+        if (newUserWord.optional.isWordLearned) setLearnedWords(learnedWords + 1);
       }
       newUserWord.optional.numberUses += ONCE_PER_GAME;
       setUserWord!(newUserWord);
