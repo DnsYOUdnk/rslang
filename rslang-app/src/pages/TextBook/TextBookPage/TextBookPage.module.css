@@ -39,7 +39,7 @@
 }
 
 .difficultWordsWrap .difficultWordsNone {
-  grid-column: 1/span 3;
+  grid-column: 1 / span 3;
 }
 
 .difficultWordswrapUnon {
@@ -70,7 +70,6 @@
 
 .levelA2 {
   background: radial-gradient(#6be099, #47d47f);
-  ;
 }
 
 .levelB1 {

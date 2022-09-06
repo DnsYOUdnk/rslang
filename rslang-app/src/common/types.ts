@@ -29,8 +29,8 @@ export type Word = {
 export type AgregatedWords = [
   {
     paginatedResults: Word[];
-    totalCount: [ { count: number; } ];
-  }
+    totalCount: [{ count: number }];
+  },
 ];
 
 export type WordsDayData = {
@@ -65,7 +65,7 @@ export type UserStatistics = {
   learnedWords: number;
   optional?: {
     games?: {
-      [key: string]: { 
+      [key: string]: {
         [key: string]: GameDayData;
       };
     };

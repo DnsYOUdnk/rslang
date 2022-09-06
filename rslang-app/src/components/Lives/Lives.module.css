@@ -1,0 +1,6 @@
+.games__lives {
+  display: flex;
+  gap: 5px;
+  color: var(--link-color);
+  list-style: none;
+}

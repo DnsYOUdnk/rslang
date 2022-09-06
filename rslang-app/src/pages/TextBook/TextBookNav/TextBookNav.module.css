@@ -7,7 +7,6 @@
   justify-content: space-between;
 }
 bookNav__levelCard {
-
 }
 
 .bookNav__list {
@@ -80,7 +79,7 @@ bookNav__levelCard {
 }
 
 .levelA2 {
-background: radial-gradient(#6be099, #47d47f);;
+  background: radial-gradient(#6be099, #47d47f);
 }
 
 .levelB1 {
@@ -101,7 +100,7 @@ background: radial-gradient(#6be099, #47d47f);;
 
 .btn2 {
   color: #fff;
-  transition: color .5s ease-in-out;
+  transition: color 0.5s ease-in-out;
   position: relative;
   display: block;
   overflow: hidden;
@@ -130,15 +129,15 @@ background: radial-gradient(#6be099, #47d47f);;
 }
 .btn-2:before,
 .btn-2:after {
-  content: "";
+  content: '';
   position: absolute;
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
   z-index: -1;
 }
 .btn2 .book {

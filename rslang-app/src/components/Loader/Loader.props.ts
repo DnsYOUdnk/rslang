@@ -1,4 +1,3 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export interface LoaderProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+export type LoaderProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;

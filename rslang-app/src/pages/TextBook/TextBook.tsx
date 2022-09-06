@@ -50,16 +50,13 @@ export const TextBook = () => {
         </Routes>
       </div>
     </div>
-
   );
 };
 
-
-        // <TextBookPage
-        //   group={{ activeGroup, setActiveGroup }}
-        //   page={{ activePage, setActivePage }}
-        //   authorization={{ userData, setUserData }}
-        //   gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
-        //   key={`${activeGroup}_${activePage}`}
-        // />
-
+// <TextBookPage
+//   group={{ activeGroup, setActiveGroup }}
+//   page={{ activePage, setActivePage }}
+//   authorization={{ userData, setUserData }}
+//   gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
+//   key={`${activeGroup}_${activePage}`}
+// />

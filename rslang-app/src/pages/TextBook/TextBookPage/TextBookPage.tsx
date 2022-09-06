@@ -37,7 +37,7 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
   useEffect(() => {
     if (groupId) group.setActiveGroup(groupId);
     if (pageId) page.setActivePage(+pageId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageUrlParams]);
 
   // Words --------------
@@ -68,7 +68,7 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
     return () => {
       cleanupFunction = true;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Audio --------------
@@ -80,22 +80,19 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
     <div className={cn(cl.textbookPage, cl.levelA2)}>
       <TextBookPageNav group={group} page={page} />
       <div className={cl.difficultWordsWrap}>
-        {(
-          words.map((word: Word) => {
-            return (
-              <WordCard
-                info={word}
-                audio={{ audiotrack, setAudiotrack }}
-                key={word.id || word._id}
-                authorization={authorization}
-                wordState={{ wordChanged, setWordChanged }}
-              />
-            );
-          })
-        )}
+        {words.map((word: Word) => {
+          return (
+            <WordCard
+              info={word}
+              audio={{ audiotrack, setAudiotrack }}
+              key={word.id || word._id}
+              authorization={authorization}
+              wordState={{ wordChanged, setWordChanged }}
+            />
+          );
+        })}
       </div>
       <TextBookPageNav group={group} page={page} />
     </div>
   );
 }
-

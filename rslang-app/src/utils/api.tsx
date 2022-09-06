@@ -97,11 +97,11 @@ type Params = {
   group?: number;
   page?: number;
   filter?: unknown;
-}
+};
 
 export function getWords(params?: Params) {
   return axios
-    .get<Word[]>(`${URL2}`, { params, })
+    .get<Word[]>(`${URL2}`, { params })
     .then((response) => response.data)
     .catch((err) => console.log('Error getWords', err));
 }
@@ -127,7 +127,7 @@ export function createUserWord(wordId: string, userId: string, token: string, re
       if (err.response?.status === 401) removeUserDataFromStorage();
       return new Error(String(err.response?.status));
     });
-};
+}
 
 export function getUserWordById(wordId: string, userId: string, token: string) {
   return axios
@@ -142,7 +142,7 @@ export function getUserWordById(wordId: string, userId: string, token: string) {
       if (err.response?.status === 401) removeUserDataFromStorage();
       return new Error(String(err.response?.status));
     });
-};
+}
 
 export function updateUserWord(wordId: string, userId: string, token: string, requestBody: RequestBody) {
   return axios
@@ -157,11 +157,11 @@ export function updateUserWord(wordId: string, userId: string, token: string, re
       if (err.response?.status === 401) removeUserDataFromStorage();
       return new Error(String(err.response?.status));
     });
-};
+}
 
 export function getUserAggregatedWords(userId: string, token: string, params?: Params) {
   return axios
-    .get<AgregatedWords>(`${URL}/users/${userId}/aggregatedWords`, { 
+    .get<AgregatedWords>(`${URL}/users/${userId}/aggregatedWords`, {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
@@ -173,7 +173,7 @@ export function getUserAggregatedWords(userId: string, token: string, params?: P
       if (err.response?.status === 401) removeUserDataFromStorage();
       return new Error(String(err.response?.status));
     });
-};
+}
 
 export const getWordsRequest = async (group: number, page: number) => {
   const response = await fetch(`${URL}words?group=${group}&page=${page}`);

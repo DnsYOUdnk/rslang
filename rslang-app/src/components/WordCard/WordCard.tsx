@@ -62,21 +62,9 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
       </div>
       <div className={cl.wordCard__content}>
         <button className={cl.wordCard__audio} onClick={playAudio}></button>
-        <audio
-          src={`${URL}/${info.audio}`}
-          ref={audioWord}
-          onEnded={audioWordEnded}
-        ></audio>
-        <audio
-          src={`${URL}/${info.audioMeaning}`}
-          ref={audioMeaning}
-          onEnded={audioMeaningEnded}
-        ></audio>
-        <audio
-          src={`${URL}/${info.audioExample}`}
-          ref={audioExample}
-          onEnded={audioExampleEnded}
-        ></audio>
+        <audio src={`${URL}/${info.audio}`} ref={audioWord} onEnded={audioWordEnded}></audio>
+        <audio src={`${URL}/${info.audioMeaning}`} ref={audioMeaning} onEnded={audioMeaningEnded}></audio>
+        <audio src={`${URL}/${info.audioExample}`} ref={audioExample} onEnded={audioExampleEnded}></audio>
         <div className={cl.wordCard__word}>
           <p className={cn(cl.wordCard__wordEn, cl.wordCardChapter_2)}>
             {info.word}
@@ -89,11 +77,12 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
           <p className={cl.wordCard__word__wordMeaningRu}>{info.textMeaningTranslate}</p>
         </div>
         <div className={cl.wordCard__word__wordExample}>
-          <p className={cl.wordCard__word__wordExampleEn} dangerouslySetInnerHTML={{ __html: `${info.textExample}` }}></p>
+          <p
+            className={cl.wordCard__word__wordExampleEn}
+            dangerouslySetInnerHTML={{ __html: `${info.textExample}` }}
+          ></p>
           <p className={cl.wordCard__word__wordExample}>{info.textExampleTranslate}</p>
         </div>
-
-        
       </div>
     </div>
   );
