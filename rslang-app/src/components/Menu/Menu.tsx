@@ -3,12 +3,7 @@ import cl from './Menu.module.css';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
-export const Menu = ({
-  isOpenMenu,
-  setIsOpenMenu,
-  className,
-  ...props
-}: MenuProps): JSX.Element => {
+export const Menu = ({ isOpenMenu, setIsOpenMenu, className, ...props }: MenuProps): JSX.Element => {
   const menuLinks = [
     { link: '/', text: 'Главная', id: 0 },
     { link: '/textbook', text: 'Учебник', id: 1 },
@@ -35,11 +30,7 @@ export const Menu = ({
             {menuLinks.map((item) => {
               return (
                 <li key={item.id}>
-                  <Link
-                    to={item.link}
-                    className={cl.link}
-                    onClick={() => setIsOpenMenu((prev) => !prev)}
-                  >
+                  <Link to={item.link} className={cl.link} onClick={() => setIsOpenMenu((prev) => !prev)}>
                     {item.text}
                   </Link>
                 </li>

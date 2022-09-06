@@ -75,7 +75,7 @@ export const getStatistic = async (usersId: string, token: string) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
   }).then((res) => {
     if (res.status >= 400 && res.status < 600) {

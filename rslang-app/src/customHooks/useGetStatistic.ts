@@ -1,30 +1,10 @@
 import { getUserStatisticRequest, updateUserStatisticRequest } from './../utils/getUserStatisticRequest';
 import { IUser } from './../types/userLoggedTypes';
-import { IOptional, IOptionStatistic, IStatistic } from './../types/dataStatisticTypes';
+import { IStatistic } from './../types/dataStatisticTypes';
 import { useState } from 'react';
+import { getDefaultObjStatistic } from '../utils/getDefaultObjStatistic';
 
 const STATUS_OK = 200;
-
-export const defaultStatistic = () => {
-  const DEFAULT_STATISTIC = {
-    learnedWords: 0,
-    optional: {},
-  } as { learnedWords: number; optional: IOptional };
-  const arrStat = ['commonData', 'audiocall', 'sprint'];
-  const defaultOptional = {
-    learnedWords: 0,
-    newWords: 0,
-    procCorrectWord: 0,
-    bestSeries: 0,
-  };
-  const date = new Date().toLocaleDateString();
-  arrStat.forEach((gameName) => {
-    const objStat = {} as { [key: string]: IOptionStatistic };
-    objStat[date] = JSON.parse(JSON.stringify(defaultOptional));
-    DEFAULT_STATISTIC.optional[gameName] = objStat;
-  });
-  return DEFAULT_STATISTIC;
-};
 
 export const useGetStatistic = () => {
   const [statistic, setStatistic] = useState({} as IStatistic);
@@ -48,7 +28,7 @@ export const useGetStatistic = () => {
     if (localUserLogged.status === STATUS_OK) {
       const responseStat = await getUserStatisticRequest(userId, token);
       if (responseStat.status === 404) {
-        const bodyStat = defaultStatistic();
+        const bodyStat = getDefaultObjStatistic();
         await updateStatistic(bodyStat);
         return;
       }
