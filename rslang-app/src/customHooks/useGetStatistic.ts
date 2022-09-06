@@ -1,7 +1,7 @@
 import { getUserStatisticRequest, updateUserStatisticRequest } from './../utils/getUserStatisticRequest';
 import { IUser } from './../types/userLoggedTypes';
 import { IOptional, IOptionStatistic, IStatistic } from './../types/dataStatisticTypes';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const STATUS_OK = 200;
 
@@ -20,7 +20,7 @@ export const defaultStatistic = () => {
   const date = new Date().toLocaleDateString();
   arrStat.forEach((gameName) => {
     const objStat = {} as {[key: string]: IOptionStatistic};
-    objStat[date] = defaultOptional;
+    objStat[date] = JSON.parse(JSON.stringify(defaultOptional));
     DEFAULT_STATISTIC.optional[gameName] = objStat;
   })
   return DEFAULT_STATISTIC;
@@ -28,17 +28,14 @@ export const defaultStatistic = () => {
 
 export const useGetStatistic = () => {
   const [statistic, setStatistic] = useState({} as IStatistic);
-  const [isStatic, setIsStatic] = useState(false);
-  const [status, setStatus] = useState(false);
+  const [isGetStatic, setIsGetStatic] = useState(false);
 
   const localUserLogged: IUser = JSON.parse(localStorage.user || '{}');
   const {userId, token} = localUserLogged;
 
   const updateStatistic = async (bodyStatistic: IStatistic) => {
-    setIsStatic(false);
     if (localUserLogged.status === STATUS_OK) {
       const responseStat = await updateUserStatisticRequest(userId, token, bodyStatistic);
-      // setStatus(!!responseStat.status)
       if(responseStat.status === 200 ) {
         const response = await responseStat.json();
         setStatistic(response);
@@ -48,27 +45,19 @@ export const useGetStatistic = () => {
   }
 
   const getStatistic = async () => {
-    setIsStatic(true);
     if (localUserLogged.status === STATUS_OK) {
       const responseStat = await getUserStatisticRequest(userId, token);
-      setStatus(responseStat.status)
       if(responseStat.status === 404 ) {
         const bodyStat = defaultStatistic();
         await updateStatistic(bodyStat);
+        return
       }
       const response = responseStat as IStatistic;
       setStatistic(response)
+      setIsGetStatic(true);
       return response;
     }
   }
 
-  // useEffect(() => {
-  //   console.log(status)
-  //   if (status) {
-  //     setIsStatic(false);
-  //     setStatus(false)
-  //   }
-  // }, [status]);
-
-  return { statistic, setStatistic, isStatic, getStatistic, updateStatistic}
+  return { statistic, setStatistic, isGetStatic, getStatistic, updateStatistic}
 }

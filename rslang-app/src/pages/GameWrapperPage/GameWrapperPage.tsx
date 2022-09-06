@@ -9,7 +9,7 @@ import { GameLoader } from '../../components/GameLoader/GameLoader';
 import { IUserWord, IWord } from '../../types/dataWordTypes';
 import { GameStatistic } from '../../components/GameStatistic/GameStatistic';
 import { createUserWord } from '../../utils/createUserWord';
-import { useGetStatistic } from '../../customHooks/useGetStatistic';
+import { defaultStatistic, useGetStatistic } from '../../customHooks/useGetStatistic';
 import { useLocation } from 'react-router-dom';
 
 const RESET = 0;
@@ -17,11 +17,12 @@ const ONCE_PER_GAME = 1;
 
 export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPageProps): JSX.Element => {
   const { onLoading, listWords, isUserLogged, getWords } = useGetWords();
-  const { statistic, setStatistic, isStatic, getStatistic, updateStatistic } = useGetStatistic();
+  const { statistic, setStatistic, isGetStatic, getStatistic, updateStatistic } = useGetStatistic();
   const [resultWordsArr, setResultWordsArr] = useState<IWord[]>([]);
   const [userWord, setUserWord] = useState({} as IUserWord);
   const [onStart, setOnStart] = useState(false);
   const [endGame, setEndGame] = useState(false);
+  const [isUpdateStatic, setIsUpdateStatic] = useState(false);
   const location = useLocation();
   const [learnedWords, setLearnedWords] = useState(0);
   const [newWords, setNewWords] = useState(0);
@@ -34,49 +35,56 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
     const today = new Date().toLocaleDateString();
     const quantityCorrectWords = resultWordsArr.filter(({ correctAnswer }) => correctAnswer).length;
     const precent = Math.floor((quantityCorrectWords / resultWordsArr.length ) * 100);
+    let objStatistic = statistic;
+    if(!Object.keys(objStatistic).length) {
+      objStatistic = defaultStatistic();
+    }
     let defaultOptional = {
       learnedWords: 0,
       newWords: 0,
       procCorrectWord: 0,
       bestSeries: 0
     };
-    if(statistic.optional[gameName][today]) {
-      defaultOptional = statistic.optional[gameName][today];
+    if(objStatistic.optional[gameName][today]) {
+      defaultOptional = objStatistic.optional[gameName][today];
       defaultOptional.bestSeries = defaultOptional.bestSeries < bestSeries ? bestSeries : defaultOptional.bestSeries;
       defaultOptional.newWords += newWords;
       defaultOptional.learnedWords += learnedWords;
       defaultOptional.procCorrectWord = defaultOptional.procCorrectWord !== 0 ? Math.floor((defaultOptional.procCorrectWord + precent)/2) : precent;
-      statistic.optional[gameName][today] = defaultOptional;
-      // console.log(statistic)
+      objStatistic.optional[gameName][today] = defaultOptional;
+
+      objStatistic.optional.commonData[today].learnedWords += learnedWords;
+      const commonSeries = objStatistic.optional.commonData[today].bestSeries;
+      objStatistic.optional.commonData[today].bestSeries = commonSeries < bestSeries ? bestSeries : commonSeries ;
+      const commonProc = objStatistic.optional.commonData[today].procCorrectWord ;
+      objStatistic.optional.commonData[today].procCorrectWord = commonProc !== 0 ? Math.floor((commonProc + precent)/2) : precent;
+      objStatistic.optional.commonData[today].newWords += newWords;
     } else {
       defaultOptional.bestSeries = bestSeries;
       defaultOptional.newWords = newWords;
       defaultOptional.learnedWords = learnedWords;
       defaultOptional.procCorrectWord = precent;
-      statistic.optional[gameName][today] = defaultOptional;
-      // console.log(statistic)
+      objStatistic.optional[gameName][today] = defaultOptional;
     }
-    setStatistic(statistic)
-    updateStatistic(statistic)
+
+    setStatistic(objStatistic)
+    setIsUpdateStatic(false)
+    updateStatistic(objStatistic)
   },[bestSeries, learnedWords, location.pathname, newWords, resultWordsArr, setStatistic, statistic, updateStatistic])
 
   useEffect(() => {
-    if(!isStatic) {
-      console.log('getStatistic')
+    if(!isGetStatic && onStart) {
       getStatistic();
+      setIsUpdateStatic(true)
     }
-  },[getStatistic, isStatic, location.key])
+    
+  },[getStatistic, isGetStatic, location.key, onLoading, onStart])
 
   useEffect(() => {
-    if(endGame && resultWordsArr.length && isUserLogged && isStatic) {
-      console.log('updateStatistic')
-      console.log('isStatic--', isStatic)
-      console.log('resultWordsArr--', resultWordsArr.length)
-      console.log('isUserLogged--', isUserLogged)
-      console.log('endGame--', endGame)
+    if(endGame && resultWordsArr.length && isUserLogged && isUpdateStatic) {
       updateGameStat()
     }
-  },[endGame, getStatistic, isStatic, isUserLogged, location, onStart, resultWordsArr.length, statistic, updateGameStat, updateStatistic])
+  },[endGame, isUpdateStatic, isUserLogged, location, resultWordsArr.length, updateGameStat])
 
   const getNewUserWord = useCallback(
     async (learnWord: IWord) => {
@@ -123,6 +131,7 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
     setEndGame(false);
     setResultWordsArr([]);
     setOnStart(true);
+    setIsUpdateStatic(true);
   };
 
   const gameContent = (() => {
