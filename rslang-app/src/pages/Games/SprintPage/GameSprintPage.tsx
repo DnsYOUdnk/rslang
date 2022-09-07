@@ -80,13 +80,13 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     setWordLearn,
   ]);
 
-  const countDownHandler = (start: boolean, gameTime: number): void => {
+  const countDownHandler = useCallback((start: boolean, gameTime: number): void => {
     if(start && gameTime === GAME_TIME_SECOND){
       setEndGame!(start)
     } else {
       setStartGame(start);
     }
-  };
+  },[setEndGame]);
   
   const moveNextWord = useCallback(() => {
     playSoundEffects(onMute);
@@ -107,7 +107,9 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
         setScoreGame!(scoreRes)
       } else {
         const scoreRes = scoreGame! + STEP_SCORE_GAME * multiplyScore;
-        if(animRun.current) animRun.current.style.transform = `translateX(${20 * (multiplyScore)}%)`;
+        if(animRun.current && audiocallPage.current) {
+          animRun.current.style.transform = `translateX(${20 * (multiplyScore)}%)`;
+        }
         setScoreGame!(scoreRes)
       }
       const multiplyRes = multiplyScore < MAX_STEP_MULTIPLY ? multiplyScore + 1 : multiplyScore;

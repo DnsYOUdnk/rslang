@@ -133,6 +133,7 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
   const repeatGame = () => {
     setEndGame(false);
     setResultWordsArr([]);
+    setScoreGame(0);
     setOnStart(true);
     setIsUpdateStatic(true);
   };
