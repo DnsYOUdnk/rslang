@@ -38,3 +38,25 @@
 .footer__box a:hover {
   color: var(--link-color);
 }
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 20px;
+  }
+  .footer__wrap {
+    display: flex;
+    font-size: 20px;
+    flex-direction: column;
+    line-height: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer {
+    padding: 10px;
+  }
+  .footer__wrap {
+    font-size: 16px;
+    line-height: 30px;
+  }
+}

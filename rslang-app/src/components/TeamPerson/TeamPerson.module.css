@@ -57,3 +57,18 @@
   font-size: 16px;
   padding-bottom: 10px;
 }
+
+@media (max-width: 992px) {
+  .reverse {
+    margin-left: 0%;
+  }
+  .person {
+    width: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  .person {
+    flex-direction: column;
+  }
+}

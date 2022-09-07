@@ -28,7 +28,7 @@ export const StatisticPage = ({ className, ...props }: StatisticPageProps): JSX.
         const user = JSON.parse(localStorage.user);
         const response = await getStatistic(user.userId, user.token);
         setStatusCode(response.status);
-        if (response.staus === 200) {
+        if (response.status === 200) {
           setStatistic(response);
         }
       };
@@ -37,7 +37,7 @@ export const StatisticPage = ({ className, ...props }: StatisticPageProps): JSX.
   }, [context]);
   return (
     <main className={cn(className, cl.main)}>
-      {context?.isAuthorized && (statusCode === 200 || statusCode === 401) ? (
+      {context?.isAuthorized && (statusCode === 200 || statusCode === 401 || statusCode === 404) ? (
         <>
           <h2 className={cl.title}>
             <span>Статистика за сегодня</span>

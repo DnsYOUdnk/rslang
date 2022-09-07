@@ -43,3 +43,29 @@
   cursor: pointer;
   z-index: 2;
 }
+
+@media (max-width: 768px) {
+  .nav {
+    display: flex;
+    flex-direction: column;
+  }
+  .wrap {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .header {
+    padding: 30px;
+  }
+  .wrap {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hello {
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+}
