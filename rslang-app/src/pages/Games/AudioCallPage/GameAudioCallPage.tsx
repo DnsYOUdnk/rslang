@@ -19,6 +19,7 @@ const DEFAULT_MAX_LIVES = 5;
 const ZERO_LIVES = 0;
 const MIN_QUANTITY_WORDS = 5;
 const MIN_LEARNED_WORDS = 10;
+const TRANSLATE_WORDS_QUANTITY = 4;
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const {
@@ -63,7 +64,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
         getUserWord(randomLearnWord);
       }
       const randomTranslateWords =
-        copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!) : getRandomWords(copyWordsArr);
+        copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!, TRANSLATE_WORDS_QUANTITY) : getRandomWords(copyWordsArr, TRANSLATE_WORDS_QUANTITY);
       randomTranslateWords.push(randomLearnWord);
       shuffleArray(randomTranslateWords);
       setWordLearn!(randomLearnWord);
@@ -168,7 +169,7 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
 
   return (
     <>
-      {!startGame && <CountDown className={cl.countDown} seconds={3} countDownHandler={countDownHandler} />}
+      {!startGame && <CountDown className={cl.countDown} seconds={3} onPauseTimer={!startGame} countDownHandler={countDownHandler} />}
       <div ref={audiocallPage} className={cn(className, cl.audiocall)}>
         <GamePanel
           buttonSound={{isEnable: true, handlerFunc: handlerSoundChange, isOnSound: onMute }}

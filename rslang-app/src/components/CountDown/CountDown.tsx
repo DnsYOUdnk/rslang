@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import cn from 'classnames';
 import { CountDownProps } from './CountDown.props';
 
-export const CountDown = ({ className, seconds = 0, countDownHandler }: CountDownProps) => {
+export const CountDown = ({ className, seconds = 0, onPauseTimer, countDownHandler }: CountDownProps) => {
   const [time, setTime] = useState(seconds);
 
   const changeCount = () => {
@@ -14,8 +14,10 @@ export const CountDown = ({ className, seconds = 0, countDownHandler }: CountDow
   };
 
   useEffect(() => {
-    const timerCountDouwn = setInterval(() => changeCount(), 1000);
-    return () => clearInterval(timerCountDouwn);
+    if(onPauseTimer) {
+      const timerCountDouwn = setInterval(() => changeCount(), 1000);
+      return () => clearInterval(timerCountDouwn);
+    }
   });
 
   return (
