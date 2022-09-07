@@ -33,7 +33,7 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     getUserWord,
     changeUserWord,
   } = props;
-  const [translateWordsArr, setTranslateWordsArr] = useState({} as IWord);
+  const [translateWord, setTranslateWord] = useState({} as IWord);
   const [copyWordsArr, setCopyWordsArr] = useState<IWord[]>([]);
   const [wordLearn, setWordLearn] = useState({} as IWord);
   const [startGame, setStartGame] = useState<boolean>(false);
@@ -54,19 +54,20 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
       if (isUserLogged && getUserWord) {
         getUserWord(randomLearnWord);
       }
-      const randomTranslateWord =
+      const randomTranslateWords =
         copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!, TRANSLATE_WORDS_QUANTITY) : getRandomWords(copyWordsArr, TRANSLATE_WORDS_QUANTITY);
+      randomTranslateWords.push(randomLearnWord);
+      const randomAnswerTranslate = getRandomWord(randomTranslateWords);
       setWordLearn!(randomLearnWord);
-      setTranslateWordsArr(randomTranslateWord[FIRST_ELEM]);
+      setTranslateWord(randomAnswerTranslate);
       setNextWord(false);
-    } else if (resultWordsArr!.length === quantityWords || !countLives) { //ВМЕСТО КОУНТА БУДЕТ ВРЕМЯ ВЫШЛО
+    } else if (resultWordsArr!.length === quantityWords) {
       setEndGame!(true);
     }
   }, [
     wordLearn,
     nextWord,
-    countLives,
-    translateWordsArr,
+    translateWord,
     setEndGame,
     resultWordsArr,
     quantityWords,
@@ -83,28 +84,31 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
       setStartGame(start);
     }
   };
-
-  const checkCorrectAnswer = useCallback(
-    (wordSelected?: IWord) => {
-      if (viewAnswer || !wordLearn) return;
-      wordLearn.correctAnswer = wordSelected ? wordSelected.word === wordLearn.word : false;
-      if (isUserLogged && changeUserWord) changeUserWord(!wordLearn.correctAnswer);
-      setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
-      if (!wordLearn.correctAnswer) {
-        setCountLives(countLives - 1);
-      }
-      playSoundEffects(onMute, wordLearn.correctAnswer);
-      setViewAnswer(true);
-    },
-    [viewAnswer, wordLearn, isUserLogged, changeUserWord, setResultWordsArr, resultWordsArr, onMute, countLives],
-  );
-
+  
   const moveNextWord = useCallback(() => {
     playSoundEffects(onMute);
     setNextWord(true);
     if (isUserLogged) updateUserWord(userWord as IUserWord);
-    setViewAnswer(!viewAnswer);
-  }, [isUserLogged, onMute, userWord, viewAnswer]);
+  }, [isUserLogged, onMute, userWord]);
+
+  const checkCorrectAnswer = useCallback((answer: boolean) => {
+    if (!wordLearn) return;
+    wordLearn.correctAnswer = (translateWord.word === wordLearn.word) === answer;
+    if (isUserLogged && changeUserWord) changeUserWord(!wordLearn.correctAnswer);
+    setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
+    playSoundEffects(onMute, wordLearn.correctAnswer);
+    moveNextWord();
+
+  }, [
+    changeUserWord,
+    isUserLogged,
+    moveNextWord,
+    onMute,
+    resultWordsArr,
+    setResultWordsArr,
+    translateWord.word,
+    wordLearn
+  ])
 
   const handlerSoundChange = useCallback(() => {
     playSoundEffects(onMute);
@@ -118,31 +122,25 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
         case 'KeyM':
           handlerSoundChange();
           break;
-        case 'Digit6':
-          return console.log(translateWordsArr);
-        case 'Enter':
-          return viewAnswer ? moveNextWord() : checkCorrectAnswer();
+        case 'ArrowLeft':
+          checkCorrectAnswer(false);
+          break;
+        case 'ArrowRight':
+          checkCorrectAnswer(true);
+          break;
         case 'KeyR':
-          return playAudioWord(wordLearn!.audio);
-        default:
+          alert('Молодец, Ты нашел дополнительный функционал - пасхалку!')
+          playAudioWord(wordLearn!.audio);
           break;
       }
     },
-    [
-      startGame,
-      handlerSoundChange,
-      checkCorrectAnswer,
-      translateWordsArr,
-      viewAnswer,
-      moveNextWord,
-      wordLearn,
-    ],
+    [startGame, handlerSoundChange, checkCorrectAnswer, wordLearn],
   );
 
   useEffect(() => {
-    document.addEventListener('keypress', onKeypress);
+    document.addEventListener('keyup', onKeypress);
     return () => {
-      document.removeEventListener('keypress', onKeypress);
+      document.removeEventListener('keyup', onKeypress);
     };
   }, [onKeypress, countLives]);
 
@@ -174,30 +172,24 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
               </div>
             </div>
             <ul className={cn(className, cl.translation_words)}>
-              {/* {translateWordsArr.map((wordElem, index) => (
-                <li
-                  className={cn(cl.translation_word)}
-                  key={`btn_word-${index}`}
-                >
-                  {`${!index ? wordElem.word : wordElem.wordTranslate}`}
-                </li>
-              ))} */}
+              <li className={cn(cl.translation_word)}>
+                {wordLearn.word ? `${wordLearn.word}` : ''}
+              </li>
+              <li className={cn(cl.translation_word)}>
+                {translateWord.word ? `${translateWord.wordTranslate}` : ''}
+              </li>
             </ul>
             <div className={cn(cl.sprint__buttons)}>
               <Button
                 className={cn(cl.button__incorrect, cl.sprint_btn)}
-                onClick={() => {
-                  return viewAnswer ? moveNextWord() : checkCorrectAnswer();
-                }}
+                onClick={() => checkCorrectAnswer(false)}
                 title={'Нажми стрелку влево'}
               >
                 {'Неверно'}
               </Button>
               <Button
                 className={cn(cl.button__correct, cl.sprint_btn)}
-                onClick={() => {
-                  return viewAnswer ? moveNextWord() : checkCorrectAnswer();
-                }}
+                onClick={() => checkCorrectAnswer(true)}
                 title={'Нажми стрелку вправо'}
               >
                 {'Верно'}
