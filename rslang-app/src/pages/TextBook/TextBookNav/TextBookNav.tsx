@@ -77,7 +77,7 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
         <li className={cn(cl.bookNav__listItem)}>
           <a className={cl.bookNav__link} href={'#/textbook/difficultWords/1'}>
             <span className={cn(cl.levelCard, cl.btn2, cl.book, cl.bookNav__levelCard)}>
-              <span className={cl.levelCard__name}>Proficiency</span>
+              <span className={cl.levelCard__name}>DifficultWords</span>
               <span className={cn(cl.levelCard__level)}>Сложные слова</span>
             </span>
           </a>
