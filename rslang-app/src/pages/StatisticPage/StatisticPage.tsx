@@ -14,8 +14,7 @@ export const StatisticPage = ({ className, ...props }: StatisticPageProps): JSX.
   const [statusCode, setStatusCode] = useState(0);
 
   const getStatisticByGame = (game: string) => {
-    const statisticByGame =
-      game === 'sprint' ? statistic.optional.sprint : statistic.optional.audiocall;
+    const statisticByGame = game === 'sprint' ? statistic.optional.sprint : statistic.optional.audiocall;
     return [
       `Изучено новых ${statisticByGame[getTodayData()].newWords} слов`,
       `Правильных ответов: ${statisticByGame[getTodayData()].procCorrectWord}%`,

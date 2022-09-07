@@ -7,7 +7,12 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ReplayCircleFilledIcon from '@mui/icons-material/ReplayCircleFilled';
 
-export const GameStatistic = ({ resultWordsArr, scoreGame, repeatGame, className }: GameStatisticProps): JSX.Element => {
+export const GameStatistic = ({
+  resultWordsArr,
+  scoreGame,
+  repeatGame,
+  className,
+}: GameStatisticProps): JSX.Element => {
   const quantityWords = resultWordsArr.length;
   const quantityCorrectWords = resultWordsArr.filter(({ correctAnswer }) => correctAnswer).length;
 

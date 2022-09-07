@@ -150,8 +150,8 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
         userWord: userWord,
         getUserWord: getNewUserWord,
         changeUserWord: changeUserWord,
-        scoreGame: scoreGame, 
-        setScoreGame: setScoreGame
+        scoreGame: scoreGame,
+        setScoreGame: setScoreGame,
       };
       return cloneElement(children as React.ReactElement, gameProps);
     }

@@ -64,7 +64,9 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
         getUserWord(randomLearnWord);
       }
       const randomTranslateWords =
-        copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!, TRANSLATE_WORDS_QUANTITY) : getRandomWords(copyWordsArr, TRANSLATE_WORDS_QUANTITY);
+        copyWordsArr.length < MIN_QUANTITY_WORDS
+          ? getRandomWords(resultWordsArr!, TRANSLATE_WORDS_QUANTITY)
+          : getRandomWords(copyWordsArr, TRANSLATE_WORDS_QUANTITY);
       randomTranslateWords.push(randomLearnWord);
       shuffleArray(randomTranslateWords);
       setWordLearn!(randomLearnWord);
@@ -169,14 +171,21 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
 
   return (
     <>
-      {!startGame && <CountDown className={cl.countDown} seconds={3} onPauseTimer={!startGame} countDownHandler={countDownHandler} />}
+      {!startGame && (
+        <CountDown className={cl.countDown} seconds={3} onPauseTimer={!startGame} countDownHandler={countDownHandler} />
+      )}
       <div ref={audiocallPage} className={cn(className, cl.audiocall)}>
         <GamePanel
-          buttonSound={{isEnable: true, handlerFunc: handlerSoundChange, isOnSound: onMute }}
-          buttonFullScr={{isEnable: true, fullScreenElement: audiocallPage.current }}
-          buttonEnd={{isEnable: true, arrResultWords: resultWordsArr, minLearnedWords: MIN_LEARNED_WORDS, onEndGame: setEndGame }}
-          lives={{isEnable: true, countLives: countLives }}
-          buttonClose={{isEnable: true}}
+          buttonSound={{ isEnable: true, handlerFunc: handlerSoundChange, isOnSound: onMute }}
+          buttonFullScr={{ isEnable: true, fullScreenElement: audiocallPage.current }}
+          buttonEnd={{
+            isEnable: true,
+            arrResultWords: resultWordsArr,
+            minLearnedWords: MIN_LEARNED_WORDS,
+            onEndGame: setEndGame,
+          }}
+          lives={{ isEnable: true, countLives: countLives }}
+          buttonClose={{ isEnable: true }}
         />
         <div className={cn(cl.container)}>
           <div

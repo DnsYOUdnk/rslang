@@ -15,7 +15,7 @@ export const CountDown = ({ className, seconds = 0, onPauseTimer, countDownHandl
   }, [countDownHandler, seconds, time]);
 
   useEffect(() => {
-    if(onPauseTimer) {
+    if (onPauseTimer) {
       const timerCountDouwn = setInterval(() => changeCount(), 1000);
       return () => clearInterval(timerCountDouwn);
     }

@@ -1,5 +1,3 @@
-
-
 export const playSoundEffects = (onMute: boolean, correctAnswer?: boolean) => {
   const soundPlayer = new Audio();
   if (!onMute) {

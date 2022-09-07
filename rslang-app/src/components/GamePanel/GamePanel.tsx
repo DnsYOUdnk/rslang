@@ -8,19 +8,19 @@ import { Lives } from '../Lives/Lives';
 import { ButtonClose } from '../ButtonClose/ButtonClose';
 
 export const GamePanel = ({ className, ...props }: GamePanelProps): JSX.Element => {
-  const {buttonSound, buttonFullScr, buttonEnd, buttonClose, lives} = props;
+  const { buttonSound, buttonFullScr, buttonEnd, buttonClose, lives } = props;
   const { handlerFunc, isOnSound } = buttonSound;
   const { fullScreenElement } = buttonFullScr;
   const { arrResultWords, minLearnedWords, onEndGame } = buttonEnd;
 
   return (
     <div className={cl.games_panel}>
-      {(buttonSound.isEnable || buttonFullScr.isEnable) && 
-      <div className={cn(cl.games__setting, cl.games__setting_left)}>
-        { buttonSound.isEnable && <ButtonSound handlerSoundChange={handlerFunc} onSound={isOnSound} /> }
-        { buttonFullScr.isEnable && <ButtonFullscreen audiocallPage={fullScreenElement} /> }
-      </div>
-      }
+      {(buttonSound.isEnable || buttonFullScr.isEnable) && (
+        <div className={cn(cl.games__setting, cl.games__setting_left)}>
+          {buttonSound.isEnable && <ButtonSound handlerSoundChange={handlerFunc} onSound={isOnSound} />}
+          {buttonFullScr.isEnable && <ButtonFullscreen audiocallPage={fullScreenElement} />}
+        </div>
+      )}
       {buttonEnd.isEnable && arrResultWords && arrResultWords.length > minLearnedWords && (
         <div className={cn(cl.games__setting__btn_end)}>
           <Button onClick={() => onEndGame!(true)} title={'Завершить и получить результат игры'}>
@@ -28,12 +28,12 @@ export const GamePanel = ({ className, ...props }: GamePanelProps): JSX.Element 
           </Button>
         </div>
       )}
-      { (buttonClose.isEnable || lives.isEnable) &&
+      {(buttonClose.isEnable || lives.isEnable) && (
         <div className={cn(cl.games__setting, cl.games__setting_right)}>
           {lives.isEnable && lives.countLives && <Lives countLives={lives.countLives} />}
-          { buttonClose.isEnable && <ButtonClose /> }
+          {buttonClose.isEnable && <ButtonClose />}
         </div>
-      }
+      )}
     </div>
-  )
+  );
 };

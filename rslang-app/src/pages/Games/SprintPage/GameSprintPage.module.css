@@ -94,7 +94,7 @@
   flex-grow: 1;
   max-height: 90px;
   border-bottom: 3px dashed transparent;
-  border-image: linear-gradient(to left top,#aeadf7 10%, transparent 50%);
+  border-image: linear-gradient(to left top, #aeadf7 10%, transparent 50%);
   border-image-slice: 1;
   position: relative;
 }

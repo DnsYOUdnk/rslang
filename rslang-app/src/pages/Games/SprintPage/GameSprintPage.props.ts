@@ -11,6 +11,6 @@ export interface GameSprintPageProps extends DetailedHTMLProps<HTMLAttributes<HT
   userWord?: IUserWord;
   getUserWord?: (learnWord: IWord) => Promise<void>;
   changeUserWord?: (correct: boolean) => void;
-  scoreGame?: number, 
+  scoreGame?: number;
   setScoreGame?: React.Dispatch<React.SetStateAction<number>>;
 }

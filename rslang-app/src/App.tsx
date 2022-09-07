@@ -12,7 +12,6 @@ import { TeamPage } from './pages/TeamPage/TeamPage';
 import { TextBook } from './pages/TextBook/TextBook';
 
 function App() {
-
   return (
     <>
       <BrowserRouter>
@@ -45,6 +44,6 @@ function App() {
       </BrowserRouter>
     </>
   );
-};
+}
 
 export default App;

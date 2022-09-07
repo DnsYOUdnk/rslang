@@ -33,8 +33,8 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     userWord,
     getUserWord,
     changeUserWord,
-    scoreGame, 
-    setScoreGame
+    scoreGame,
+    setScoreGame,
   } = props;
   const [translateWord, setTranslateWord] = useState({} as IWord);
   const [copyWordsArr, setCopyWordsArr] = useState<IWord[]>([]);
@@ -58,7 +58,9 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
         getUserWord(randomLearnWord);
       }
       const randomTranslateWords =
-        copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!, TRANSLATE_WORDS_QUANTITY) : getRandomWords(copyWordsArr, TRANSLATE_WORDS_QUANTITY);
+        copyWordsArr.length < MIN_QUANTITY_WORDS
+          ? getRandomWords(resultWordsArr!, TRANSLATE_WORDS_QUANTITY)
+          : getRandomWords(copyWordsArr, TRANSLATE_WORDS_QUANTITY);
       randomTranslateWords.push(randomLearnWord);
       const randomAnswerTranslate = getRandomWord(randomTranslateWords);
       setWordLearn!(randomLearnWord);
@@ -80,57 +82,64 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     setWordLearn,
   ]);
 
-  const countDownHandler = useCallback((start: boolean, gameTime: number): void => {
-    if(start && gameTime === GAME_TIME_SECOND){
-      setEndGame!(start)
-    } else {
-      setStartGame(start);
-    }
-  },[setEndGame]);
-  
+  const countDownHandler = useCallback(
+    (start: boolean, gameTime: number): void => {
+      if (start && gameTime === GAME_TIME_SECOND) {
+        setEndGame!(start);
+      } else {
+        setStartGame(start);
+      }
+    },
+    [setEndGame],
+  );
+
   const moveNextWord = useCallback(() => {
     playSoundEffects(onMute);
     setNextWord(true);
     if (isUserLogged) updateUserWord(userWord as IUserWord);
   }, [isUserLogged, onMute, userWord]);
 
-  const checkCorrectAnswer = useCallback((answer: boolean) => {
-    if (!wordLearn) return;
-    wordLearn.correctAnswer = (translateWord.word === wordLearn.word) === answer;
-    if (isUserLogged && changeUserWord) changeUserWord(!wordLearn.correctAnswer);
-    setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
-    playSoundEffects(onMute, wordLearn.correctAnswer);
-    if(wordLearn.correctAnswer) {
-      if (multiplyScore === MIN_STEP_MULTIPLY) {
-        const scoreRes = scoreGame! + STEP_SCORE_GAME;
-        if(animRun.current) animRun.current.style.transform = `translateX(${20}%)`;
-        setScoreGame!(scoreRes)
-      } else {
-        const scoreRes = scoreGame! + STEP_SCORE_GAME * multiplyScore;
-        if(animRun.current && audiocallPage.current) {
-          animRun.current.style.transform = `translateX(${20 * (multiplyScore)}%)`;
+  const checkCorrectAnswer = useCallback(
+    (answer: boolean) => {
+      if (!wordLearn) return;
+      wordLearn.correctAnswer = (translateWord.word === wordLearn.word) === answer;
+      if (isUserLogged && changeUserWord) changeUserWord(!wordLearn.correctAnswer);
+      setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
+      playSoundEffects(onMute, wordLearn.correctAnswer);
+      if (wordLearn.correctAnswer) {
+        if (multiplyScore === MIN_STEP_MULTIPLY) {
+          const scoreRes = scoreGame! + STEP_SCORE_GAME;
+          if (animRun.current) animRun.current.style.transform = `translateX(${20}%)`;
+          setScoreGame!(scoreRes);
+        } else {
+          const scoreRes = scoreGame! + STEP_SCORE_GAME * multiplyScore;
+          if (animRun.current && audiocallPage.current) {
+            animRun.current.style.transform = `translateX(${20 * multiplyScore}%)`;
+          }
+          setScoreGame!(scoreRes);
         }
-        setScoreGame!(scoreRes)
+        const multiplyRes = multiplyScore < MAX_STEP_MULTIPLY ? multiplyScore + 1 : multiplyScore;
+        setmultiplyScore(multiplyRes);
+      } else {
+        setmultiplyScore(MIN_STEP_MULTIPLY);
+        if (animRun.current) animRun.current.style.transform = `translateX(${0}%)`;
       }
-      const multiplyRes = multiplyScore < MAX_STEP_MULTIPLY ? multiplyScore + 1 : multiplyScore;
-      setmultiplyScore(multiplyRes)
-    } else {
-      setmultiplyScore(MIN_STEP_MULTIPLY)
-      if(animRun.current) animRun.current.style.transform = `translateX(${0}%)`
-    }
-    moveNextWord();
-  }, [
-    changeUserWord,
-    isUserLogged,
-    moveNextWord,
-    multiplyScore,
-    onMute,
-    resultWordsArr,
-    scoreGame,
-    setResultWordsArr,
-    setScoreGame,
-    translateWord.word,
-    wordLearn])
+      moveNextWord();
+    },
+    [
+      changeUserWord,
+      isUserLogged,
+      moveNextWord,
+      multiplyScore,
+      onMute,
+      resultWordsArr,
+      scoreGame,
+      setResultWordsArr,
+      setScoreGame,
+      translateWord.word,
+      wordLearn,
+    ],
+  );
 
   const handlerSoundChange = useCallback(() => {
     playSoundEffects(onMute);
@@ -151,7 +160,7 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
           checkCorrectAnswer(true);
           break;
         case 'KeyR':
-          alert('Молодец, Ты нашел дополнительный функционал - пасхалку!')
+          alert('Молодец, Ты нашел дополнительный функционал - пасхалку!');
           playAudioWord(wordLearn!.audio);
           break;
       }
@@ -168,41 +177,47 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
 
   return (
     <>
-      {!startGame && <CountDown className={cl.countDown} seconds={3} onPauseTimer={!startGame} countDownHandler={countDownHandler} />}
+      {!startGame && (
+        <CountDown className={cl.countDown} seconds={3} onPauseTimer={!startGame} countDownHandler={countDownHandler} />
+      )}
       <div ref={audiocallPage} className={cn(className, cl.sprint)}>
         <GamePanel
-          buttonSound={{isEnable: true, handlerFunc: handlerSoundChange, isOnSound: onMute }}
-          buttonFullScr={{isEnable: true, fullScreenElement: audiocallPage.current }}
-          buttonEnd={{isEnable: false, arrResultWords: resultWordsArr, minLearnedWords: MIN_LEARNED_WORDS, onEndGame: setEndGame }}
+          buttonSound={{ isEnable: true, handlerFunc: handlerSoundChange, isOnSound: onMute }}
+          buttonFullScr={{ isEnable: true, fullScreenElement: audiocallPage.current }}
+          buttonEnd={{
+            isEnable: false,
+            arrResultWords: resultWordsArr,
+            minLearnedWords: MIN_LEARNED_WORDS,
+            onEndGame: setEndGame,
+          }}
           lives={{ isEnable: false }}
           buttonClose={{ isEnable: true }}
         />
         <div className={cn(cl.container)}>
           <div className={cn(cl.sprint_panel__wrapper)}>
             <div className={cn(cl.sprint_panel)}>
-              <div className={cn(cl.sprint_score)}>
-                {`${scoreGame}`}
-              </div>
+              <div className={cn(cl.sprint_score)}>{`${scoreGame}`}</div>
               <div className={cn(cl.sprint_multiplier, cl.ac)}>
-                {startGame && 
-                <div ref = {animRun} className={cn(cl.animation_wrapper)}>
-                  <Lottie
-                    className={cn(className, cl.sprint_animation)}
-                    animationData={runMan}
-                  />
-                </div>}
+                {startGame && (
+                  <div ref={animRun} className={cn(cl.animation_wrapper)}>
+                    <Lottie className={cn(className, cl.sprint_animation)} animationData={runMan} />
+                  </div>
+                )}
               </div>
               <div className={cn(cl.sprint_timer)}>
-                {<CountDown className={cl.sprint_countdown} seconds={GAME_TIME_SECOND} onPauseTimer={startGame} countDownHandler={countDownHandler}/>}
+                {
+                  <CountDown
+                    className={cl.sprint_countdown}
+                    seconds={GAME_TIME_SECOND}
+                    onPauseTimer={startGame}
+                    countDownHandler={countDownHandler}
+                  />
+                }
               </div>
             </div>
             <ul className={cn(className, cl.translation_words)}>
-              <li className={cn(cl.translation_word)}>
-                {wordLearn.word ? `${wordLearn.word}` : ''}
-              </li>
-              <li className={cn(cl.translation_word)}>
-                {translateWord.word ? `${translateWord.wordTranslate}` : ''}
-              </li>
+              <li className={cn(cl.translation_word)}>{wordLearn.word ? `${wordLearn.word}` : ''}</li>
+              <li className={cn(cl.translation_word)}>{translateWord.word ? `${translateWord.wordTranslate}` : ''}</li>
             </ul>
             <div className={cn(cl.sprint__buttons)}>
               <Button
