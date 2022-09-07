@@ -4,10 +4,6 @@ import Lottie from 'lottie-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { GameAudioCallProps } from './GameAudioCallPage.props';
 import { CountDown } from '../../../components/CountDown/CountDown';
-import { ButtonSound } from '../../../components/ButtonSound/ButtonSound';
-import { ButtonFullscreen } from '../../../components/ButtonFullScreen/ButtonFullscreen';
-import { Lives } from '../../../components/Lives/Lives';
-import { ButtonClose } from '../../../components/ButtonClose/ButtonClose';
 import { Button } from '../../../components/Button/Button';
 import { shuffleArray } from '../../../utils/shuffleArray';
 import { IUserWord, IWord } from '../../../types/dataWordTypes';
@@ -16,12 +12,14 @@ import voiceWordOn from './../../../assets/json-animation/voiceWordOn.json';
 import { playSoundEffects } from '../../../utils/playSoundEffects';
 import { audioPlayer, playAudioWord } from '../../../utils/audioPlayer';
 import { updateUserWord } from '../../../utils/createUserWord';
+import { GamePanel } from '../../../components/GamePanel/GamePanel';
 
 const BASE_URL = 'https://react-learn-language.herokuapp.com/';
 const DEFAULT_MAX_LIVES = 5;
 const ZERO_LIVES = 0;
 const MIN_QUANTITY_WORDS = 5;
 const MIN_LEARNED_WORDS = 10;
+const TRANSLATE_WORDS_QUANTITY = 4;
 
 export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
   const {
@@ -66,7 +64,9 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
         getUserWord(randomLearnWord);
       }
       const randomTranslateWords =
-        copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!) : getRandomWords(copyWordsArr);
+        copyWordsArr.length < MIN_QUANTITY_WORDS
+          ? getRandomWords(resultWordsArr!, TRANSLATE_WORDS_QUANTITY)
+          : getRandomWords(copyWordsArr, TRANSLATE_WORDS_QUANTITY);
       randomTranslateWords.push(randomLearnWord);
       shuffleArray(randomTranslateWords);
       setWordLearn!(randomLearnWord);
@@ -171,25 +171,22 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
 
   return (
     <>
-      {!startGame && <CountDown className={cl.countDown} seconds={3} countDownHandler={countDownHandler} />}
+      {!startGame && (
+        <CountDown className={cl.countDown} seconds={3} onPauseTimer={!startGame} countDownHandler={countDownHandler} />
+      )}
       <div ref={audiocallPage} className={cn(className, cl.audiocall)}>
-        <div className={cl.games_panel}>
-          <div className={cn(cl.games__setting, cl.games__setting_left)}>
-            <ButtonSound handlerSoundChange={handlerSoundChange} onSound={onMute} />
-            <ButtonFullscreen audiocallPage={audiocallPage.current} />
-          </div>
-          {resultWordsArr && resultWordsArr.length > MIN_LEARNED_WORDS && (
-            <div className={cn(cl.games__setting__btn_end)}>
-              <Button onClick={() => setEndGame!(true)} title={'Завершить и получить результат игры'}>
-                Завершить игру
-              </Button>
-            </div>
-          )}
-          <div className={cn(cl.games__setting, cl.games__setting_right)}>
-            <Lives countLives={countLives} />
-            <ButtonClose />
-          </div>
-        </div>
+        <GamePanel
+          buttonSound={{ isEnable: true, handlerFunc: handlerSoundChange, isOnSound: onMute }}
+          buttonFullScr={{ isEnable: true, fullScreenElement: audiocallPage.current }}
+          buttonEnd={{
+            isEnable: true,
+            arrResultWords: resultWordsArr,
+            minLearnedWords: MIN_LEARNED_WORDS,
+            onEndGame: setEndGame,
+          }}
+          lives={{ isEnable: true, countLives: countLives }}
+          buttonClose={{ isEnable: true }}
+        />
         <div className={cn(cl.container)}>
           <div
             className={onBlockPlayWord ? cn(cl.learn_word, cl.enable_play) : cn(cl.learn_word)}

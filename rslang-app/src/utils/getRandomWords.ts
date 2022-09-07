@@ -1,7 +1,6 @@
 import { IWord } from './../types/dataWordTypes';
 
 const LEARN_WORD_QUANTITY = 1;
-const TRANSLATE_WORDS_QUANTITY = 4;
 const FIRST_ELEMENT = 0;
 
 const getRandomIndex = (words: IWord[]) => {
@@ -13,14 +12,14 @@ export const getRandomWord = (words: IWord[]): IWord => {
   return words.splice(randomIndex, LEARN_WORD_QUANTITY)[FIRST_ELEMENT];
 };
 
-export const getRandomWords = (words: IWord[]): IWord[] => {
-  if (words.length <= TRANSLATE_WORDS_QUANTITY) {
+export const getRandomWords = (words: IWord[], qantityGetWords: number): IWord[] => {
+  if (words.length <= qantityGetWords) {
     return JSON.parse(JSON.stringify(words));
   }
 
   const randomIndex = getRandomIndex(words);
-  if (randomIndex > words.length - TRANSLATE_WORDS_QUANTITY) {
-    return words.slice(words.length - TRANSLATE_WORDS_QUANTITY, words.length);
+  if (randomIndex > words.length - qantityGetWords) {
+    return words.slice(words.length - qantityGetWords, words.length);
   }
-  return words.slice(randomIndex, randomIndex + TRANSLATE_WORDS_QUANTITY);
+  return words.slice(randomIndex, randomIndex + qantityGetWords);
 };

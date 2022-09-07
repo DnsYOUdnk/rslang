@@ -3,6 +3,7 @@ import { Layout } from './components/Layout/Layout';
 import { DATA_GAMES } from './dataGames/dataGames';
 import { AboutPage } from './pages/AboutPage/AboutPage';
 import { GameAudioCallPage } from './pages/Games/AudioCallPage/GameAudioCallPage';
+import { GameSprintPage } from './pages/Games/SprintPage/GameSprintPage';
 import { GamesPage } from './pages/GamesPage/GamesPage';
 import { GameWrapperPage } from './pages/GameWrapperPage/GameWrapperPage';
 import { MainPage } from './pages/MainPage/MainPage';
@@ -25,6 +26,14 @@ function App() {
               element={
                 <GameWrapperPage dataGame={DATA_GAMES.audiocall}>
                   <GameAudioCallPage />
+                </GameWrapperPage>
+              }
+            />
+            <Route
+              path='/games/sprint'
+              element={
+                <GameWrapperPage dataGame={DATA_GAMES.sprint}>
+                  <GameSprintPage />
                 </GameWrapperPage>
               }
             />

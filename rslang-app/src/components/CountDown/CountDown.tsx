@@ -1,22 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import cn from 'classnames';
 import { CountDownProps } from './CountDown.props';
 
-export const CountDown = ({ className, seconds = 0, countDownHandler }: CountDownProps) => {
+export const CountDown = ({ className, seconds = 0, onPauseTimer, countDownHandler }: CountDownProps) => {
   const [time, setTime] = useState(seconds);
 
-  const changeCount = () => {
+  const changeCount = useCallback(() => {
+    const gameTime = seconds;
     if (time - 1 <= 0) {
-      countDownHandler(true);
+      countDownHandler(true, gameTime);
     } else {
       setTime(time - 1);
     }
-  };
+  }, [countDownHandler, seconds, time]);
 
   useEffect(() => {
-    const timerCountDouwn = setInterval(() => changeCount(), 1000);
-    return () => clearInterval(timerCountDouwn);
-  });
+    if (onPauseTimer) {
+      const timerCountDouwn = setInterval(() => changeCount(), 1000);
+      return () => clearInterval(timerCountDouwn);
+    }
+  }, [changeCount, onPauseTimer]);
 
   return (
     <div className={cn(className)}>
