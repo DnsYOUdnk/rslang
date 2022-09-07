@@ -9,6 +9,18 @@
   --footer-bg-color: #e7eff4;
   --green-color: rgb(29, 190, 29);
   --red-color: rgb(196, 23, 23);
+  --levelA1_start: #7cfff2;
+  --levelA1_end: #33ffeb;
+  --levelA2_start: #6be099;
+  --levelA2_end: #47d47f;
+  --levelB1_start:#ffce66;
+  --levelB1_end: #ffc003;
+  --levelB2_start:#ff7759;
+  --levelB2_end:#ff5733;
+  --levelC1_start:#e33063;
+  --levelC1_end:#c70039;
+  --levelC2_start:#91ffa7;
+  --levelC2_end: #43fa23;
 }
 
 * {

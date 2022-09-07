@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios';
 
 const base = 'https://react-learn-language.herokuapp.com/';
 const URL = 'https://react-learn-language.herokuapp.com';
-const URL2 = 'https://react-learn-language.herokuapp.com/words';
+// const URL2 = 'https://react-learn-language.herokuapp.com/words';
 
 const addInLocalStorage = (name: string, user: string) => {
   localStorage.setItem(name, user);
@@ -101,7 +101,7 @@ type Params = {
 
 export function getWords(params?: Params) {
   return axios
-    .get<Word[]>(`${URL2}`, { params })
+    .get<Word[]>(`${URL}/words`, { params })
     .then((response) => response.data)
     .catch((err) => console.log('Error getWords', err));
 }

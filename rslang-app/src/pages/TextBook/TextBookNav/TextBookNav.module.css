@@ -75,27 +75,27 @@ bookNav__levelCard {
 }
 
 .levelA1 {
-  background: radial-gradient(#7cfff2, #33ffeb);
+  background: radial-gradient(var(--levelA1_start), var(--levelA1_end));
 }
 
 .levelA2 {
-  background: radial-gradient(#6be099, #47d47f);
+  background: radial-gradient(var(--levelA2_start), var(--levelA2_end));
 }
 
 .levelB1 {
-  background: radial-gradient(#ffce66, #ffc003);
+  background: radial-gradient(var(--levelB1_start), var(--levelB1_end));
 }
 
 .levelB2 {
-  background: radial-gradient(#ff7759, #ff5733);
+  background: radial-gradient(var(--levelB2_start), var(--levelB2_end));
 }
 
 .levelC1 {
-  background: radial-gradient(#e33063, #c70039);
+  background: radial-gradient(var(--levelC1_start), var(--levelC1_end));
 }
 
 .levelC2 {
-  background: radial-gradient(#892e6d, #581845);
+  background: radial-gradient(var(--levelC2_start), var(--levelC2_end));
 }
 
 .btn2 {

@@ -29,7 +29,7 @@ function App() {
               }
             />
             <Route path='/statistic' element={<StatisticPage />} />
-            <Route path='/textbook' element={<TextBook />} />
+            <Route path='/textbook/*' element={<TextBook />} />
           </Route>
         </Routes>
       </BrowserRouter>

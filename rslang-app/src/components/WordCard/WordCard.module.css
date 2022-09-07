@@ -100,8 +100,12 @@
   right: 0;
   background: url('/public/icons/volume.svg') no-repeat;
   background-size: 100%;
+  cursor: pointer;
+  transition: all 0.3s;
 }
-
+.wordCard__audio:hover {
+  transform: scale(1.3);
+};
 .wordCard__word {
   padding: 10px;
   margin-bottom: 0px;
@@ -118,7 +122,7 @@
 .wordCard__word__wordExampleEn {
 }
 
-@media (max-width: 7680px) {
+@media (max-width: 768px) {
   .wordCard__word {
     margin-bottom: 0px;
   }
@@ -132,17 +136,17 @@
   margin-bottom: 3px;
 }
 
+.wordCard__additionallyWrap {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: flex-end;
+}
+
 .wordCard__additionally {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-}
-
-.wordCard__additionallyWrap {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: flex-end;
 }
 
 .wordCard__rightAnswers {
@@ -185,3 +189,5 @@
 .wordCardMark__checkbox {
   display: none;
 }
+.wordCardMark__mark {}
+.wordCardMark__name {}
