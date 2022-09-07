@@ -53,14 +53,21 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
       defaultOptional.procCorrectWord =
         defaultOptional.procCorrectWord !== 0 ? Math.floor((defaultOptional.procCorrectWord + precent) / 2) : precent;
       objStatistic.optional[gameName][today] = defaultOptional;
-
-      objStatistic.optional.commonData[today].learnedWords += learnedWords;
-      const commonSeries = objStatistic.optional.commonData[today].bestSeries;
-      objStatistic.optional.commonData[today].bestSeries = commonSeries < bestSeries ? bestSeries : commonSeries;
-      const commonProc = objStatistic.optional.commonData[today].procCorrectWord;
-      objStatistic.optional.commonData[today].procCorrectWord =
-        commonProc !== 0 ? Math.floor((commonProc + precent) / 2) : precent;
-      objStatistic.optional.commonData[today].newWords += newWords;
+      if (objStatistic.optional.commonData[today]) {
+        objStatistic.optional.commonData[today].learnedWords += learnedWords;
+        const commonSeries = objStatistic.optional.commonData[today].bestSeries;
+        objStatistic.optional.commonData[today].bestSeries = commonSeries < bestSeries ? bestSeries : commonSeries;
+        const commonProc = objStatistic.optional.commonData[today].procCorrectWord;
+        objStatistic.optional.commonData[today].procCorrectWord =
+          commonProc !== 0 ? Math.floor((commonProc + precent) / 2) : precent;
+        objStatistic.optional.commonData[today].newWords += newWords;
+      } else {
+        defaultOptional.bestSeries = bestSeries;
+        defaultOptional.newWords = newWords;
+        defaultOptional.learnedWords = learnedWords;
+        defaultOptional.procCorrectWord = precent;
+        objStatistic.optional.commonData[today] = defaultOptional;
+      }
     } else {
       defaultOptional.bestSeries = bestSeries;
       defaultOptional.newWords = newWords;
