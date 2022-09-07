@@ -69,7 +69,7 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
       defaultOptional.procCorrectWord = precent;
       objStatistic.optional[gameName][today] = defaultOptional;
     }
-
+    objStatistic.learnedWords = objStatistic.optional.commonData[today].learnedWords;
     setStatistic(objStatistic);
     setIsUpdateStatic(false);
     updateStatistic(objStatistic);
