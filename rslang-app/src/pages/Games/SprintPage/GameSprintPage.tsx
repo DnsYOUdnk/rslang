@@ -1,8 +1,8 @@
-import cl from './GameAudioCallPage.module.css';
+import cl from './GameSprintPage.module.css';
 import cn from 'classnames';
 import Lottie from 'lottie-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { GameAudioCallProps } from './GameAudioCallPage.props';
+import { GameSprintPageProps } from './GameSprintPage.props';
 import { CountDown } from '../../../components/CountDown/CountDown';
 import { Button } from '../../../components/Button/Button';
 import { shuffleArray } from '../../../utils/shuffleArray';
@@ -20,7 +20,7 @@ const ZERO_LIVES = 0;
 const MIN_QUANTITY_WORDS = 5;
 const MIN_LEARNED_WORDS = 10;
 
-export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) => {
+export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => {
   const {
     words,
     quantityWords,
@@ -173,9 +173,9 @@ export const GameAudioCallPage = ({ className, ...props }: GameAudioCallProps) =
         <GamePanel
           buttonSound={{isEnable: true, handlerFunc: handlerSoundChange, isOnSound: onMute }}
           buttonFullScr={{isEnable: true, fullScreenElement: audiocallPage.current }}
-          buttonEnd={{isEnable: true, arrResultWords: resultWordsArr, minLearnedWords: MIN_LEARNED_WORDS, onEndGame: setEndGame }}
-          lives={{isEnable: true, countLives: countLives }}
-          buttonClose={{isEnable: true}}
+          buttonEnd={{isEnable: false, arrResultWords: resultWordsArr, minLearnedWords: MIN_LEARNED_WORDS, onEndGame: setEndGame }}
+          lives={{ isEnable: false }}
+          buttonClose={{ isEnable: true }}
         />
         <div className={cn(cl.container)}>
           <div
