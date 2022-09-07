@@ -14,11 +14,10 @@ import { updateUserWord } from '../../../utils/createUserWord';
 import { GamePanel } from '../../../components/GamePanel/GamePanel';
 import runMan from './../../../assets/json-animation/run_man.json';
 
-const BASE_URL = 'https://react-learn-language.herokuapp.com/';
 const GAME_TIME_SECOND = 60;
 const DEFAULT_MAX_LIVES = 5;
-const ZERO_LIVES = 0;
-const MIN_QUANTITY_WORDS = 5;
+const FIRST_ELEM = 0;
+const MIN_QUANTITY_WORDS = 2;
 const MIN_LEARNED_WORDS = 10;
 const TRANSLATE_WORDS_QUANTITY = 1;
 
@@ -34,12 +33,11 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     getUserWord,
     changeUserWord,
   } = props;
-  const [translateWordsArr, setTranslateWordsArr] = useState<IWord[]>([]);
+  const [translateWordsArr, setTranslateWordsArr] = useState({} as IWord);
   const [copyWordsArr, setCopyWordsArr] = useState<IWord[]>([]);
   const [wordLearn, setWordLearn] = useState({} as IWord);
   const [startGame, setStartGame] = useState<boolean>(false);
   const [onMute, setOnMute] = useState<boolean>(false);
-  const [onBlockPlayWord, setOnBlockPlayWord] = useState<boolean>(false);
   const [viewAnswer, setViewAnswer] = useState<boolean>(false);
   const [nextWord, setNextWord] = useState<boolean>(false);
   const [countLives, setCountLives] = useState<number>(DEFAULT_MAX_LIVES);
@@ -50,51 +48,40 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     setCopyWordsArr(JSON.parse(JSON.stringify(words)));
   }, [words]);
 
-  audioPlayer.addEventListener('play', () => {
-    setOnBlockPlayWord(true);
-  });
-
-  audioPlayer.addEventListener('ended', () => {
-    setOnBlockPlayWord(false);
-  });
-
   useEffect(() => {
-    if ((!wordLearn!.word || nextWord) && copyWordsArr && copyWordsArr.length && countLives > ZERO_LIVES) {
+    if ((!wordLearn!.word || nextWord) && copyWordsArr && copyWordsArr.length) {
       const randomLearnWord = getRandomWord(copyWordsArr);
       if (isUserLogged && getUserWord) {
         getUserWord(randomLearnWord);
       }
-      const randomTranslateWords =
+      const randomTranslateWord =
         copyWordsArr.length < MIN_QUANTITY_WORDS ? getRandomWords(resultWordsArr!, TRANSLATE_WORDS_QUANTITY) : getRandomWords(copyWordsArr, TRANSLATE_WORDS_QUANTITY);
-      randomTranslateWords.push(randomLearnWord);
-      shuffleArray(randomTranslateWords);
       setWordLearn!(randomLearnWord);
-      setTranslateWordsArr(randomTranslateWords);
-      if (startGame) playAudioWord(randomLearnWord.audio);
+      setTranslateWordsArr(randomTranslateWord[FIRST_ELEM]);
       setNextWord(false);
-    } else if (resultWordsArr!.length === quantityWords || !countLives) {
+    } else if (resultWordsArr!.length === quantityWords || !countLives) { //ВМЕСТО КОУНТА БУДЕТ ВРЕМЯ ВЫШЛО
       setEndGame!(true);
     }
   }, [
     wordLearn,
     nextWord,
-    startGame,
     countLives,
     translateWordsArr,
     setEndGame,
     resultWordsArr,
     quantityWords,
-    onBlockPlayWord,
     copyWordsArr,
     isUserLogged,
     getUserWord,
     setWordLearn,
   ]);
 
-  const countDownHandler = (start: boolean): void => {
-    setStartGame(start);
-    // setOnBlockPlayWord(start);
-    // playAudioWord(wordLearn!.audio);
+  const countDownHandler = (start: boolean, gameTime: number): void => {
+    if(start && gameTime === GAME_TIME_SECOND){
+      setEndGame!(start)
+    } else {
+      setStartGame(start);
+    }
   };
 
   const checkCorrectAnswer = useCallback(
@@ -126,21 +113,13 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
 
   const onKeypress = useCallback(
     ({ code }: { code: string }) => {
-      if (!startGame || onBlockPlayWord) return;
+      if (!startGame) return;
       switch (code) {
         case 'KeyM':
           handlerSoundChange();
           break;
-        case 'Digit1':
-          return checkCorrectAnswer(translateWordsArr[0]);
-        case 'Digit2':
-          return checkCorrectAnswer(translateWordsArr[1]);
-        case 'Digit3':
-          return checkCorrectAnswer(translateWordsArr[2]);
-        case 'Digit4':
-          return checkCorrectAnswer(translateWordsArr[3]);
-        case 'Digit5':
-          return checkCorrectAnswer(translateWordsArr[4]);
+        case 'Digit6':
+          return console.log(translateWordsArr);
         case 'Enter':
           return viewAnswer ? moveNextWord() : checkCorrectAnswer();
         case 'KeyR':
@@ -151,7 +130,6 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     },
     [
       startGame,
-      onBlockPlayWord,
       handlerSoundChange,
       checkCorrectAnswer,
       translateWordsArr,
@@ -196,14 +174,14 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
               </div>
             </div>
             <ul className={cn(className, cl.translation_words)}>
-              {translateWordsArr.map((wordElem, index) => (
+              {/* {translateWordsArr.map((wordElem, index) => (
                 <li
                   className={cn(cl.translation_word)}
                   key={`btn_word-${index}`}
                 >
-                  {`${index ? wordElem.wordTranslate : wordElem.word }`}
+                  {`${!index ? wordElem.word : wordElem.wordTranslate}`}
                 </li>
-              ))}
+              ))} */}
             </ul>
             <div className={cn(cl.sprint__buttons)}>
               <Button
