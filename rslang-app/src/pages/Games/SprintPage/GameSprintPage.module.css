@@ -86,6 +86,10 @@
   font-size: 36px;
 }
 
+.animation_wrapper {
+  transition: 4s;
+}
+
 .sprint_multiplier {
   flex-grow: 1;
   max-height: 90px;

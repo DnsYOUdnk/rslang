@@ -6,6 +6,7 @@ export const CountDown = ({ className, seconds = 0, onPauseTimer, countDownHandl
   const [time, setTime] = useState(seconds);
 
   const changeCount = () => {
+    // console.log('countDown')
     const gameTime = seconds;
     if (time - 1 <= 0) {
       countDownHandler(true, gameTime);

@@ -20,14 +20,15 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
   const { statistic, setStatistic, isGetStatic, getStatistic, updateStatistic } = useGetStatistic();
   const [resultWordsArr, setResultWordsArr] = useState<IWord[]>([]);
   const [userWord, setUserWord] = useState({} as IUserWord);
-  const [onStart, setOnStart] = useState(false);
-  const [endGame, setEndGame] = useState(false);
-  const [isUpdateStatic, setIsUpdateStatic] = useState(false);
+  const [onStart, setOnStart] = useState<boolean>(false);
+  const [endGame, setEndGame] = useState<boolean>(false);
+  const [isUpdateStatic, setIsUpdateStatic] = useState<boolean>(false);
   const location = useLocation();
-  const [learnedWords, setLearnedWords] = useState(0);
-  const [newWords, setNewWords] = useState(0);
-  const [bestSeries, setBestSeries] = useState(0);
-  const [bestCorrectSeries, setBestCorrectSeries] = useState(0);
+  const [learnedWords, setLearnedWords] = useState<number>(0);
+  const [newWords, setNewWords] = useState<number>(0);
+  const [bestSeries, setBestSeries] = useState<number>(0);
+  const [bestCorrectSeries, setBestCorrectSeries] = useState<number>(0);
+  const [scoreGame, setScoreGame] = useState<number>(0);
 
   const updateGameStat = useCallback(() => {
     const hashArr = location.pathname.split('/');
@@ -148,6 +149,8 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
         userWord: userWord,
         getUserWord: getNewUserWord,
         changeUserWord: changeUserWord,
+        scoreGame: scoreGame, 
+        setScoreGame: setScoreGame
       };
       return cloneElement(children as React.ReactElement, gameProps);
     }
@@ -171,7 +174,7 @@ export const GameWrapperPage = ({ dataGame, children, className }: GameWrapperPa
               );
             }
           } else {
-            return <GameStatistic resultWordsArr={resultWordsArr} repeatGame={repeatGame} />;
+            return <GameStatistic resultWordsArr={resultWordsArr} scoreGame={scoreGame} repeatGame={repeatGame} />;
           }
         })()}
       </main>

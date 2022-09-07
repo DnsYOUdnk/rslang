@@ -9,17 +9,18 @@ import { shuffleArray } from '../../../utils/shuffleArray';
 import { IUserWord, IWord } from '../../../types/dataWordTypes';
 import { getRandomWord, getRandomWords } from '../../../utils/getRandomWords';
 import { playSoundEffects } from '../../../utils/playSoundEffects';
-import { audioPlayer, playAudioWord } from '../../../utils/audioPlayer';
+import { playAudioWord } from '../../../utils/audioPlayer';
 import { updateUserWord } from '../../../utils/createUserWord';
 import { GamePanel } from '../../../components/GamePanel/GamePanel';
 import runMan from './../../../assets/json-animation/run_man.json';
 
 const GAME_TIME_SECOND = 60;
-const DEFAULT_MAX_LIVES = 5;
-const FIRST_ELEM = 0;
+const STEP_SCORE_GAME = 20;
 const MIN_QUANTITY_WORDS = 2;
 const MIN_LEARNED_WORDS = 10;
 const TRANSLATE_WORDS_QUANTITY = 1;
+const MIN_STEP_MULTIPLY = 1;
+const MAX_STEP_MULTIPLY = 4;
 
 export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => {
   const {
@@ -32,16 +33,18 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     userWord,
     getUserWord,
     changeUserWord,
+    scoreGame, 
+    setScoreGame
   } = props;
   const [translateWord, setTranslateWord] = useState({} as IWord);
   const [copyWordsArr, setCopyWordsArr] = useState<IWord[]>([]);
   const [wordLearn, setWordLearn] = useState({} as IWord);
   const [startGame, setStartGame] = useState<boolean>(false);
-  const [onMute, setOnMute] = useState<boolean>(false);
-  const [viewAnswer, setViewAnswer] = useState<boolean>(false);
   const [nextWord, setNextWord] = useState<boolean>(false);
-  const [countLives, setCountLives] = useState<number>(DEFAULT_MAX_LIVES);
+  const [onMute, setOnMute] = useState<boolean>(false);
+  const [multiplyScore, setmultiplyScore] = useState<number>(MIN_STEP_MULTIPLY);
   const audiocallPage = useRef<HTMLDivElement>(null);
+  const animRun = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     shuffleArray(words as IWord[]);
@@ -97,18 +100,35 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     if (isUserLogged && changeUserWord) changeUserWord(!wordLearn.correctAnswer);
     setResultWordsArr!(resultWordsArr!.concat([wordLearn]));
     playSoundEffects(onMute, wordLearn.correctAnswer);
+    if(wordLearn.correctAnswer) {
+      if (multiplyScore === MIN_STEP_MULTIPLY) {
+        const scoreRes = scoreGame! + STEP_SCORE_GAME;
+        if(animRun.current) animRun.current.style.transform = `translateX(${20}%)`;
+        setScoreGame!(scoreRes)
+      } else {
+        const scoreRes = scoreGame! + STEP_SCORE_GAME * multiplyScore;
+        if(animRun.current) animRun.current.style.transform = `translateX(${20 * (multiplyScore)}%)`;
+        setScoreGame!(scoreRes)
+      }
+      const multiplyRes = multiplyScore < MAX_STEP_MULTIPLY ? multiplyScore + 1 : multiplyScore;
+      setmultiplyScore(multiplyRes)
+    } else {
+      setmultiplyScore(MIN_STEP_MULTIPLY)
+      if(animRun.current) animRun.current.style.transform = `translateX(${0}%)`
+    }
     moveNextWord();
-
   }, [
     changeUserWord,
     isUserLogged,
     moveNextWord,
+    multiplyScore,
     onMute,
     resultWordsArr,
+    scoreGame,
     setResultWordsArr,
+    setScoreGame,
     translateWord.word,
-    wordLearn
-  ])
+    wordLearn])
 
   const handlerSoundChange = useCallback(() => {
     playSoundEffects(onMute);
@@ -142,7 +162,7 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
     return () => {
       document.removeEventListener('keyup', onKeypress);
     };
-  }, [onKeypress, countLives]);
+  }, [onKeypress]);
 
   return (
     <>
@@ -159,13 +179,16 @@ export const GameSprintPage = ({ className, ...props }: GameSprintPageProps) => 
           <div className={cn(cl.sprint_panel__wrapper)}>
             <div className={cn(cl.sprint_panel)}>
               <div className={cn(cl.sprint_score)}>
-                {`${0}`}
+                {`${scoreGame}`}
               </div>
               <div className={cn(cl.sprint_multiplier, cl.ac)}>
-                {startGame && <Lottie
-                  className={cn(className, cl.sprint_animation)}
-                  animationData={runMan}
-                />}
+                {startGame && 
+                <div ref = {animRun} className={cn(cl.animation_wrapper)}>
+                  <Lottie
+                    className={cn(className, cl.sprint_animation)}
+                    animationData={runMan}
+                  />
+                </div>}
               </div>
               <div className={cn(cl.sprint_timer)}>
                 {<CountDown className={cl.sprint_countdown} seconds={GAME_TIME_SECOND} onPauseTimer={startGame} countDownHandler={countDownHandler}/>}

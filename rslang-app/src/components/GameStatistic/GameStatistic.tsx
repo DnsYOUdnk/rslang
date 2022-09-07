@@ -7,7 +7,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ReplayCircleFilledIcon from '@mui/icons-material/ReplayCircleFilled';
 
-export const GameStatistic = ({ resultWordsArr, repeatGame, className }: GameStatisticProps): JSX.Element => {
+export const GameStatistic = ({ resultWordsArr, scoreGame, repeatGame, className }: GameStatisticProps): JSX.Element => {
   const quantityWords = resultWordsArr.length;
   const quantityCorrectWords = resultWordsArr.filter(({ correctAnswer }) => correctAnswer).length;
 
@@ -15,6 +15,7 @@ export const GameStatistic = ({ resultWordsArr, repeatGame, className }: GameSta
     <div className={cn(className, cl.game_statistic__wrapper)}>
       <div className={cn(cl.game_statistic)}>
         <h3 className={cn(cl.title)}>{'Результат тренировки'}</h3>
+        {scoreGame ? <div className={cn(cl.sub_title)}>{`Количество набранных очков: ${scoreGame}`}</div> : ''}
         <div className={cn(cl.sub_title)}>{`Правильно выбранные слова: ${quantityCorrectWords}/${quantityWords}`}</div>
         <div className={cn(cl.statistic_table)}>
           <ul className={cn(cl.words_items)}>
