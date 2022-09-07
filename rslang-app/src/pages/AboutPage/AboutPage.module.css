@@ -36,3 +36,12 @@
 .special {
   margin-bottom: 40px;
 }
+
+@media (max-width: 768px) {
+  .main {
+    padding: 30px;
+  }
+  .title {
+    margin-bottom: 10px;
+  }
+}

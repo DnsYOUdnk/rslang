@@ -33,6 +33,7 @@
   color: var(--link-color);
   text-decoration: none;
   transition: all 0.3s;
+  box-shadow: 1px 0px 34px 41px rgba(255, 255, 255, 0.7);
 }
 
 .learn__link:hover {
@@ -64,4 +65,66 @@
   top: 0;
   left: 20%;
   background: url('/public/icons/sprint.svg') no-repeat center / contain;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 30px;
+  }
+  .sprint {
+    left: 65%;
+  }
+  .audio {
+    left: 35%;
+  }
+  .title {
+    font-size: 36px;
+  }
+  .button {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+  }
+  .about {
+    margin-bottom: 20px;
+  }
+  .learn__link {
+    display: block;
+    width: 70px;
+    height: 70px;
+  }
+  .sprint {
+    position: static;
+
+    align-self: flex-end;
+  }
+  .audio {
+    position: static;
+    align-self: center;
+  }
+  .book {
+    position: static;
+  }
+  .button {
+    margin-right: 5px;
+    margin-bottom: 0;
+  }
+  .learn {
+    display: flex;
+    flex-direction: column;
+  }
+  .learn__title {
+    position: relative;
+    bottom: -65px;
+  }
+  .learn__link {
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
 }
