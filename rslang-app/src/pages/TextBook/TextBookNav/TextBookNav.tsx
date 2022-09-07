@@ -20,6 +20,15 @@ type Props = {
 };
 
 export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
+  const wordsGroups = [
+    ['Elementary', 'A1'],
+    ['EasyPre-Intermediate', 'A2'],
+    ['Intermediate', 'B1'],
+    ['Upper-Intermediate', 'B2'],
+    ['Advanced', 'C1'],
+    ['Proficient', 'C2'],
+  ];
+  
   return (
     <nav className={cl.bookNav}>
       <ul className={cl.bookNav__list}>
@@ -48,7 +57,7 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
         </li>
 
         <li className={cn(cl.bookNav__listItem)}>
-          <a className={cl.bookNav__link} href={'#/textbook/B1/1'}>
+          <a className={cl.bookNav__link} href={'#/textbook/B2/1'}>
             <NavBtn className={cl.levelB2} label='B2' />
           </a>
         </li>
@@ -77,7 +86,7 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
 
       <ul className={cl.bookNav__list}>
         <li className={cl.bookNav__listItem}>
-          <a className={cl.bookNav__link} href={'#/Audiocall'}>
+          <a className={cl.bookNav__link} href={'#/games/audiocall'}>
             <button className={cl.btn2}>
               <span className={cl.bookNav__linkText}>Аудиовызов</span>
             </button>
@@ -85,7 +94,7 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
         </li>
 
         <li className={cl.bookNav__listItem}>
-          <a className={cl.bookNav__link} href={'#/sprint'}>
+          <a className={cl.bookNav__link} href={'#/games/sprint'}>
             <button className={cl.btn2}>
               <span className={cl.bookNav__linkText}>Спринт</span>
             </button>

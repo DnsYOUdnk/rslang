@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router';
 import cl from './TextBook.module.css';
+import cn from 'classnames';
 import { UserData } from '../../common/types';
 import { isUserData } from '../../utils/api';
 import TextBookNav from './TextBookNav/TextBookNav';
@@ -33,7 +34,11 @@ export const TextBook = () => {
         />
       </div>
 
-      <div className={cl.textbook__main_A1}>
+      <div className={ (activeGroup == 'A1') ? cl.textbook__main_A1
+        : (activeGroup == 'A2') ? cl.textbook__main_A2 
+          : (activeGroup == 'B1') ? cl.textbook__main_B1 
+            : (activeGroup == 'B2') ? cl.levelB2
+              : (activeGroup == 'C1') ? cl.textbook__main_C1 : cl.textbook__main_C2}>
         <Routes>
           <Route
             path=':groupId/:pageId'
@@ -52,11 +57,3 @@ export const TextBook = () => {
     </div>
   );
 };
-
-// <TextBookPage
-//   group={{ activeGroup, setActiveGroup }}
-//   page={{ activePage, setActivePage }}
-//   authorization={{ userData, setUserData }}
-//   gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
-//   key={`${activeGroup}_${activePage}`}
-// />

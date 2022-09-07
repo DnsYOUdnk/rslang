@@ -3,8 +3,8 @@ import { Word, UserData } from '../../common/types';
 import { createUserWord, updateUserWord } from '../../utils/api';
 import cl from './WordCard.module.css';
 import cn from 'classnames';
-// import falseIcon from '../../assets/icons/false.svg';
-// import trueIcon from '../../assets/icons/true.svg';
+import trueIcon from '../../assets/icons/true.svg';
+import falseIcon from '../../assets/icons/false.svg';
 
 const URL = 'https://react-learn-language.herokuapp.com';
 
@@ -60,6 +60,7 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
           alt={`${info.word}_picture`}
         />
       </div>
+
       <div className={cl.wordCard__content}>
         <button className={cl.wordCard__audio} onClick={playAudio}></button>
         <audio src={`${URL}/${info.audio}`} ref={audioWord} onEnded={audioWordEnded}></audio>
@@ -84,6 +85,67 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
           <p className={cl.wordCard__word__wordExample}>{info.textExampleTranslate}</p>
         </div>
       </div>
+
+      {authorization.userData ? (
+        <div>
+          123
+        </div>
+      ) : (
+        <div className={cl.wordCard__additionallyWrap}>
+          <div className={cl.wordCard__additionally}>
+            <div className={cl.wordCard__answers}>
+              <img 
+                title="Кол-во правильных ответов" 
+                src={trueIcon} alt="TrueAnswers" width={30} height={30}>
+              </img>
+              <span title="Кол-во правильных ответов" className={cl.wordCard__rightAnswers}>
+                {/* {info.userWord?.optional?.rightAnswers || 0} */}0
+              </span>
+              <img title="Кол-во неправильных ответов" 
+                src={falseIcon} alt="WrongAnswers" width={25} height={25}>
+              </img>
+              <span title="Кол-во неправильных ответов" className={cl.wordCard__wrongAnswers}>
+                {/* {info.userWord?.optional?.wrongAnswers || 0} */}0
+              </span>
+            </div>
+
+            <div className={cl.wordCard__marks}>
+              <label
+                className={cn(cl.wordCardMark, isWordDifficult ? cl.wordCardMark_difficult : '')}
+                htmlFor={`difficult_word_${info.id || info._id}`}
+              >
+                <input
+                  className={cl.wordCardMark__checkbox}
+                  id={`difficult_word_${info.id || info._id}`}
+                  value="hard"
+                  type="checkbox"
+                  // onChange={changeWordDifficulty}
+                  checked={isWordDifficult}
+                />
+                <span className={cl.wordCardMark__mark}></span>
+                <span className={cl.wordCardMark__name}>Сложное</span>
+              </label>
+
+              <label
+                className={cn(cl.wordCardMark, !isWordLearned ? cl.wordCardMark_learned : '')}
+                htmlFor={`learned_word_${info.id || info._id}`}
+              >
+                <input
+                  className={cl.wordCardMark__checkbox}
+                  id={`learned_word_${info.id || info._id}`}
+                  value="learned"
+                  type="checkbox"
+                  //onChange={changeLearnedWords}
+                  checked={isWordLearned}
+                />
+                <span className={cl.wordCardMark__mark}></span>
+                <span className={cl.wordCardMark__name}>Удалить</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

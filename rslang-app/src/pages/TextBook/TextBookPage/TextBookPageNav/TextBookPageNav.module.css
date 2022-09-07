@@ -35,32 +35,32 @@
 
 .textbookPageNav__listItem_activeA1,
 .textbookPageNav__listItem_activeA1:hover {
-  background-color: #33ffeb;
+  background-color: var(--levelA1_end);
 }
 
 .textbookPageNav__listItem_activeA2,
 .textbookPageNav__listItem_activeA2:hover {
-  background-color: #47d47f;
+  background-color: var(--levelA2_end);
 }
 
 .textbookPageNav__listItem_activeB1,
 .textbookPageNav__listItem_activeB1:hover {
-  background-color: #ffc003;
+  background-color: var(--levelB1_end);
 }
 
 .textbookPageNav__listItem_activeB2,
 .textbookPageNav__listItem_activeB2:hover {
-  background-color: #ff5733;
+  background-color: var(--levelB2_end);
 }
 
 .textbookPageNav__listItem_activeC1,
 .textbookPageNav__listItem_activeC1:hover {
-  background-color: #c70039;
+  background-color: var(--levelC1_end);
 }
 
 .textbookPageNav__listItem_activeC2,
 .textbookPageNav__listItem_activeC2:hover {
-  background-color: #581845;
+  background-color: var(--levelC2_end);
 }
 
 .textbookPageNav__link {

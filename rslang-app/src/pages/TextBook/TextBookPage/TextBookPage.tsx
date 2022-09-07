@@ -77,7 +77,7 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
   console.log(words);
 
   return (
-    <div className={cn(cl.textbookPage, cl.levelA2)}>
+    <div className={cn(cl.textbookPage)}>
       <TextBookPageNav group={group} page={page} />
       <div className={cl.difficultWordsWrap}>
         {words.map((word: Word) => {

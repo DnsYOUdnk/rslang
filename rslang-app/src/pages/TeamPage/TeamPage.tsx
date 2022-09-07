@@ -29,8 +29,8 @@ export const TeamPage = ({ className, ...props }: TeamPageProps): JSX.Element =>
       img: 'https://avatars.githubusercontent.com/u/86970087?v=4',
       link: 'https://github.com/KuzmakD',
       about:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
-      done: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente adipisci soluta enim doloremque dicta voluptas sint consequatur labore nam quaerat id, debitis et delectus dolor optio fugit libero cum. Laboriosam.',
+        'Идти к своей мечте, невзирая на препятствия.',
+      done: 'Разработал электронный учебник и карточки слов в них',
       id: 3,
       position: 'normal',
     },
