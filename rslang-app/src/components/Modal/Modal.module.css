@@ -1,0 +1,131 @@
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--main-bg-color);
+  padding: 60px 40px 30px;
+  cursor: unset;
+  outline: 3px solid var(--link-color);
+  box-shadow: 1px 1px 87px 77px rgba(255, 255, 255, 0.21);
+  border-radius: 5px;
+  width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form__switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.title__reg {
+  font-size: 18px;
+  padding: 15px 20px;
+  opacity: 0.5;
+  box-shadow: 5px -12px 10px 2px rgba(93, 95, 99, 0.2) inset;
+  border-radius: 5px;
+}
+
+.title__ent {
+  font-size: 18px;
+  padding: 15px 20px;
+  opacity: 0.5;
+  box-shadow: -8px -12px 10px 2px rgba(93, 95, 99, 0.2) inset;
+  border-radius: 5px;
+}
+
+.title__active {
+  opacity: 1;
+  border-top: 1px solid var(--link-color);
+  box-shadow: unset;
+}
+
+.form__group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form__label {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.form__control {
+  width: 100%;
+  height: 30px;
+  border: 1px solid var(--title-color);
+  padding-left: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.form__control::placeholder {
+  opacity: 0.5;
+}
+
+.form__invalid {
+  outline: 2px solid var(--red-color);
+}
+
+.validate {
+  color: var(--red-color);
+  font-size: 12px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.form__button {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.closeModal {
+  position: absolute;
+  top: 20px;
+  right: 14px;
+  width: 24px;
+  height: 24px;
+  opacity: 0.2;
+  cursor: pointer;
+  transition: opacity ease 0.3s;
+}
+
+.closeModal:hover {
+  opacity: 1;
+}
+
+.closeModal::before,
+.closeModal::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  display: block;
+  width: 24px;
+  height: 3px;
+  background: #000;
+}
+
+.closeModal::before {
+  transform: rotate(45deg);
+}
+
+.closeModal::after {
+  transform: rotate(-45deg);
+}
+
+.password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}

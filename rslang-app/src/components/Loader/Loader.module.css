@@ -1,0 +1,24 @@
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading {
+  width: 60px;
+  height: 60px;
+  border: 10px solid var(--main-bg-color); /* Light grey */
+  border-top: 10px solid var(--main-color); /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

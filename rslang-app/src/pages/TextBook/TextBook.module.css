@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Rubik, sans-serif;
+}
+
+.BookPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(#7cfff2, #33ffeb);
+}
+
+.levelA1 {
+  background: radial-gradient(var(--levelA1_start), var(--levelA1_end));
+}
+
+.levelA2 {
+  background: radial-gradient(var(--levelA2_start), var(--levelA2_end));
+}
+
+.levelB1 {
+  background: radial-gradient(var(--levelB1_start), var(--levelB1_end));
+}
+
+.levelB2 {
+  background: radial-gradient(var(--levelB2_start), var(--levelB2_end));
+}
+
+.levelC1 {
+  background: radial-gradient(var(--levelC1_start), var(--levelC1_end));
+}
+
+.levelC2 {
+  background: radial-gradient(var(--levelC2_start), var(--levelC2_end));
+}
+
+.textBookDifficult {
+  background: grey;
+}
+
+.textbook {
+  grid-area: body;
+  background: lightblue;
+}
+
+.textbook a {
+  color: black;
+  text-decoration: none;
+}
+
+.textbook__header {
+  background: rgba(0, 0, 0, 0.25);
+  width: 100%;
+  box-shadow: 0px 0px 16px 1px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 0px 30px 0px rgba(130, 155, 174, 0.501);
+  z-index: 20;
+}
+
+.textbook__main {
+  background-position: top left;
+  background-size: 60px 60px;
+}
+@media (max-width: 768px) {
+  .textbook__main {
+    background-size: 45px 45px;
+    background-position: 0 25px;
+  }
+}

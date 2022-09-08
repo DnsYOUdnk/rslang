@@ -1,0 +1,68 @@
+.game_modal {
+  background-color: hsla(0, 0%, 100%, 0.8);
+  padding: 30px;
+  box-sizing: border-box;
+  max-width: 650px;
+  width: 100%;
+  min-width: 300px;
+  min-height: 350px;
+  border-radius: 40px;
+  text-align: center;
+  color: rgba(58, 1, 107, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%), 0 2px 4px 1px rgb(0 0 0 / 50%), 0 4px 8px 2px rgb(0 0 0 / 30%),
+    0 8px 16px 4px rgb(0 0 0 / 10%);
+}
+
+.game_description {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 26px;
+}
+
+.description {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .game_modal {
+    width: 80%;
+    padding: 20px;
+    margin: 20px 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .game_modal {
+    background-color: hsla(0, 0%, 100%, 0.8);
+    padding: 10px;
+    min-height: 270px;
+    border-radius: 10px;
+    justify-content: start;
+  }
+
+  .description {
+    font-size: 18px;
+  }
+
+  .game_start {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .game_modal {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%), 0 2px 4px 1px rgb(0 0 0 / 50%), 0 8px 16px 4px rgb(0 0 0 / 10%);
+  }
+
+  .description {
+    font-size: 16px;
+  }
+}

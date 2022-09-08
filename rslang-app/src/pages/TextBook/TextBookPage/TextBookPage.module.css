@@ -1,0 +1,89 @@
+.textbookPage {
+  max-width: 1500px;
+  padding: 10px;
+  margin: 0 auto;
+  min-height: calc(88vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 25px;
+  color: #fff;
+}
+
+.difficultWordsWrap {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  gap: 25px;
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  justify-items: center;
+}
+
+@media (max-width: 1200px) {
+  .difficultWordsWrap {
+    grid-template-columns: repeat(3, 2fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .difficultWordsWrap {
+    grid-template-columns: repeat(2, 2fr);
+  }
+}
+
+@media (max-width: 320px) {
+  .difficultWordsWrap 1 {
+    grid-template-columns: repeat(1, 2fr);
+  }
+}
+
+.difficultWordsWrap .difficultWordsNone {
+  grid-column: 1 / span 3;
+}
+
+.difficultWordswrapUnon {
+  font-size: 30px;
+  margin: 30px 0px 0px 0px;
+}
+
+@media (max-width: 500px) {
+  .difficultWordsWrapUnon {
+    font-size: 22px;
+  }
+}
+
+.difficultWordsWrapImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.difficultWordsWrapImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.levelA1 {
+  background: radial-gradient(var(--levelA1_start), var(--levelA1_end));
+}
+
+.levelA2 {
+  background: radial-gradient(var(--levelA2_start), var(--levelA2_end));
+}
+
+.levelB1 {
+  background: radial-gradient(var(--levelB1_start), var(--levelB1_end));
+}
+
+.levelB2 {
+  background: radial-gradient(var(--levelB2_start), var(--levelB2_end));
+}
+
+.levelC1 {
+  background: radial-gradient(var(--levelC1_start), var(--levelC1_end));
+}
+
+.levelC2 {
+  background: radial-gradient(var(--levelC2_start), var(--levelC2_end));
+}
