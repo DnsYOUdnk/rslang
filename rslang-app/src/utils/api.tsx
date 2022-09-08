@@ -161,7 +161,7 @@ export function updateUserWord(wordId: string, userId: string, token: string, re
 export function getUserAggregatedWords(userId: string, token: string, params?: Params) {
   return axios
     .get<AgregatedWords>(`${URL}/users/${userId}/aggregatedWords`, {
-      headers: { Authorization: `Bearer ${token}`, Accept: 'application/json', },
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
       params,
     })
     .then((response) => response.data[0].paginatedResults)

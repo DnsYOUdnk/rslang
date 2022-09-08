@@ -18,7 +18,7 @@ export type User = {
   refreshToken: string;
   userId: string;
   name: string;
-}
+};
 
 export type Word = {
   id: string;

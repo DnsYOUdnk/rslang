@@ -15,12 +15,12 @@ export const TextBook = () => {
     const checkUser = () => {
       const data = localStorage.getItem('user');
       if (data) {
-        setUser(JSON.parse(data))
+        setUser(JSON.parse(data));
       } else setUser(null);
-    }
+    };
     window.addEventListener('localStorageChange', checkUser);
     checkUser();
-  }, [])
+  }, []);
 
   return (
     <div className={cl.textbook}>
@@ -32,12 +32,23 @@ export const TextBook = () => {
         />
       </div>
 
-      <div className={ (activeGroup == 'A1') ? cl.levelA1
-        : (activeGroup == 'A2') ? cl.levelA2
-          : (activeGroup == 'B1') ? cl.levelB1
-            : (activeGroup == 'B2') ? cl.levelB2
-              : (activeGroup == 'C1') ? cl.levelC1 
-                : (activeGroup == 'C2') ? cl.levelC2 : cl.textBookDifficult}>
+      <div
+        className={
+          activeGroup == 'A1'
+            ? cl.levelA1
+            : activeGroup == 'A2'
+            ? cl.levelA2
+            : activeGroup == 'B1'
+            ? cl.levelB1
+            : activeGroup == 'B2'
+            ? cl.levelB2
+            : activeGroup == 'C1'
+            ? cl.levelC1
+            : activeGroup == 'C2'
+            ? cl.levelC2
+            : cl.textBookDifficult
+        }
+      >
         <Routes>
           <Route
             path=':groupId/:pageId'

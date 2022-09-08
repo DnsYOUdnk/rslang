@@ -20,7 +20,6 @@ type Props = {
 };
 
 export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
-  
   return (
     <nav className={cl.bookNav}>
       <ul className={cl.bookNav__list}>

@@ -27,7 +27,6 @@ type Props = {
 };
 
 export default function TextBookPage({ group, page, authorization, gamesButtonsState }: Props) {
-
   const pageUrlParams = useParams();
   const { groupId, pageId } = pageUrlParams;
 
@@ -54,10 +53,10 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
 
   const getWordsData = () => {
     if (group.activeGroup && group.activeGroup !== 'difficultWords' && !authorization.user) {
-      const params = { group: groupsValue[group.activeGroup], page: page.activePage - 1 }; 
+      const params = { group: groupsValue[group.activeGroup], page: page.activePage - 1 };
       return getWords(params);
     }
-    
+
     if (group.activeGroup && group.activeGroup !== 'difficultWords' && authorization.user) {
       const params = { wordsPerPage: 20, group: groupsValue[group.activeGroup], page: page.activePage - 1 };
       return getUserAggregatedWords(authorization.user.userId, authorization.user.token, params);
@@ -80,15 +79,13 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
- 
   // Audio --------------
   const [audiotrack, setAudiotrack] = useState<HTMLAudioElement | null>(null);
-
 
   return (
     <div className={cn(cl.textbookPage)}>
       {group.activeGroup === 'difficultWords' ? '' : <TextBookPageNav group={group} page={page} />}
-      
+
       <div className={cl.difficultWordsWrap}>
         {words.map((word: Word) => {
           return (
@@ -104,7 +101,6 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
       </div>
 
       {group.activeGroup === 'difficultWords' ? '' : <TextBookPageNav group={group} page={page} />}
-
     </div>
   );
 }
