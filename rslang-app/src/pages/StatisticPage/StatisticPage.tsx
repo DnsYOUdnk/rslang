@@ -1,17 +1,15 @@
 import cn from 'classnames';
 import { StatisticPageProps } from './StatisticPage.props';
 import cl from './StatisticPage.module.css';
-import { useContext, useEffect, useState } from 'react';
-import { Context, ContextStatistic } from '../../utils/context';
-import { getStatistic } from '../../utils/api';
+import { useContext, useEffect } from 'react';
+import { Context } from '../../utils/context';
 import { getTodayData } from '../../utils/getTodayData';
 import { Chart } from '../../components/Chart/Chart';
+import { useGetStatistic } from '../../customHooks/useGetStatistic';
 
-export const StatisticPage = ({ className, ...props }: StatisticPageProps): JSX.Element => {
+export const StatisticPage = ({ className }: StatisticPageProps): JSX.Element => {
   const context = useContext(Context);
-  const contextStatistic = useContext(ContextStatistic);
-  const [statistic, setStatistic] = useState(contextStatistic);
-  const [statusCode, setStatusCode] = useState(0);
+  const {statistic, getStatistic} = useGetStatistic();
 
   const getStatisticByGame = (game: string) => {
     const statisticByGame = game === 'sprint' ? statistic.optional.sprint : statistic.optional.audiocall;
@@ -25,19 +23,14 @@ export const StatisticPage = ({ className, ...props }: StatisticPageProps): JSX.
   useEffect(() => {
     if (context?.isAuthorized === true) {
       const fetchData = async () => {
-        const user = JSON.parse(localStorage.user);
-        const response = await getStatistic(user.userId, user.token);
-        setStatusCode(response.status);
-        if (response.status === 200) {
-          setStatistic(response);
-        }
+        await getStatistic();
       };
       fetchData();
     }
-  }, [context]);
+  }, [context, getStatistic]);
   return (
     <main className={cn(className, cl.main)}>
-      {context?.isAuthorized && (statusCode === 200 || statusCode === 401 || statusCode === 404) ? (
+      {context?.isAuthorized && Object.keys(statistic).length ? (
         <>
           <h2 className={cl.title}>
             <span>Статистика за сегодня</span>
