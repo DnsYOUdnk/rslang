@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Word, UserData } from '../../../common/types';
+import { Word, User } from '../../../types/types';
 import WordCard from '../../../components/WordCard/WordCard';
 import TextBookPageNav from './TextBookPageNav/TextBookPageNav';
-import { getWords, getWordsRequest } from '../../../utils/api';
+import { getWords, getUserAggregatedWords } from '../../../utils/api';
 import cl from './TextBookPage.module.css';
 import cn from 'classnames';
 
@@ -17,8 +17,8 @@ type Props = {
     setActivePage: React.Dispatch<React.SetStateAction<number>>;
   };
   authorization: {
-    userData: UserData | null;
-    setUserData: React.Dispatch<React.SetStateAction<UserData | null>>;
+    user: User | null;
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;
   };
   gamesButtonsState: {
     disabledGameButtons: boolean;
@@ -27,7 +27,7 @@ type Props = {
 };
 
 export default function TextBookPage({ group, page, authorization, gamesButtonsState }: Props) {
-  // Router & URL --------------
+
   const pageUrlParams = useParams();
   const { groupId, pageId } = pageUrlParams;
 
@@ -53,9 +53,18 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
   };
 
   const getWordsData = () => {
-    if (group.activeGroup && group.activeGroup !== 'difficultWords' && !authorization.userData) {
-      const params = { group: groupsValue[group.activeGroup], page: page.activePage - 1 };
+    if (group.activeGroup && group.activeGroup !== 'difficultWords' && !authorization.user) {
+      const params = { group: groupsValue[group.activeGroup], page: page.activePage - 1 }; 
       return getWords(params);
+    }
+    
+    if (group.activeGroup && group.activeGroup !== 'difficultWords' && authorization.user) {
+      const params = { wordsPerPage: 20, group: groupsValue[group.activeGroup], page: page.activePage - 1 };
+      return getUserAggregatedWords(authorization.user.userId, authorization.user.token, params);
+    }
+    if (group.activeGroup && group.activeGroup === 'difficultWords' && authorization.user) {
+      const params = { wordsPerPage: 3600, filter: { 'userWord.difficulty': 'hard' } };
+      return getUserAggregatedWords(authorization.user.userId, authorization.user.token, params);
     }
     return null;
   };
@@ -71,14 +80,15 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+ 
   // Audio --------------
   const [audiotrack, setAudiotrack] = useState<HTMLAudioElement | null>(null);
 
-  console.log(words);
 
   return (
     <div className={cn(cl.textbookPage)}>
-      <TextBookPageNav group={group} page={page} />
+      {group.activeGroup === 'difficultWords' ? '' : <TextBookPageNav group={group} page={page} />}
+      
       <div className={cl.difficultWordsWrap}>
         {words.map((word: Word) => {
           return (
@@ -92,7 +102,9 @@ export default function TextBookPage({ group, page, authorization, gamesButtonsS
           );
         })}
       </div>
-      <TextBookPageNav group={group} page={page} />
+
+      {group.activeGroup === 'difficultWords' ? '' : <TextBookPageNav group={group} page={page} />}
+
     </div>
   );
 }

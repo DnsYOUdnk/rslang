@@ -1,9 +1,8 @@
-import { Word, UserWord, UserData, AgregatedWords } from '../common/types';
+import { Word, UserWord, UserData, AgregatedWords } from '../types/types';
 import axios, { AxiosError } from 'axios';
 
 const base = 'https://react-learn-language.herokuapp.com/';
 const URL = 'https://react-learn-language.herokuapp.com';
-// const URL2 = 'https://react-learn-language.herokuapp.com/words';
 
 const addInLocalStorage = (name: string, user: string) => {
   localStorage.setItem(name, user);
@@ -162,10 +161,7 @@ export function updateUserWord(wordId: string, userId: string, token: string, re
 export function getUserAggregatedWords(userId: string, token: string, params?: Params) {
   return axios
     .get<AgregatedWords>(`${URL}/users/${userId}/aggregatedWords`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/json', },
       params,
     })
     .then((response) => response.data[0].paginatedResults)
