@@ -39,6 +39,10 @@ body {
   background: radial-gradient(var(--levelC2_start), var(--levelC2_end));
 }
 
+.textBookDifficult {
+  background: grey;
+}
+
 .textbook {
   grid-area: body;
   background: lightblue;
@@ -66,31 +70,4 @@ body {
     background-size: 45px 45px;
     background-position: 0 25px;
   }
-}
-
-.textbook__main_A1 {
-  background: radial-gradient(var(--levelA1_start), var(--levelA1_end));
-}
-
-.textbook__main_A2 {
-  background: radial-gradient(var(--levelA2_start), var(--levelA2_end));
-}
-
-.textbook__main_B1 {
-  background: radial-gradient(var(--levelB1_start), var(--levelB1_end));
-}
-
-.textbook__main_B2 {
-  background: radial-gradient(var(--levelB2_start), var(--levelB2_end));
-}
-
-.textbook__main_C1 {
-  background: radial-gradient(var(--levelC1_start), var(--levelC1_end));
-}
-.textbook__main_C2 {
-  background: radial-gradient(var(--levelC2_start), var(--levelC2_end));
-}
-
-.textbook_main_C2 a {
-  color: white;
 }

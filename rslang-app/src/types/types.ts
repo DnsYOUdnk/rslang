@@ -1,11 +1,24 @@
 export type UserWord = {
   difficulty: string;
   optional: {
+    countCorrectSeries?: number; // счетчик для обработки слова в игре, нужен для того чтобы юзер три раза подряд в игре выбирал слово для пометки что оно изучено, если хоть раз ошибся оно сбрасывается и по новой
+    numberUses?: number; // количество раз когда слово вообще было использовано и с ошибками и без
+    countLearn?: number; // счетчик сколько раз пользователь выбирал правильный ответ
+    isWordLearned?: boolean; //  изучено ли слово или нет
     [key: string]: unknown;
   };
   id?: string;
   wordId?: string;
 };
+
+export type User = {
+  status: number;
+  message: string;
+  token: string;
+  refreshToken: string;
+  userId: string;
+  name: string;
+}
 
 export type Word = {
   id: string;

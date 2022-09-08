@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Word, UserData } from '../../common/types';
+import { Word, User } from '../../types/types';
 import { createUserWord, updateUserWord } from '../../utils/api';
 import cl from './WordCard.module.css';
 import cn from 'classnames';
@@ -15,8 +15,8 @@ type Props = {
     setAudiotrack: React.Dispatch<React.SetStateAction<HTMLAudioElement | null>>;
   };
   authorization: {
-    userData: UserData | null;
-    setUserData: React.Dispatch<React.SetStateAction<UserData | null>>;
+    user: User | null;
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;
   };
   wordState: {
     wordChanged: boolean;
@@ -49,10 +49,124 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
 
   //  Words section -------------
   const [isWordDifficult, setIsWordDifficult] = useState(info.userWord?.difficulty === 'hard');
-  const [isWordLearned, setIsWordLearned] = useState(Boolean(info.userWord?.optional?.learned));
+  const [isWordLearned, setIsWordLearned] = useState(Boolean(info.userWord?.optional?.isWordLearned));
+
+//  console.log('authorization: ', authorization.user?.userId, authorization.user?.token);
+
+  const addToDifficultWords = async () => {
+    if (authorization.user) {
+      if (!info.userWord) {
+        info.userWord = {
+          difficulty: 'hard',
+          optional: {},
+        };
+        await createUserWord(
+          info.id || info._id,
+          authorization.user.userId,
+          authorization.user.token,
+          info.userWord
+        );
+      }
+
+      if (info.userWord) {
+        info.userWord.difficulty = 'hard';
+        delete info.userWord.optional.isWordLearned;
+        await updateUserWord(
+          info.id || info._id,
+          authorization.user.userId,
+          authorization.user.token,
+          info.userWord
+        );
+      }
+    }
+  };
+
+  const deleteFromDifficultWords = async () => {
+    if (authorization.user) {
+      if (info.userWord) {
+        info.userWord.difficulty = 'easy';
+        await updateUserWord(
+          info.id || info._id,
+          authorization.user.userId,
+          authorization.user.token,
+          info.userWord
+        );
+      }
+    }
+  };
+
+  const changeWordDifficulty = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      addToDifficultWords();
+      setIsWordLearned(false);
+    }
+    if (!event.target.checked) deleteFromDifficultWords();
+    setIsWordDifficult(!isWordDifficult);
+    wordState.setWordChanged(true);
+  };
+  const addToLearnedWords = async () => {
+    if (authorization.user) {
+      if (!info.userWord) {
+        info.userWord = {
+          difficulty: 'easy',
+          optional: {
+            learned: new Date().toLocaleDateString(),
+          },
+        };
+        await createUserWord(
+          info.id || info._id,
+          authorization.user.userId,
+          authorization.user.token,
+          info.userWord
+        );
+      }
+
+      if (info.userWord) {
+        info.userWord.difficulty = 'easy';
+        info.userWord.optional = JSON.parse(
+          JSON.stringify({ ...info.userWord.optional, learned: new Date().toLocaleDateString() })
+        ) as {
+          [key: string]: unknown;
+        };
+        await updateUserWord(
+          info.id || info._id,
+          authorization.user.userId,
+          authorization.user.token,
+          info.userWord
+        );
+      }
+    }
+  };
+
+  const deleteFromLearnedWords = async () => {
+    if (authorization.user) {
+      if (info.userWord) {
+        info.userWord.difficulty = 'easy';
+        delete info.userWord.optional.learned;
+        await updateUserWord(
+          info.id || info._id,
+          authorization.user.userId,
+          authorization.user.token,
+          info.userWord
+        );
+      }
+    }
+  };
+  const changeLearnedWords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      addToLearnedWords();
+      setIsWordDifficult(false);
+    }
+    if (!event.target.checked) deleteFromLearnedWords();
+    setIsWordLearned(!isWordLearned);
+    wordState.setWordChanged(true);
+  };
 
   return (
-    <div className={cl.wordCard}>
+    <div className={cn(cl.wordCard, 
+      isWordDifficult 
+        ? cl.difficult : isWordLearned 
+          ? cl.wordCardMark_learned : '')}>
       <div className={cl.wordCard__pictureWrap}>
         <img
           className={cn(cl.wordCard__word_1, cl.wordCard__picture)}
@@ -86,12 +200,19 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
         </div>
       </div>
 
+<<<<<<< HEAD
       {authorization.userData ? (
         <div>123</div>
+=======
+      {!authorization.user ? (
+        <div>
+        </div>
+>>>>>>> develop
       ) : (
         <div className={cl.wordCard__additionallyWrap}>
           <div className={cl.wordCard__additionally}>
             <div className={cl.wordCard__answers}>
+<<<<<<< HEAD
               <img title='Кол-во правильных ответов' src={trueIcon} alt='TrueAnswers' width={30} height={30}></img>
               <span title='Кол-во правильных ответов' className={cl.wordCard__rightAnswers}>
                 {/* {info.userWord?.optional?.rightAnswers || 0} */}0
@@ -99,6 +220,20 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
               <img title='Кол-во неправильных ответов' src={falseIcon} alt='WrongAnswers' width={25} height={25}></img>
               <span title='Кол-во неправильных ответов' className={cl.wordCard__wrongAnswers}>
                 {/* {info.userWord?.optional?.wrongAnswers || 0} */}0
+=======
+              <img 
+                title="Кол-во правильных ответов" 
+                src={trueIcon} alt="RightAnswers" width={30} height={30}>
+              </img>
+              <span title="Кол-во правильных ответов" className={cl.wordCard__rightAnswers}>
+                {info.userWord?.optional?.countLearn || 0}
+              </span>
+              <img title="Кол-во неправильных ответов" 
+                src={falseIcon} alt="WrongAnswers" width={25} height={25}>
+              </img>
+              <span title="Кол-во неправильных ответов" className={cl.wordCard__wrongAnswers}>
+                {info.userWord?.optional?.countLearn || 0}
+>>>>>>> develop
               </span>
             </div>
 
@@ -110,9 +245,15 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
                 <input
                   className={cl.wordCardMark__checkbox}
                   id={`difficult_word_${info.id || info._id}`}
+<<<<<<< HEAD
                   value='hard'
                   type='checkbox'
                   // onChange={changeWordDifficulty}
+=======
+                  value="hard"
+                  type="checkbox"                 
+                  onChange={changeWordDifficulty}
+>>>>>>> develop
                   checked={isWordDifficult}
                 />
                 <span className={cl.wordCardMark__mark}></span>
@@ -120,19 +261,25 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
               </label>
 
               <label
-                className={cn(cl.wordCardMark, !isWordLearned ? cl.wordCardMark_learned : '')}
+                className={cn(cl.wordCardMark, isWordLearned ? cn(cl.wordCardMark_learned) : '')}
                 htmlFor={`learned_word_${info.id || info._id}`}
               >
                 <input
                   className={cl.wordCardMark__checkbox}
                   id={`learned_word_${info.id || info._id}`}
+<<<<<<< HEAD
                   value='learned'
                   type='checkbox'
                   //onChange={changeLearnedWords}
+=======
+                  value="learned"
+                  type="checkbox"
+                    onChange={changeLearnedWords}
+>>>>>>> develop
                   checked={isWordLearned}
                 />
                 <span className={cl.wordCardMark__mark}></span>
-                <span className={cl.wordCardMark__name}>Удалить</span>
+                <span className={cl.wordCardMark__name}>Изученное</span>
               </label>
             </div>
           </div>
