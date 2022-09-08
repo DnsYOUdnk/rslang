@@ -21,13 +21,13 @@ export const GamePanel = ({ className, ...props }: GamePanelProps): JSX.Element 
             {buttonSound.isEnable && <ButtonSound handlerSoundChange={handlerFunc} onSound={isOnSound} />}
             {buttonFullScr.isEnable && <ButtonFullscreen audiocallPage={fullScreenElement} />}
           </div>
-          {/* {buttonEnd.isEnable && arrResultWords && arrResultWords.length > minLearnedWords && ( */}
+          {buttonEnd.isEnable && arrResultWords && arrResultWords.length > minLearnedWords && (
             <div className={cn(cl.games__setting__btn_end)}>
               <Button onClick={() => onEndGame!(true)} title={'Завершить и получить результат игры'}>
                 Завершить игру
               </Button>
             </div>
-          {/* )} */}
+          )}
         </div>
       )}
       {(buttonClose.isEnable || lives.isEnable) && (

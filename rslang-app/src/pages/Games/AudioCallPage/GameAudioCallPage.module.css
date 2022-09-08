@@ -234,12 +234,18 @@
 @media screen and (max-width: 576px) {
   .audiocall {
     padding: 20px 30px;
-}
+  }
 }
 
 @media screen and (max-width: 480px) {
   .button__translation_word,
   .button__next {
     width: 260px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .audiocall {
+    padding: 10px;
   }
 }

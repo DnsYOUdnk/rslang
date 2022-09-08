@@ -91,7 +91,7 @@
 }
 
 .sprint_multiplier {
-  flex-grow: 1;
+  width: 100%;
   max-height: 90px;
   border-bottom: 3px dashed transparent;
   border-image: linear-gradient(to left top, #aeadf7 10%, transparent 50%);
@@ -188,4 +188,88 @@
 .button__correct:hover {
   color: #ffffff;
   background-color: #588c7e;
+}
+
+@media screen and (max-width: 1024px) {
+  .sprint {
+    gap: 30px;
+  }
+
+  .sprint_panel__wrapper {
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 870px) {
+  .container {
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .sprint_panel__wrapper {
+    max-height: 100%;
+    height: auto;
+    border-radius: 20px;
+    padding: 10px;
+  }
+
+  .sprint_panel {
+    height: 160px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .sprint_score {
+    order: 0;
+    padding: 10px;
+  }
+
+  .sprint_multiplier {
+    order: 2;
+  }
+
+  .sprint_timer {
+    order: 1;
+  }
+
+  .sprint_animation {
+    width: 70px;
+    height: 70px;
+    top: -60px;
+  }
+
+  .sprint__buttons {
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .sprint {
+    padding: 20px 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .translation_words {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .translation_word:first-child {
+    font-size: 30px;
+  }
+
+  .sprint_panel__wrapper {
+    gap: 0px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .sprint {
+    padding: 10px;
+  }
 }
