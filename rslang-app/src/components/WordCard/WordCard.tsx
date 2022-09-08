@@ -200,13 +200,27 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
         </div>
       </div>
 
+<<<<<<< HEAD
+      {authorization.userData ? (
+        <div>123</div>
+=======
       {!authorization.user ? (
         <div>
         </div>
+>>>>>>> develop
       ) : (
         <div className={cl.wordCard__additionallyWrap}>
           <div className={cl.wordCard__additionally}>
             <div className={cl.wordCard__answers}>
+<<<<<<< HEAD
+              <img title='Кол-во правильных ответов' src={trueIcon} alt='TrueAnswers' width={30} height={30}></img>
+              <span title='Кол-во правильных ответов' className={cl.wordCard__rightAnswers}>
+                {/* {info.userWord?.optional?.rightAnswers || 0} */}0
+              </span>
+              <img title='Кол-во неправильных ответов' src={falseIcon} alt='WrongAnswers' width={25} height={25}></img>
+              <span title='Кол-во неправильных ответов' className={cl.wordCard__wrongAnswers}>
+                {/* {info.userWord?.optional?.wrongAnswers || 0} */}0
+=======
               <img 
                 title="Кол-во правильных ответов" 
                 src={trueIcon} alt="RightAnswers" width={30} height={30}>
@@ -219,6 +233,7 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
               </img>
               <span title="Кол-во неправильных ответов" className={cl.wordCard__wrongAnswers}>
                 {info.userWord?.optional?.countLearn || 0}
+>>>>>>> develop
               </span>
             </div>
 
@@ -230,9 +245,15 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
                 <input
                   className={cl.wordCardMark__checkbox}
                   id={`difficult_word_${info.id || info._id}`}
+<<<<<<< HEAD
+                  value='hard'
+                  type='checkbox'
+                  // onChange={changeWordDifficulty}
+=======
                   value="hard"
                   type="checkbox"                 
                   onChange={changeWordDifficulty}
+>>>>>>> develop
                   checked={isWordDifficult}
                 />
                 <span className={cl.wordCardMark__mark}></span>
@@ -246,9 +267,15 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
                 <input
                   className={cl.wordCardMark__checkbox}
                   id={`learned_word_${info.id || info._id}`}
+<<<<<<< HEAD
+                  value='learned'
+                  type='checkbox'
+                  //onChange={changeLearnedWords}
+=======
                   value="learned"
                   type="checkbox"
                     onChange={changeLearnedWords}
+>>>>>>> develop
                   checked={isWordLearned}
                 />
                 <span className={cl.wordCardMark__mark}></span>
@@ -258,7 +285,6 @@ export default function WordCard({ info, audio, authorization, wordState }: Prop
           </div>
         </div>
       )}
-
     </div>
   );
 }

@@ -75,3 +75,35 @@
     justify-content: center;
   }
 }
+
+@media screen and (max-width: 550px) {
+  .main {
+    padding: 30px 0px;
+  }
+
+  .game__link {
+    width: 350px;
+    min-height: 380px;
+    border-radius: 16px;
+    padding: 6px 8px;
+    display: flex;
+  }
+
+  .game__description {
+    margin-bottom: 0px;
+  }
+
+  .game__background {
+    height: 200px;
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .game__link {
+    width: 290px;
+    min-height: 340px;
+    padding: 0px;
+    gap: 6px;
+  }
+}

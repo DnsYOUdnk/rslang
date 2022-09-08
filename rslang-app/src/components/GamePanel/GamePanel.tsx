@@ -17,15 +17,17 @@ export const GamePanel = ({ className, ...props }: GamePanelProps): JSX.Element 
     <div className={cl.games_panel}>
       {(buttonSound.isEnable || buttonFullScr.isEnable) && (
         <div className={cn(cl.games__setting, cl.games__setting_left)}>
-          {buttonSound.isEnable && <ButtonSound handlerSoundChange={handlerFunc} onSound={isOnSound} />}
-          {buttonFullScr.isEnable && <ButtonFullscreen audiocallPage={fullScreenElement} />}
-        </div>
-      )}
-      {buttonEnd.isEnable && arrResultWords && arrResultWords.length > minLearnedWords && (
-        <div className={cn(cl.games__setting__btn_end)}>
-          <Button onClick={() => onEndGame!(true)} title={'Завершить и получить результат игры'}>
-            Завершить игру
-          </Button>
+          <div className={cn(cl.setting__left_btns)}>
+            {buttonSound.isEnable && <ButtonSound handlerSoundChange={handlerFunc} onSound={isOnSound} />}
+            {buttonFullScr.isEnable && <ButtonFullscreen audiocallPage={fullScreenElement} />}
+          </div>
+          {buttonEnd.isEnable && arrResultWords && arrResultWords.length > minLearnedWords && (
+            <div className={cn(cl.games__setting__btn_end)}>
+              <Button onClick={() => onEndGame!(true)} title={'Завершить и получить результат игры'}>
+                Завершить игру
+              </Button>
+            </div>
+          )}
         </div>
       )}
       {(buttonClose.isEnable || lives.isEnable) && (
