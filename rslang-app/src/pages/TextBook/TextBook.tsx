@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router';
 import cl from './TextBook.module.css';
-import cn from 'classnames';
-import { UserData } from '../../types/types';
-import { isUserData } from '../../utils/api';
+import { User } from '../../types/types';
 import TextBookNav from './TextBookNav/TextBookNav';
 import TextBookPage from './TextBookPage/TextBookPage';
 
 export const TextBook = () => {
   const [activeGroup, setActiveGroup] = useState('A1');
   const [activePage, setActivePage] = useState(1);
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [disabledGameButtons, setDisabledGameButtons] = useState(false);
 
   useEffect(() => {
-    const checkUserData = () => {
-      const data = localStorage.getItem('userData');
+    const checkUser = () => {
+      const data = localStorage.getItem('user');
       if (data) {
-        setUserData(isUserData(JSON.parse(data)) ? JSON.parse(data) : null);
-      } else setUserData(null);
-    };
-    window.addEventListener('localStorageChange', checkUserData);
-    checkUserData();
-  }, []);
+        setUser(JSON.parse(data))
+      } else setUser(null);
+    }
+    window.addEventListener('localStorageChange', checkUser);
+    checkUser();
+  }, [])
 
   return (
     <div className={cl.textbook}>
@@ -47,7 +45,7 @@ export const TextBook = () => {
               <TextBookPage
                 group={{ activeGroup, setActiveGroup }}
                 page={{ activePage, setActivePage }}
-                authorization={{ userData, setUserData }}
+                authorization={{ user, setUser }}
                 gamesButtonsState={{ disabledGameButtons, setDisabledGameButtons }}
                 key={`${activeGroup}_${activePage}`}
               />

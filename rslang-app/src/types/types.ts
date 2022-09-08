@@ -5,11 +5,20 @@ export type UserWord = {
     numberUses?: number; // количество раз когда слово вообще было использовано и с ошибками и без
     countLearn?: number; // счетчик сколько раз пользователь выбирал правильный ответ
     isWordLearned?: boolean; //  изучено ли слово или нет
-    //[key: string]: unknown;
+    [key: string]: unknown;
   };
   id?: string;
   wordId?: string;
 };
+
+export type User = {
+  status: number;
+  message: string;
+  token: string;
+  refreshToken: string;
+  userId: string;
+  name: string;
+}
 
 export type Word = {
   id: string;

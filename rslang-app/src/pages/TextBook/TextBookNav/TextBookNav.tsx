@@ -20,14 +20,6 @@ type Props = {
 };
 
 export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
-  const wordsGroups = [
-    ['Elementary', 'A1'],
-    ['EasyPre-Intermediate', 'A2'],
-    ['Intermediate', 'B1'],
-    ['Upper-Intermediate', 'B2'],
-    ['Advanced', 'C1'],
-    ['Proficient', 'C2'],
-  ];
   
   return (
     <nav className={cl.bookNav}>

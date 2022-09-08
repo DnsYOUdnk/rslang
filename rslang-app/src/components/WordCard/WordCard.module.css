@@ -181,9 +181,12 @@
 .wordCardMark_difficult {
   background-color: #ff7a7a;
 }
-
+.difficult {
+  background-color: #f1a1a1;
+}
 .wordCardMark_learned {
   background-color: #bbe5a3e0;
+
 }
 
 .wordCardMark__checkbox {
