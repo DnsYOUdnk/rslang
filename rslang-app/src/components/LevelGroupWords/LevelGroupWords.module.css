@@ -48,3 +48,12 @@
 .level_btn-5 {
   background: radial-gradient(#d1cee1, #3333b5);
 }
+
+@media screen and (max-width: 480px) {
+  .levelBtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 1px rgb(0 0 0 / 20%), 0 2px 4px 1px rgb(0 0 0 / 20%), 0 4px 8px 4px rgb(0 0 0 / 15%);
+  }
+}

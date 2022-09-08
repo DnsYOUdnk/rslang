@@ -193,3 +193,53 @@
 .word_error:disabled {
   color: transparent;
 }
+
+@media screen and (max-width: 1200px) {
+  .audiocall {
+    gap: 30px;
+  }
+
+  .translation_words {
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .learn_word {
+    min-height: 250px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .learn_word {
+    min-height: 200px;
+  }
+
+  .word_player,
+  .learn_image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .translation_words {
+    justify-content: center;
+    align-items: center;
+    min-height: 230px;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .audiocall {
+    padding: 20px 30px;
+}
+}
+
+@media screen and (max-width: 480px) {
+  .button__translation_word,
+  .button__next {
+    width: 260px;
+  }
+}
