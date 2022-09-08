@@ -33,7 +33,7 @@
 }
 
 @media (max-width: 320px) {
-  .difficultWordsWrap 1{
+  .difficultWordsWrap 1 {
     grid-template-columns: repeat(1, 2fr);
   }
 }
@@ -69,21 +69,21 @@
 }
 
 .levelA2 {
-background: radial-gradient(var(--levelA2_start), var(--levelA2_end));
+  background: radial-gradient(var(--levelA2_start), var(--levelA2_end));
 }
 
 .levelB1 {
-background: radial-gradient(var(--levelB1_start), var(--levelB1_end));
+  background: radial-gradient(var(--levelB1_start), var(--levelB1_end));
 }
 
 .levelB2 {
-background: radial-gradient(var(--levelB2_start), var(--levelB2_end));
+  background: radial-gradient(var(--levelB2_start), var(--levelB2_end));
 }
 
 .levelC1 {
-background: radial-gradient(var(--levelC1_start), var(--levelC1_end));
+  background: radial-gradient(var(--levelC1_start), var(--levelC1_end));
 }
 
 .levelC2 {
-background: radial-gradient(var(--levelC2_start), var(--levelC2_end));
+  background: radial-gradient(var(--levelC2_start), var(--levelC2_end));
 }

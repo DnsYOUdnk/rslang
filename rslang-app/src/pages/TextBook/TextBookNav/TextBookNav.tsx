@@ -28,7 +28,7 @@ export default function TextBookNav({ group, page, gamesButtonsState }: Props) {
     ['Advanced', 'C1'],
     ['Proficient', 'C2'],
   ];
-  
+
   return (
     <nav className={cl.bookNav}>
       <ul className={cl.bookNav__list}>

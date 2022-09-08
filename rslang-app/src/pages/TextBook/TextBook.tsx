@@ -34,11 +34,21 @@ export const TextBook = () => {
         />
       </div>
 
-      <div className={ (activeGroup == 'A1') ? cl.textbook__main_A1
-        : (activeGroup == 'A2') ? cl.textbook__main_A2 
-          : (activeGroup == 'B1') ? cl.textbook__main_B1 
-            : (activeGroup == 'B2') ? cl.levelB2
-              : (activeGroup == 'C1') ? cl.textbook__main_C1 : cl.textbook__main_C2}>
+      <div
+        className={
+          activeGroup == 'A1'
+            ? cl.textbook__main_A1
+            : activeGroup == 'A2'
+            ? cl.textbook__main_A2
+            : activeGroup == 'B1'
+            ? cl.textbook__main_B1
+            : activeGroup == 'B2'
+            ? cl.levelB2
+            : activeGroup == 'C1'
+            ? cl.textbook__main_C1
+            : cl.textbook__main_C2
+        }
+      >
         <Routes>
           <Route
             path=':groupId/:pageId'
