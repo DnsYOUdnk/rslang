@@ -62,6 +62,11 @@
   margin-bottom: 50px;
 }
 
+.loader {
+  display: flex;
+  margin-top: 20vh;
+}
+
 .sprint {
   background: url('/public/icons/sprint.svg') no-repeat center right;
   background-size: 400px;
